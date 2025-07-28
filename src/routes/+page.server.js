@@ -28,7 +28,7 @@ export const actions = {
                 maxAge: 60 * 60,
             });
 
-            throw redirect(303, "/profile");
+            throw redirect(303, "/");
 
         } catch (err) {
             if (err instanceof redirect || err?.status === 303) throw err;

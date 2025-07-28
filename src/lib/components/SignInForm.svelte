@@ -1,20 +1,5 @@
 <script>
-	import { page } from '$app/stores';
-	import { fetchSignIn } from '$lib/scripts/apis/user.js';
-	import { checkUserToken } from '$lib/scripts/utils.js';
 	import { CircleArrowRight } from 'lucide-svelte';
-
-	let { data } = $props();
-
-	// async function handleSubmit(event) {
-	// 	event.preventDefault();
-	// 	const response = await fetchSignIn(username.value, password.value);
-
-	// 	const data = await response.json();
-	// 	if (!response.ok) {
-	// 		return;
-	// 	}
-	// }
 </script>
 
 <div
