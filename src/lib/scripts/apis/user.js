@@ -10,7 +10,7 @@ export async function fetchSignIn(username, password) {
 }
 
 export async function fetchSignUp(username, password) {
-    return fetch("/api/user/sign-in", {
+    return axios.get(`${API_BASE}/user/sign-in`, {
         headers: {
             Authorization: getUserToken()
         }
@@ -18,7 +18,7 @@ export async function fetchSignUp(username, password) {
 }
 
 export async function fetchIsAnyPermission(token) {
-    return fetch("/api/user/is-any-permission", {
+    return axios.get(`${API_BASE}/user/is-any-permission`, {
         headers: {
             Authorization: token
         }
