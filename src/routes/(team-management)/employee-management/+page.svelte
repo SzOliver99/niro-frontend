@@ -9,7 +9,7 @@
 		<div class="mx-auto mb-4 flex w-1/2 items-center justify-between rounded-lg border p-2">
 			<!-- <h2 class="text-2xl font-medium">Agents</h2> -->
 			<AgentSearch />
-			<button class="flex rounded-lg bg-gray px-3 py-2 text-white duration-200 hover:text-gold">
+			<button class="bg-gray flex rounded-lg px-3 py-2 text-white duration-200 hover:text-blue-600">
 				<Plus />
 				<p>Hire Agent</p>
 			</button>
