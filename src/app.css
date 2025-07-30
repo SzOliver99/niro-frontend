@@ -4,10 +4,24 @@
 @theme {
     --color-black: #111111;
     --color-white: #F1F1F1;
-    --color-gray: #2F2F2F;
-    --color-gold: #FFCB74;
+    --color-lightgray: #DFE5EF;
+    --color-pink: #FC6AB7;
+
+    /* BLUE COLOR PALETTE */
+    --color-blue-50: #f2f8fd;
+    --color-blue-100: #e5eff9;
+    --color-blue-200: #c4ddf3;
+    --color-blue-300: #90c1e9;
+    --color-blue-400: #55a2db;
+    --color-blue-500: #2f86c8;
+    --color-blue-600: #2374b9;
+    --color-blue-700: #1b5589;
+    --color-blue-800: #1a4872;
+    --color-blue-900: #1b3e5f;
+    --color-blue-950: #12283f;
 }
 
 body {
     font-family: 'Montserrat', sans-serif;
+    background-color: #FC6AB7;
 }
