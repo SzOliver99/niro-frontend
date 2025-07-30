@@ -3,7 +3,7 @@
 </script>
 
 <div
-	class="m-auto mt-16 flex w-[36rem] flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl ring-1 ring-gold"
+	class="m-auto mt-16 flex w-[36rem] flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl ring-1 ring-blue-600"
 >
 	<h1 class="my-4 text-4xl font-semibold text-shadow-md">Niro</h1>
 	<form method="POST" class="mt-5 flex flex-col gap-5">
@@ -13,7 +13,7 @@
 				name="username"
 				id="username"
 				type="text"
-				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-gold focus:outline-none"
+				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
 				autocomplete="off"
 				required
 			/>
@@ -25,14 +25,14 @@
 				name="password"
 				id="password"
 				type="password"
-				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-gold focus:outline-none"
+				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
 				autocomplete="off"
 				required
 			/>
 		</div>
 
 		<button
-			class="m-auto flex w-32 flex-row items-center justify-center gap-2 rounded-lg bg-gray p-2 text-white duration-200 hover:text-gold"
+			class="bg-gray m-auto flex w-32 flex-row items-center justify-center gap-2 rounded-lg p-2 text-white duration-200 hover:text-blue-600"
 		>
 			<span>Sign In</span>
 			<CircleArrowRight class="size-4" />

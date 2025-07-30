@@ -32,7 +32,7 @@
 							<a
 								href={item.href}
 								class="flex items-center rounded-lg px-3 py-2 text-sm"
-								class:text-gold={item === currentPage}
+								class:text-blue-600={item === currentPage}
 							>
 								<item.icon class="md:me-2" stroke-width={1.5} />
 								<p>{item.title}</p>

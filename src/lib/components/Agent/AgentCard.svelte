@@ -13,7 +13,7 @@
 			<p>y</p>
 		</div>
 		<button
-			class="flex w-full justify-between rounded-lg bg-gold px-5 py-2 font-medium text-black duration-200 hover:scale-105"
+			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium text-black duration-200 hover:scale-105"
 		>
 			<span>Manage</span>
 			<ArrowUpRight />

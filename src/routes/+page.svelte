@@ -5,7 +5,7 @@
 </script>
 
 {#if data.token}
-	..
+	Kezdőlap
 {:else}
 	<SignInForm />
 {/if}
