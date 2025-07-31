@@ -88,22 +88,22 @@
 	</div>
 
 	<div class="flex h-full flex-col justify-center gap-8 text-sm text-nowrap">
-		<!-- SALES -->
-		<div>
-			<h3
-				class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
-			>
-				{#if isMenuOpen}
-					{sidebarSections.sales.category}
-				{:else}
-					<p class="text-center">...</p>
-				{/if}
-			</h3>
+		{#if !sidebarSections.sales.permissionRequired || hasPermission}
+			<!-- SALES -->
+			<div>
+				<h3
+					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
+				>
+					{#if isMenuOpen}
+						{sidebarSections.sales.category}
+					{:else}
+						<p class="text-center">...</p>
+					{/if}
+				</h3>
 
-			<ul class="flex flex-col text-start">
-				{#each sidebarSections.sales.items as link}
-					<li>
-						{#if !link.permissionRequired || hasPermission}
+				<ul class="flex flex-col text-start">
+					{#each sidebarSections.sales.items as link}
+						<li>
 							<a
 								href={link.href}
 								title={link.label}
@@ -117,28 +117,28 @@
 									<p class="group-hover:text-blue-600">{link.label}</p>
 								{/if}
 							</a>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</div>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 
 		<!-- TEAM MANAGEMENT -->
-		<div>
-			<h3
-				class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
-			>
-				{#if isMenuOpen}
-					{sidebarSections.teamManagement.category}
-				{:else}
-					<p class="text-center">...</p>
-				{/if}
-			</h3>
+		{#if !sidebarSections.teamManagement.permissionRequired || hasPermission}
+			<div>
+				<h3
+					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
+				>
+					{#if isMenuOpen}
+						{sidebarSections.teamManagement.category}
+					{:else}
+						<p class="text-center">...</p>
+					{/if}
+				</h3>
 
-			<ul class="flex flex-col text-start">
-				{#each sidebarSections.teamManagement.items as link}
-					<li>
-						{#if !link.permissionRequired || hasPermission}
+				<ul class="flex flex-col text-start">
+					{#each sidebarSections.teamManagement.items as link}
+						<li>
 							<a
 								href={link.href}
 								title={link.label}
@@ -152,27 +152,27 @@
 									<p class="group-hover:text-blue-600">{link.label}</p>
 								{/if}
 							</a>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</div>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 		<!-- USEFUL LINKS -->
-		<div>
-			<h3
-				class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
-			>
-				{#if isMenuOpen}
-					{sidebarSections.usefulLinks.category}
-				{:else}
-					<p class="text-center">...</p>
-				{/if}
-			</h3>
+		{#if !sidebarSections.usefulLinks.permissionRequired || hasPermission}
+			<div>
+				<h3
+					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
+				>
+					{#if isMenuOpen}
+						{sidebarSections.usefulLinks.category}
+					{:else}
+						<p class="text-center">...</p>
+					{/if}
+				</h3>
 
-			<ul class="flex flex-col text-start">
-				{#each sidebarSections.usefulLinks.items as link}
-					<li>
-						{#if !link.permissionRequired || hasPermission}
+				<ul class="flex flex-col text-start">
+					{#each sidebarSections.usefulLinks.items as link}
+						<li>
 							<a
 								href={link.href}
 								title={link.label}
@@ -186,11 +186,11 @@
 									<p class="group-hover:text-blue-600">{link.label}</p>
 								{/if}
 							</a>
-						{/if}
-					</li>
-				{/each}
-			</ul>
-		</div>
+						</li>
+					{/each}
+				</ul>
+			</div>
+		{/if}
 	</div>
 	<!-- {:else} -->
 	<!-- CLOSED SIDEBAR LAYOUT -->
