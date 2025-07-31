@@ -1,7 +1,16 @@
 <script>
 	import Agent from '$lib/components/Agent/AgentCard.svelte';
 	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
+	import { fetchGetAllUser } from '$lib/scripts/apis/user';
 	import { Plus } from 'lucide-svelte';
+	let { data } = $props();
+
+	let users = $state([]);
+
+	$effect.pre(async () => {
+		let fetch_users = await fetchGetAllUser(data.token);
+		users = fetch_users.data;
+	});
 </script>
 
 <section>
@@ -22,78 +31,9 @@
 		<div
 			class="grid grid-cols-1 justify-items-center gap-y-15 rounded-lg p-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 		>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
-			<Agent
-				agent={{
-					full_name: 'asd',
-					group: 'Üzletkötő',
-					email: 'test@test.hu',
-					phone_number: '0630 222 2222'
-				}}
-			/>
+			{#each users as user}
+				<Agent agent={user} />
+			{/each}
 		</div>
 	</div>
 </section>

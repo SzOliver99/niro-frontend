@@ -2,6 +2,9 @@
 	import { ArrowUpRight } from 'lucide-svelte';
 
 	let { agent } = $props();
+
+	console.log(agent);
+	
 </script>
 
 <div
