@@ -22,7 +22,7 @@
 					placeholder="Doe"
 					value={userInfo?.last_name || ''}
 					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 			<div>
@@ -34,7 +34,7 @@
 					placeholder="John"
 					value={userInfo?.first_name || ''}
 					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 			<div>
@@ -46,7 +46,7 @@
 					placeholder="test@test.hu"
 					value={userInfo?.phone_number || ''}
 					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 			<div>
@@ -58,7 +58,7 @@
 					placeholder="+36 12 345 7891"
 					value={userInfo?.phone_number || ''}
 					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black duration-200 focus:ring-blue-600 focus:outline-none"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 		</div>
@@ -67,7 +67,7 @@
 		<div class="mt-5 flex justify-end">
 			<button
 				type="submit"
-				class="bg-gray hover: hover:bg-blue-600-600 justify-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200"
+				class="bg-gray justify-center gap-2 rounded-lg bg-blue-600 hover:bg-blue-700 px-6 py-2 text-white duration-200"
 				>Változtatások mentése</button
 			>
 		</div>

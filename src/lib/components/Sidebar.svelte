@@ -5,8 +5,12 @@
 		ArrowLeftToLine,
 		ArrowRightFromLine,
 		BookUser,
-		Calendar,
+		Calendar1,
+		CalendarClock,
+		Clock1,
+		Dumbbell,
 		Home,
+		ReceiptText,
 		User,
 		Users
 	} from 'lucide-svelte';
@@ -19,9 +23,10 @@
 			permissionRequired: false,
 			items: [
 				{ href: '/contacts', label: 'Címanyag', icon: BookUser },
-				{ href: '/contracts', label: 'Szerződések', icon: BookUser },
+				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
+				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
-				{ href: '/calendar', label: 'Naptár', icon: BookUser }
+				{ href: '/calendar', label: 'Naptár', icon: Calendar1 }
 			]
 		},
 		teamManagement: {
@@ -29,7 +34,7 @@
 			permissionRequired: true,
 			items: [
 				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser },
-				{ href: '/performance', label: 'Teljesítmények', icon: BookUser }
+				{ href: '/performance', label: 'Teljesítmények', icon: Dumbbell }
 			]
 		},
 		usefulLinks: {
