@@ -1,1 +1,1 @@
-<input type="search" placeholder="Agents" class="text-xl font-semibold" />
+<input type="search" placeholder="Munkatársak" class="w-full text-xl font-semibold" />

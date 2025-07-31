@@ -1,5 +1,7 @@
 <script>
 	import { ArrowUpRight } from 'lucide-svelte';
+
+	let { agent } = $props();
 </script>
 
 <div
@@ -7,15 +9,15 @@
 >
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
-			<h3 class="font-bold">John Do</h3>
-			<p>Agent</p>
-			<p>x</p>
-			<p>y</p>
+			<h3 class="font-bold">{agent?.full_name}</h3>
+			<p>{agent?.group}</p>
+			<p>{agent?.email}</p>
+			<p>{agent?.phone_number}</p>
 		</div>
 		<button
-			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium hover:bg-blue-700 duration-200 hover:scale-105"
+			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium duration-200 hover:scale-105 hover:bg-blue-700"
 		>
-			<span>Manage</span>
+			<span>Megnyitás</span>
 			<ArrowUpRight />
 		</button>
 	</div>
