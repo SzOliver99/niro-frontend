@@ -9,9 +9,11 @@
 		<div class="mx-auto mb-4 flex w-1/2 items-center justify-between rounded-lg border p-2">
 			<!-- <h2 class="text-2xl font-medium">Agents</h2> -->
 			<AgentSearch />
-			<button class="bg-gray flex rounded-lg px-3 py-2 text-white duration-200 hover:text-blue-600">
+			<button
+				class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-white duration-200 hover:bg-blue-700"
+			>
 				<Plus />
-				<p>Hire Agent</p>
+				<p>Üzletkötő felvevése</p>
 			</button>
 		</div>
 
