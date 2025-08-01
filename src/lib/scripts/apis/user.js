@@ -32,3 +32,11 @@ export async function fetchIsAnyPermission(token) {
 		}
 	});
 }
+
+export async function fetchProtected(token) {
+	return axios.get(`${API_BASE}/user/protected`, {
+		headers: {
+			Authorization: token
+		}
+	});
+}
