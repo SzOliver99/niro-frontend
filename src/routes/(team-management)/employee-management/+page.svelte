@@ -1,5 +1,6 @@
 <script>
 	import Agent from '$lib/components/Agent/AgentCard.svelte';
+	import AgentHirePopover from '$lib/components/Agent/AgentHirePopover.svelte';
 	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
 	import { fetchGetAllUser } from '$lib/scripts/apis/user';
 	import { Plus } from 'lucide-svelte';
@@ -11,6 +12,11 @@
 		let fetch_users = await fetchGetAllUser(data.token);
 		users = fetch_users.data;
 	});
+
+	let showModal = $state(false);
+	function toggleModal() {
+		showModal = !showModal;
+	}
 </script>
 
 <section>
@@ -22,10 +28,12 @@
 			<!-- <AgentSearch /> -->
 			<button
 				class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-nowrap text-white duration-200 hover:bg-blue-700"
+				onclick={toggleModal}
 			>
 				<Plus />
 				<p>Üzletkötő felvevése</p>
 			</button>
+			<AgentHirePopover bind:showModal {toggleModal} />
 		</div>
 
 		<div

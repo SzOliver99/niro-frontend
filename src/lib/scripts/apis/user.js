@@ -9,10 +9,10 @@ export async function fetchSignIn(username, password) {
 	});
 }
 
-export async function fetchSignUp(username, password) {
-	return axios.get(`${API_BASE}/user/sign-in`, {
+export async function fetchSignUp(agent, token) {
+	return axios.post(`${API_BASE}/user/sign-up`, agent, {
 		headers: {
-			Authorization: getUserToken()
+			Authorization: token
 		}
 	});
 }
