@@ -9,34 +9,38 @@ export async function fetchSignIn(username, password) {
 	});
 }
 
-export async function fetchSignUp(agent, token) {
+export async function fetchSignUp(agent, user_token) {
 	return axios.post(`${API_BASE}/user/sign-up`, agent, {
 		headers: {
-			Authorization: token
+			Authorization: user_token
 		}
 	});
 }
 
-export async function fetchGetAllUser(token) {
+export async function fetchGetAllUser(user_token) {
 	return axios.get(`${API_BASE}/user/get-all`, {
 		headers: {
-			Authorization: token
+			Authorization: user_token
 		}
 	});
 }
 
-export async function fetchIsAnyPermission(token) {
+export async function fetchIsAnyPermission(user_token) {
 	return axios.get(`${API_BASE}/user/is-any-permission`, {
 		headers: {
-			Authorization: token
+			Authorization: user_token
 		}
 	});
 }
 
-export async function fetchProtected(token) {
+export async function fetchFinishFirstLogin(new_password, token) {
+	return axios.post(`${API_BASE}/user/first-login/finish`, { new_password, token });
+}
+
+export async function fetchProtected(user_token) {
 	return axios.get(`${API_BASE}/user/protected`, {
 		headers: {
-			Authorization: token
+			Authorization: user_token
 		}
 	});
 }
