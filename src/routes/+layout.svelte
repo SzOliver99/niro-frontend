@@ -4,8 +4,15 @@
 	import background from '$lib/images/background.png';
 	import { Search } from 'lucide-svelte';
 	import '../app.css';
+	import { fetchGetUserInformations } from '$lib/scripts/apis/user';
 
 	let { children, data } = $props();
+	let userFullname = $state();
+
+	$effect.pre(async () => {
+		let response = await fetchGetUserInformations(data.token);
+		userFullname = response.data.full_name;
+	});
 
 	let isMenuOpen = $state(true);
 </script>
@@ -31,7 +38,11 @@
 				</div>
 				<div>
 					<a href="/profile">
-						<img src="https://avatar.iran.liara.run/public/boy" class="w-12" alt="" />
+						<img
+							src="https://avatar.iran.liara.run/username?username={userFullname}"
+							class="w-12"
+							alt=""
+						/>
 					</a>
 				</div>
 			</header>

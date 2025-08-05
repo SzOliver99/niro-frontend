@@ -25,6 +25,15 @@ export async function fetchGetAllUser(user_token) {
 	});
 }
 
+export async function fetchGetUserInformations(user_token) {
+	return axios.get(`${API_BASE}/user/get/informations`, {
+		headers: {
+			Authorization: user_token
+		}
+	});
+}
+
+
 export async function fetchIsAnyPermission(user_token) {
 	return axios.get(`${API_BASE}/user/is-any-permission`, {
 		headers: {

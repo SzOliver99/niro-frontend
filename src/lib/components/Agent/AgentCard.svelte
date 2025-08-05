@@ -1,11 +1,20 @@
 <script>
 	import { ArrowUpRight } from 'lucide-svelte';
+	import AgentManagePopover from './AgentManagePopover.svelte';
 
 	let { agent } = $props();
 
+	let showModal = $state(false);
+	function toggleModal() {
+		showModal = !showModal;
+	}
+
+	$effect(() => {
+		$inspect(agent);
+	});
+
 	const convertUserGroup = (group) =>
 		group === 'Leader' ? 'Hálózati igazgató' : group === 'Manager' ? 'Menedzser' : 'Üzletkötő';
-
 </script>
 
 <div
@@ -20,9 +29,11 @@
 		</div>
 		<button
 			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium duration-200 hover:scale-105 hover:bg-blue-700"
+			onclick={toggleModal}
 		>
-			<span>Megnyitás</span>
+			<span>Kezelés</span>
 			<ArrowUpRight />
 		</button>
 	</div>
 </div>
+<AgentManagePopover bind:showModal {toggleModal} {agent} />
