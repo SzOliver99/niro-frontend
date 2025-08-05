@@ -9,10 +9,6 @@
 		showModal = !showModal;
 	}
 
-	$effect(() => {
-		$inspect(agent);
-	});
-
 	const convertUserGroup = (group) =>
 		group === 'Leader' ? 'Hálózati igazgató' : group === 'Manager' ? 'Menedzser' : 'Üzletkötő';
 </script>
