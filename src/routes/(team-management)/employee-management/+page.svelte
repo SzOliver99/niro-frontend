@@ -22,17 +22,19 @@
 <section>
 	<div class="my-5">
 		<div
-			class="mx-auto mb-4 grid w-1/2 grid-cols-1 items-center justify-between gap-2 rounded-lg p-2 ring ring-black/10 lg:grid-cols-2"
+			class="mx-auto mb-4 grid w-1/2 min-w-65 grid-cols-1 items-center justify-between gap-2 rounded-lg p-2 ring ring-black/10 lg:grid-cols-2"
 		>
 			<h2 class="text-2xl font-medium">Munkatársak</h2>
 			<!-- <AgentSearch /> -->
-			<button
-				class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-nowrap text-white duration-200 hover:bg-blue-700"
-				onclick={toggleModal}
-			>
-				<Plus />
-				<p>Üzletkötő felvevése</p>
-			</button>
+			<div class="flex justify-start lg:justify-end">
+				<button
+					class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-nowrap text-white duration-200 hover:bg-blue-700"
+					onclick={toggleModal}
+				>
+					<Plus class="shrink-0" />
+					<p>Üzletkötő felvevése</p>
+				</button>
+			</div>
 			<AgentHirePopover bind:showModal {toggleModal} />
 		</div>
 
