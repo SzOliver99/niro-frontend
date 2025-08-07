@@ -6,7 +6,7 @@
 	class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 >
 	<h1 class="my-4 text-4xl font-semibold text-shadow-md">Első bejelentkezés</h1>
-	<p>Észleltük, hogy az ideiglenes jelszóval jelentkeztél!</p>
+	<p>Észleltük, hogy ideiglenes jelszóval jelentkeztél be!</p>
 	<p>Kérjük változtass jelszót!</p>
 	<form method="POST" action="?/first-login" class="mt-5 flex flex-col gap-5">
 		<div class="flex flex-col text-start font-medium">

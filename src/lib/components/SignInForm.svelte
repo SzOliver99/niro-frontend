@@ -5,7 +5,7 @@
 <div
 	class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 >
-	<h1 class="my-4 text-4xl font-semibold text-shadow-md">NIRO Kezelőfelület</h1>
+	<h1 class="my-4 text-4xl text-shadow-md"><b>NIRO</b> Kezelőfelület</h1>
 	<form method="POST" action="?/sign-in" class="mt-5 flex flex-col gap-5">
 		<div class="flex flex-col text-start font-medium">
 			<label for="username">Felhasználónév</label>
@@ -35,7 +35,7 @@
 			<button
 				class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"
 			>
-				<span>Sign In</span>
+				<span>Bejelentkezés</span>
 				<CircleArrowRight class="size-4" />
 			</button>
 		</div>

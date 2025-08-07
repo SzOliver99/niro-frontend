@@ -32,7 +32,7 @@
 					onclick={toggleModal}
 				>
 					<Plus class="shrink-0" />
-					<p>Üzletkötő felvevése</p>
+					<p>Üzletkötő felvétele</p>
 				</button>
 			</div>
 			<AgentHirePopover bind:showModal {toggleModal} />

@@ -34,7 +34,7 @@
 			permissionRequired: true,
 			items: [
 				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser },
-				{ href: '/performance', label: 'Teljesítmények', icon: Dumbbell }
+				{ href: '/performance', label: 'Teljesítmény', icon: Dumbbell }
 			]
 		},
 		usefulLinks: {
