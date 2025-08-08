@@ -1,6 +1,7 @@
 <script>
 	import { page } from '$app/stores';
-	import { fetchIsAnyPermission } from '$lib/scripts/apis/user';
+	import { permissionsStore } from '$lib/stores/permissions.js';
+	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import {
 		ArrowLeftToLine,
 		ArrowRightFromLine,
@@ -15,6 +16,7 @@
 		Users
 	} from 'lucide-svelte';
 	import { onMount } from 'svelte';
+
 	let { isMenuOpen = $bindable(), data } = $props();
 
 	const sidebarSections = {
@@ -49,10 +51,10 @@
 		}
 	};
 
-	let hasPermission = $state(false);
 	onMount(async () => {
-		let fetchPermission = await fetchIsAnyPermission(data.token);
-		hasPermission = fetchPermission.data;
+		if (data.token) {
+			await permissionsStore.checkPermissions(data.token);
+		}
 	});
 </script>
 
@@ -62,8 +64,7 @@
 	class:rounded-r-lg={isMenuOpen}
 	class:closed={!isMenuOpen}
 >
-	<!-- {#if isMenuOpen} -->
-	<!-- OPENED SIDEBAR LAYOUT -->
+	<!-- Toggle button -->
 	{#if isMenuOpen}
 		<div class="absolute top-6 right-4">
 			<button onclick={() => (isMenuOpen = false)}>
@@ -77,6 +78,8 @@
 			</button>
 		</div>
 	{/if}
+
+	<!-- Logo -->
 	<div class="ms-2 mt-3 flex">
 		{#if isMenuOpen}
 			<a
@@ -87,8 +90,9 @@
 		{/if}
 	</div>
 
+	<!-- Navigation sections -->
 	<div class="flex h-full flex-col justify-center gap-8 text-sm text-nowrap">
-		{#if !sidebarSections.sales.permissionRequired || hasPermission}
+		{#if !sidebarSections.sales.permissionRequired || $permissionsStore.hasPermission}
 			<!-- SALES -->
 			<div>
 				<h3
@@ -124,7 +128,7 @@
 		{/if}
 
 		<!-- TEAM MANAGEMENT -->
-		{#if !sidebarSections.teamManagement.permissionRequired || hasPermission}
+		{#if !sidebarSections.teamManagement.permissionRequired || $permissionsStore.hasPermission}
 			<div>
 				<h3
 					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
@@ -157,8 +161,9 @@
 				</ul>
 			</div>
 		{/if}
+
 		<!-- USEFUL LINKS -->
-		{#if !sidebarSections.usefulLinks.permissionRequired || hasPermission}
+		{#if !sidebarSections.usefulLinks.permissionRequired || $permissionsStore.hasPermission}
 			<div>
 				<h3
 					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
@@ -192,14 +197,6 @@
 			</div>
 		{/if}
 	</div>
-	<!-- {:else} -->
-	<!-- CLOSED SIDEBAR LAYOUT -->
-	<!-- <div class="absolute top-6">
-			<button onclick={() => (isMenuOpen = true)}>
-				<ArrowRightFromLine class="duration-200 hover:text-blue-600" />
-			</button>
-		</div>
-	{/if} -->
 </div>
 
 <style>
