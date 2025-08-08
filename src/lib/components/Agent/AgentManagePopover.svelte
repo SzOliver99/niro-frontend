@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
-	import { fetchGetUserInformations } from '$lib/scripts/apis/user';
 	import { BookUser, CalendarClock, CircleArrowRight, FileUser } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
+	import { PersonalData, Contacts, Appointments, Contracts } from './AgentManageSections';
 
 	let { showModal = $bindable(), toggleModal, agent } = $props();
 
@@ -28,7 +28,7 @@
 			class="fixed top-1/2 left-1/2 h-[45rem] w-4/5 -translate-1/2 rounded-lg bg-white p-4 text-black shadow-2xl md:w-[80%] lg:w-[60%]"
 		>
 			<div class="h-16">
-				<h1>{agent.user_info.full_name}</h1>
+				<h1 class="text-xl font-bold">{agent?.info?.full_name || 'Üzletkötő'}</h1>
 			</div>
 			<div class="flex h-[calc(100%-4rem)] w-full flex-col rounded-lg ring ring-black/10">
 				<div
@@ -56,12 +56,12 @@
 
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Személyes adatok'}
-		aasd
+		<PersonalData {agent} />
 	{:else if navTabs.opened === 'Címanyagok'}
-		asd
+		<Contacts {agent} />
 	{:else if navTabs.opened === 'Időpontok'}
-		asd
+		<Appointments {agent} />
 	{:else if navTabs.opened === 'Szerződések'}
-		asd
+		<Contracts {agent} />
 	{/if}
 {/snippet}
