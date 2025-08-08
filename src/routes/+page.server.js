@@ -1,4 +1,5 @@
-import { fetchFinishFirstLogin, fetchSignIn } from '$lib/scripts/apis/user';
+import { completeFirstLogin, signIn } from '$lib/scripts/apis/user';
+import { Notification } from '$lib/stores/notifications';
 import { redirect } from '@sveltejs/kit';
 import axios from 'axios';
 
@@ -9,7 +10,7 @@ export const actions = {
 		const password = form_data.get('password')?.toString();
 
 		try {
-			const response = await fetchSignIn(username, password);
+			const response = await signIn(username, password);
 			const data = response.data;
 
 			if (data.UserToken) {
@@ -48,7 +49,7 @@ export const actions = {
 
 		if (password !== password_confirm) return { error: "A két jelszó nem eggyezik" }
 
-		const response = await fetchFinishFirstLogin(password, cookies.get("firstLoginToken"))
+		const response = await completeFirstLogin(password, cookies.get("firstLoginToken"))
 		const token = response.data;
 
 		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });

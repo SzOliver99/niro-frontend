@@ -1,4 +1,4 @@
-import { fetchSignIn, fetchSignUp } from '$lib/scripts/apis/user';
+import { signUp } from '$lib/scripts/apis/user';
 import { redirect } from '@sveltejs/kit';
 import axios from 'axios';
 
@@ -19,14 +19,16 @@ export const actions = {
 			email,
 			username,
 			password,
-			full_name: `${last_name} ${first_name}`,
-			phone_number,
-			hufa_code,
-			agent_code
+			user_info: {
+				full_name: `${last_name} ${first_name}`,
+				phone_number,
+				hufa_code,
+				agent_code
+			}
 		};
 
 		try {
-			const response = await fetchSignUp(agent, cookies.get('token'));
+			const response = await signUp(agent, cookies.get('token'));
 			const data = response.data;
 
 			if (!data) {

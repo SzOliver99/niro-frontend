@@ -55,12 +55,3 @@ export async function validateToken(userToken) {
 		}
 	});
 }
-
-// Legacy function names for backward compatibility
-export const fetchSignIn = signIn;
-export const fetchSignUp = signUp;
-export const fetchGetAllUser = getAllUsers;
-export const fetchGetUserInformations = getUserInfo;
-export const fetchIsAnyPermission = checkUserPermissions;
-export const fetchFinishFirstLogin = completeFirstLogin;
-export const fetchProtected = validateToken;

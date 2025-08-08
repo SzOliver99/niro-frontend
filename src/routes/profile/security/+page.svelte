@@ -1,7 +1,5 @@
 <script>
 	import { page } from '$app/stores';
-	import { fetchGetUserInformations } from '$lib/scripts/apis/user';
-	import { checkUserToken } from '$lib/scripts/utils.js';
 	import { CircleArrowRight } from 'lucide-svelte';
 
 	let { data } = $props();

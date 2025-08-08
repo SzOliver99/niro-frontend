@@ -1,12 +1,12 @@
 <script>
-	import { fetchGetUserInformations } from '$lib/scripts/apis/user';
+	import { getUserInfo } from '$lib/scripts/apis/user';
 	import { CircleArrowRight } from 'lucide-svelte';
 
 	let { data } = $props();
 
 	let userInfo = $state({});
 	$effect.pre(async () => {
-		let response = await fetchGetUserInformations(data.token);
+		let response = await getUserInfo(data.token);
 		userInfo = response.data;
 		console.log();
 	});

@@ -4,14 +4,21 @@
 	import background from '$lib/images/background.png';
 	import { Search } from 'lucide-svelte';
 	import '../app.css';
-	import { fetchGetUserInformations } from '$lib/scripts/apis/user';
+	import { getUserInfo } from '$lib/scripts/apis/user';
+	import NotificationToast from '$lib/components/feedback/NotificationToast.svelte';
 
 	let { children, data } = $props();
-	let userFullname = $state();
+	let userFullName = $state('');
 
 	$effect.pre(async () => {
-		let response = await fetchGetUserInformations(data.token);
-		userFullname = response.data.full_name;
+		if (data.token) {
+			try {
+				const response = await getUserInfo(data.token);
+				userFullName = response.data.full_name;
+			} catch (error) {
+				console.error('Failed to fetch user info:', error);
+			}
+		}
 	});
 
 	let isMenuOpen = $state(true);
@@ -39,9 +46,9 @@
 				<div>
 					<a href="/profile">
 						<img
-							src="https://avatar.iran.liara.run/username?username={userFullname}"
+							src="https://avatar.iran.liara.run/username?username={userFullName}"
 							class="w-12"
-							alt=""
+							alt="Profil"
 						/>
 					</a>
 				</div>
@@ -53,3 +60,5 @@
 		<footer></footer>
 	</div>
 </div>
+
+<NotificationToast />

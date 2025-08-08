@@ -2,14 +2,14 @@
 	import Agent from '$lib/components/Agent/AgentCard.svelte';
 	import AgentHirePopover from '$lib/components/Agent/AgentHirePopover.svelte';
 	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
-	import { fetchGetAllUser } from '$lib/scripts/apis/user';
+	import { getAllUsers } from '$lib/scripts/apis/user';
 	import { Plus } from 'lucide-svelte';
-	let { data } = $props();
 
+	let { data } = $props();
 	let users = $state([]);
 
 	$effect.pre(async () => {
-		let fetch_users = await fetchGetAllUser(data.token);
+		let fetch_users = await getAllUsers(data.token);
 		users = fetch_users.data;
 	});
 
