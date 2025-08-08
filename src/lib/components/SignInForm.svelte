@@ -8,7 +8,7 @@
 	<h1 class="my-4 text-4xl text-shadow-md"><b>NIRO</b> Kezelőfelület</h1>
 	<form method="POST" action="?/sign-in" class="mt-5 flex flex-col gap-5">
 		<div class="flex flex-col text-start font-medium">
-			<label for="username">Felhasználónév</label>
+			<label for="username">Felhasználónév <span class="text-red-700">*</span></label>
 			<input
 				name="username"
 				id="username"
@@ -20,7 +20,7 @@
 		</div>
 
 		<div class="flex flex-col text-start font-medium">
-			<p>Jelszó</p>
+			<label for="password">Jelszó <span class="text-red-700">*</span></label>
 			<input
 				name="password"
 				id="password"
