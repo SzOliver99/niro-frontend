@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { FileUser, Lock, LogOut } from 'lucide-svelte';
 	let { children, data } = $props();
@@ -39,15 +40,15 @@
 							</a>
 						{/each}
 					</div>
-					<form method="POST" action="?/logout">
-						<button
-							class="flex items-center rounded-lg px-3 py-2 text-sm text-red-800 duration-200 hover:scale-105"
-							type="submit"
-						>
-							<LogOut class="md:me-2" stroke-width={1.5} />
-							<p>Kijelentkezés</p>
-						</button>
-					</form>
+					<button
+						class="flex items-center rounded-lg px-3 py-2 text-sm text-red-800 duration-200 hover:scale-105"
+						onclick={() => {
+							goto('/profile/logout');
+						}}
+					>
+						<LogOut class="md:me-2" stroke-width={1.5} />
+						<p>Kijelentkezés</p>
+					</button>
 				</div>
 				<div class="w-full overflow-y-auto">
 					{@render children()}
