@@ -13,5 +13,30 @@ export default defineConfig({
 				rewrite: (path) => path.replace(/^\/api/, '')
 			}
 		}
+	},
+	build: {
+		// Optimize bundle size
+		rollupOptions: {
+			output: {
+				manualChunks: {
+					// Separate vendor libraries
+					vendor: ['axios', 'lucide-svelte'],
+					// Separate Svelte runtime
+					svelte: ['svelte']
+				}
+			}
+		},
+		// Enable source maps for debugging
+		sourcemap: true,
+		// Optimize chunk size warnings
+		chunkSizeWarningLimit: 1000
+	},
+	// Optimize dependencies
+	optimizeDeps: {
+		include: ['axios', 'lucide-svelte']
+	},
+	// CSS optimization
+	css: {
+		devSourcemap: true
 	}
 });
