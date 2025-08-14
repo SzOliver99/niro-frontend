@@ -3,6 +3,7 @@ import { checkUserPermissions } from '$lib/scripts/apis/user.js';
 
 function createPermissionsStore() {
     const { subscribe, set, update } = writable({
+        userRole: "",
         hasPermission: false,
         loading: false,
         error: null,
@@ -13,29 +14,30 @@ function createPermissionsStore() {
 
     return {
         subscribe,
-        async checkPermissions(token) {
+        async checkPermissions(role) {
             const store = get(this);
             const now = Date.now();
 
             // Return cached result if still valid
             if (store.lastChecked && (now - store.lastChecked) < CACHE_DURATION) {
-                return store.hasPermission;
+                return store.userRole;
             }
 
             update(state => ({ ...state, loading: true, error: null }));
 
             try {
-                const response = await checkUserPermissions(token);
-                const hasPermission = response.data;
+                const response = await checkUserPermissions(role);
+                const userRole = await response.json();
 
                 update(state => ({
-                    hasPermission,
+                    userRole,
+                    hasPermission: !!userRole,
                     loading: false,
                     error: null,
                     lastChecked: now
                 }));
 
-                return hasPermission;
+                return userRole;
             } catch (error) {
                 update(state => ({
                     ...state,
@@ -47,6 +49,7 @@ function createPermissionsStore() {
         },
         reset() {
             set({
+                userRole: "",
                 hasPermission: false,
                 loading: false,
                 error: null,
