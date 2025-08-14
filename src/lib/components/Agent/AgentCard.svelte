@@ -17,7 +17,7 @@
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
 			<h3 class="font-bold">{agent?.info?.full_name || 'Ismeretlen'}</h3>
-			<p>{convertUserGroup(agent?.user_group)}</p>
+			<p>{convertUserGroup(agent?.role)}</p>
 			<p>{agent?.info?.agent_code || 'N/A'}</p>
 			<p>{agent?.info?.phone_number || 'N/A'}</p>
 		</div>
