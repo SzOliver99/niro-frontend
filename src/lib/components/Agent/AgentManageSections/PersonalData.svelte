@@ -1,33 +1,42 @@
 <script>
+	import { getManagers } from '$lib/scripts/apis/user';
+	import { convertUserGroup } from '$lib/scripts/utils';
 	import { Check, Save } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	let { agent } = $props();
 
-	// Form data for personal information
-	let formData = $state({
-		lastName: '',
-		firstName: '',
-		email: '',
-		phone: '',
-		agentCode: '',
-		userRole: '',
-		isManager: false
+	let managers = $state();
+	$effect(async () => {
+		const response = await getManagers();
+		const managers_data = await response.json();
+		managers = managers_data;
 	});
 
-	// Initialize form data when agent changes
+	let formData = $state({
+		last_name: '',
+		first_name: '',
+		email: '',
+		phone: '',
+		agent_code: '',
+		user_manager: '',
+		is_manager: false
+	});
+
 	$effect(() => {
 		if (agent) {
 			const fullName = agent.info?.full_name || '';
 			const nameParts = fullName.split(' ');
 
 			formData = {
-				lastName: nameParts[0] || '',
-				firstName: nameParts[1] || '',
+				last_name: nameParts[0] || '',
+				first_name: nameParts[1] || '',
 				email: agent.email || '',
 				phone: agent.info?.phone_number || '',
-				agentCode: agent.info?.agent_code || '',
-				hufaCode: agent.info?.hufa_code || '',
-				userRole: agent.user_role || ''
+				agent_code: agent.info?.agent_code || '',
+				hufa_code: agent.info?.hufa_code || '',
+				user_manager: agent.manager_id || 'null',
+				is_manager: agent.manager_id === null
 			};
 		}
 	});
@@ -51,7 +60,7 @@
 					id="lastName"
 					name="lastName"
 					placeholder="Doe"
-					bind:value={formData.lastName}
+					bind:value={formData.last_name}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -63,7 +72,7 @@
 					id="firstName"
 					name="firstName"
 					placeholder="John"
-					bind:value={formData.firstName}
+					bind:value={formData.first_name}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -111,7 +120,7 @@
 					id="agentCode"
 					name="agentCode"
 					placeholder="AG001"
-					bind:value={formData.agentCode}
+					bind:value={formData.agent_code}
 					readonly
 					class="mt-1 block w-full cursor-not-allowed rounded-md bg-gray-50 px-3 py-2 ring-1 ring-black/10"
 				/>
@@ -124,10 +133,10 @@
 							<input
 								type="checkbox"
 								class="peer sr-only"
-								bind:checked={formData.isManager}
+								bind:checked={formData.is_manager}
 								onchange={() => {
-									if (formData.isManager) {
-										formData.userRole = '';
+									if (formData.is_manager) {
+										user_manager.value = null;
 									}
 								}}
 							/>
@@ -135,7 +144,7 @@
 								class="ms-1 flex h-5 w-5 rounded border border-gray-300 bg-white duration-200 peer-checked:border-blue-600 peer-checked:bg-blue-600"
 							>
 								<!-- Use lucide-svelte Check icon instead of SVG -->
-								{#if formData.isManager}
+								{#if formData.is_manager}
 									<Check class="m-auto block size-4 text-white" />
 								{/if}
 							</span>
@@ -143,16 +152,21 @@
 					</div>
 					<div class="w-full">
 						<select
-							id="userRole"
-							name="userRole"
-							bind:value={formData.userRole}
-							disabled={formData.isManager}
+							id="user_manager"
+							name="user_manager"
+							bind:value={formData.user_manager}
+							disabled={formData.is_manager}
+							required
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 						>
-							<option value="">Nincs menedzser</option>
-							<option value="manager1">John Doe - Menedzser</option>
-							<option value="manager2">Jane Smith - Menedzser</option>
-							<option value="manager3">Bob Johnson - Menedzser</option>
+							{#if formData.is_manager}
+								<option value="null">Nincs menedzser</option>
+							{/if}
+							{#each managers as manager}
+								<option value={manager.id}
+									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
+								>
+							{/each}
 						</select>
 					</div>
 				</div>
