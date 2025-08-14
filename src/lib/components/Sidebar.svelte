@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { permissionsStore } from '$lib/stores/permissions.js';
-	import { convertUserGroup } from '$lib/scripts/utils.js';
+	import { checkPermission, convertUserGroup } from '$lib/scripts/utils.js';
 	import {
 		ArrowLeftToLine,
 		ArrowRightFromLine,
@@ -35,8 +35,9 @@
 			category: 'Csapat Menedzsment',
 			permissionRequired: true,
 			items: [
-				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser },
-				{ href: '/performance', label: 'Teljesítmény', icon: Dumbbell }
+				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser, minRole: 'Leader' },
+				{ href: '/groups', label: 'Csoportok', icon: Dumbbell, minRole: 'Manager' },
+				{ href: '/performance', label: 'Teljesítmény', icon: Dumbbell, minRole: 'Manager' }
 			]
 		},
 		usefulLinks: {
@@ -142,21 +143,24 @@
 
 				<ul class="flex flex-col text-start">
 					{#each sidebarSections.teamManagement.items as link}
-						<li>
-							<a
-								href={link.href}
-								title={link.label}
-								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page.url
-									.pathname === link.href
-									? 'bg-gray-50/60 text-blue-600'
-									: ''}"
-							>
-								<link.icon class="shrink-0 text-blue-600 group-hover:scale-115" />
-								{#if isMenuOpen}
-									<p class="group-hover:text-blue-600">{link.label}</p>
-								{/if}
-							</a>
-						</li>
+						{#if checkPermission(link.minRole, $permissionsStore.userRole)}
+							<!-- TODO: NOT WORKING THE PERMISSION SYSTEM -->
+							<li>
+								<a
+									href={link.href}
+									title={link.label}
+									class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page
+										.url.pathname === link.href
+										? 'bg-gray-50/60 text-blue-600'
+										: ''}"
+								>
+									<link.icon class="shrink-0 text-blue-600 group-hover:scale-115" />
+									{#if isMenuOpen}
+										<p class="group-hover:text-blue-600">{link.label}</p>
+									{/if}
+								</a>
+							</li>
+						{/if}
 					{/each}
 				</ul>
 			</div>

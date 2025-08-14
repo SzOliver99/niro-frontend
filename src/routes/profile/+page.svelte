@@ -7,8 +7,7 @@
 	let userInfo = $state({});
 	$effect.pre(async () => {
 		let response = await getUserInfo(data.token);
-		userInfo = response.data;
-		console.log();
+		userInfo = await response.json();
 	});
 
 	const getUserLastName = () => userInfo.full_name?.split(' ')[0];
