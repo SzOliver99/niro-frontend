@@ -14,7 +14,8 @@
 		if (data.token) {
 			try {
 				const response = await getUserInfo(data.token);
-				userFullName = response.data.full_name;
+				const res_data = await response.json();
+				userFullName = res_data.full_name;
 			} catch (error) {
 				console.error('Failed to fetch user info:', error);
 			}
@@ -33,7 +34,7 @@
 
 	<div
 		class="relative m-2 h-full flex-1 overflow-auto bg-size-[60%] bg-center bg-no-repeat"
-		style="background-image: url({background})"
+		style="background-image: url({data.token ? background : ""})"
 	>
 		{#if data.token}
 			<header class="flex w-full items-center justify-between">
