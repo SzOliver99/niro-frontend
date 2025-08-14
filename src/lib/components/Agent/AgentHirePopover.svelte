@@ -1,8 +1,48 @@
 <script>
-	import { CircleArrowRight } from 'lucide-svelte';
+	import { enhance } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { getManagers, signUp } from '$lib/scripts/apis/user';
+	import { convertUserGroup } from '$lib/scripts/utils';
+	import { Notification } from '$lib/stores/notifications';
+	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
-	let { showModal = $bindable(), toggleModal } = $props();
+	let { showModal = $bindable(), toggleModal, data } = $props();
+	let isManager = $state();
+
+	let managers = $state();
+	$effect(async () => {
+		const response = await getManagers();
+		const managers_data = await response.json();
+		managers = managers_data;
+	});
+
+	async function handleSubmit() {
+		let agent = {
+			email: email.value,
+			username: username.value,
+			password: password.value,
+			user_info: {
+				full_name: `${first_name.value} ${last_name.value}`,
+				phone_number: phone_number.value,
+				hufa_code: hufa_code.value,
+				agent_code: agent_code.value
+			}
+		};
+		if (+user_manager.value > 0) {
+			agent['manager_id'] = +user_manager.value;
+		}
+
+		const response = await signUp(agent, data.token);
+
+		const res_data = await response.json();
+		if (!response.ok) {
+			Notification.error(res_data.error, 5);
+			return;
+		}
+
+		location.reload();
+	}
 </script>
 
 {#if showModal}
@@ -16,7 +56,7 @@
 			class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 		>
 			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Üzletkötő felvétele</h1>
-			<form method="POST" class="mt-5 flex flex-col gap-5">
+			<form onsubmit={handleSubmit} class="mt-5 flex flex-col gap-5">
 				<div class="flex flex-col text-start font-medium">
 					<label for="email">Email*</label>
 					<input
@@ -109,6 +149,53 @@
 							autocomplete="off"
 							required
 						/>
+					</div>
+				</div>
+
+				<div class="text-start">
+					<label for="user_manager" class="block font-medium">Menedzser</label>
+					<div class="flex items-center gap-3">
+						<div class="flex flex-col">
+							<label class="flex cursor-pointer select-none">
+								<input
+									type="checkbox"
+									class="peer sr-only"
+									bind:checked={isManager}
+									onchange={() => {
+										if (isManager) {
+											user_manager.value = null;
+										}
+									}}
+								/>
+								<span
+									class="ms-1 flex h-5 w-5 rounded border border-gray-300 bg-white duration-200 peer-checked:border-blue-600 peer-checked:bg-blue-600"
+								>
+									<!-- Use lucide-svelte Check icon instead of SVG -->
+									{#if isManager}
+										<Check class="m-auto block size-4 text-white" />
+									{/if}
+								</span>
+							</label>
+						</div>
+						<div class="w-full">
+							<select
+								id="user_manager"
+								name="user_manager"
+								disabled={isManager}
+								required
+								class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							>
+								{#if isManager}
+									<option value="null">Nincs menedzser</option>
+								{/if}
+								<option value="">Válassz menedzsert</option>
+								{#each managers as manager}
+									<option value={manager.id}
+										>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
+									>
+								{/each}
+							</select>
+						</div>
 					</div>
 				</div>
 
