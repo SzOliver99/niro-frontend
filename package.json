@@ -36,6 +36,7 @@
 		]
 	},
 	"dependencies": {
+		"@sveltejs/adapter-vercel": "^5.10.2",
 		"lucide-svelte": "^0.525.0"
 	}
 }
