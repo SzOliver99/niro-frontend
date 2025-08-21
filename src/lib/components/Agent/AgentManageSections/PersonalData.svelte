@@ -1,9 +1,9 @@
 <script>
-	import { getManagers } from '$lib/scripts/apis/user';
+	import { page } from '$app/stores';
+	import { getManagers, modifyUserInfo } from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { Check, Save } from 'lucide-svelte';
-	import { onMount } from 'svelte';
 
 	let { agent } = $props();
 
@@ -18,35 +18,63 @@
 		last_name: '',
 		first_name: '',
 		email: '',
-		phone: '',
+		phone_number: '',
 		agent_code: '',
-		user_manager: 'null',
+		user_manager: null,
 		is_manager: false
 	});
 
 	$effect(() => {
 		if (agent) {
-			const fullName = agent.info?.full_name || '';
-			const nameParts = fullName.split(' ');
+			const full_name = agent.info?.full_name || '';
+			const name_parts = full_name.split(' ');
 
 			formData = {
-				last_name: nameParts[0] || '',
-				first_name: nameParts[1] || '',
+				last_name: name_parts[0] || '',
+				first_name: name_parts[1] || '',
 				email: agent.email || '',
-				phone: agent.info?.phone_number || '',
+				phone_number: agent.info?.phone_number || '',
 				agent_code: agent.info?.agent_code || '',
 				hufa_code: agent.info?.hufa_code || '',
 				user_manager: agent.manager_id || 'null',
 				is_manager: agent.manager_id === null
 			};
-			$inspect(formData.is_manager);
 		}
 	});
 
-	function handleSubmit(event) {
+	async function handleSubmit(event) {
 		event.preventDefault();
 
-		console.log('Form submitted:', formData);
+		let user = {
+			id: agent.id,
+			email: email.value,
+			info: {
+				full_name: `${last_name.value} ${first_name.value}`,
+				phone_number: phone_number.value,
+				hufa_code: hufa_code.value,
+				agent_code: agent_code.value
+			},
+			is_manager: true,
+			manager_id: 1
+		};
+
+		let response = await modifyUserInfo($page.data.token, user);
+		let data = await response.json();
+	}
+
+	function formatPhoneNumber() {
+		let value = phone_number.value.replace(/\D/g, '');
+
+		if (!value.startsWith('36')) {
+			value = '36' + value.replace(/^36/, '');
+		}
+		let rest = value.slice(2);
+
+		let formatted = '+36';
+		if (rest.length > 0) formatted += ' ' + rest.substring(0, 2);
+		if (rest.length > 2) formatted += ' ' + rest.substring(2, 5);
+		if (rest.length > 5) formatted += ' ' + rest.substring(5, 9);
+		phone_number.value = formatted;
 	}
 </script>
 
@@ -92,13 +120,15 @@
 				/>
 			</div>
 			<div>
-				<label for="phone" class="block text-sm font-medium">Telefonszám*</label>
+				<label for="phone_number" class="block text-sm font-medium">Telefonszám*</label>
 				<input
-					id="phone"
-					name="phone"
+					id="phone_number"
+					name="phone_number"
 					type="tel"
+					maxlength="15"
 					placeholder="+36 12 345 7891"
-					bind:value={formData.phone}
+					oninput={formatPhoneNumber}
+					bind:value={formData.phone_number}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>

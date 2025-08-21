@@ -38,15 +38,26 @@ export async function getManagerGroup(userToken) {
 }
 
 export async function getUserInfo(userToken) {
-	return fetch('/api/user/get/informations', {
+	return fetch('/api/user/info/get', {
 		headers: {
 			Authorization: userToken
 		}
 	});
 }
 
-export async function checkUserPermissions(userToken) {
-	return fetch('/api/user/is-any-permission', {
+export async function modifyUserInfo(userToken, user) {
+	return fetch('/api/user/info/modify', {
+		method: "PUT",
+		headers: {
+			'Content-Type': 'application/json',
+			Authorization: userToken,
+		},
+		body: JSON.stringify(user)
+	});
+}
+
+export async function getUserRole(userToken) {
+	return fetch('/api/user/role/get', {
 		headers: {
 			Authorization: userToken
 		}
