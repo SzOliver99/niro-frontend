@@ -1,5 +1,4 @@
 <script>
-	import { page } from '$app/stores';
 	import { BookUser, CalendarClock, CircleArrowRight, FileUser } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { PersonalData, Contacts, Appointments, Contracts } from './AgentManageSections';

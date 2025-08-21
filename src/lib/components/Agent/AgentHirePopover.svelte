@@ -1,6 +1,5 @@
 <script>
-	import { enhance } from '$app/forms';
-	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { getManagers, signUp } from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
@@ -8,7 +7,7 @@
 	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
-	let { showModal = $bindable(), toggleModal, data } = $props();
+	let { showModal = $bindable(), toggleModal } = $props();
 	let is_manager = $state();
 
 	let managers = $state();
@@ -34,7 +33,7 @@
 			agent['manager_id'] = +user_manager.value;
 		}
 
-		const response = await signUp(agent, data.token);
+		const response = await signUp(agent, $page.data.token);
 
 		const res_data = await response.json();
 		if (!response.ok) {

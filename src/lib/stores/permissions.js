@@ -1,5 +1,5 @@
+import { getUserRole } from '$lib/scripts/apis/user';
 import { writable, get } from 'svelte/store';
-import { checkUserPermissions } from '$lib/scripts/apis/user.js';
 
 function createPermissionsStore() {
     const { subscribe, set, update } = writable({
@@ -14,11 +14,10 @@ function createPermissionsStore() {
 
     return {
         subscribe,
-        async checkPermissions(role) {
+        async checkPermissions(user) {
             const store = get(this);
             const now = Date.now();
 
-            // Return cached result if still valid
             if (store.lastChecked && (now - store.lastChecked) < CACHE_DURATION) {
                 return store.userRole;
             }
@@ -26,7 +25,7 @@ function createPermissionsStore() {
             update(state => ({ ...state, loading: true, error: null }));
 
             try {
-                const response = await checkUserPermissions(role);
+                const response = await getUserRole(user);
                 const userRole = await response.json();
 
                 update(state => ({

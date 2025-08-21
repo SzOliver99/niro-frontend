@@ -22,7 +22,7 @@
 <section>
 	<div class="my-5">
 		<div
-			class="mx-auto mb-4 w-1/2 flex flex-col min-w-65 items-center gap-2 rounded-lg p-2 ring ring-black/10 lg:flex-row"
+			class="mx-auto mb-4 flex w-1/2 min-w-65 flex-col items-center gap-2 rounded-lg p-2 ring ring-black/10 lg:flex-row"
 		>
 			<h2 class="w-full text-center text-2xl font-medium">Munkatársak</h2>
 
@@ -35,7 +35,7 @@
 					<p>Üzletkötő felvétele</p>
 				</button>
 			</div>
-			<AgentHirePopover bind:showModal {toggleModal} {data} />
+			<AgentHirePopover bind:showModal {toggleModal} />
 		</div>
 
 		<div
