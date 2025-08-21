@@ -12,6 +12,7 @@
 		Dumbbell,
 		Home,
 		ReceiptText,
+		Table,
 		User,
 		Users
 	} from 'lucide-svelte';
@@ -24,7 +25,7 @@
 			category: 'Értékesítés',
 			permissionRequired: false,
 			items: [
-				{ href: '/contacts', label: 'Címanyag', icon: BookUser },
+				{ href: '/contacts', label: 'Címanyag', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
@@ -195,6 +196,7 @@
 							<a
 								href={link.href}
 								title={link.label}
+								target="_blank"
 								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page.url
 									.pathname === link.href
 									? 'bg-gray-50/60 text-blue-600'
