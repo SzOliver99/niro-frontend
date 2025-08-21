@@ -18,3 +18,5 @@ export async function load({ cookies, url, fetch }) {
 
 	return { token, firstLoginToken };
 }
+
+export const prerender = true
