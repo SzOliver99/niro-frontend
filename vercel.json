@@ -1,0 +1,15 @@
+{
+    "buildCommand": "pnpm run build",
+    "outputDirectory": ".svelte-kit/output/client",
+    "framework": "sveltekit",
+    "rewrites": [
+        {
+            "source": "/api/:path(.*)",
+            "destination": "https://niro-backend-billowing-resonance-939.fly.dev/:path"
+        },
+        {
+            "source": "/(.*)",
+            "destination": "/index.html"
+        }
+    ]
+}
