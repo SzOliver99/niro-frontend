@@ -20,7 +20,7 @@ export default defineConfig({
 			output: {
 				manualChunks: {
 					// Separate vendor libraries
-					vendor: ['axios', 'lucide-svelte'],
+					vendor: ['lucide-svelte'],
 					// Separate Svelte runtime
 					svelte: ['svelte']
 				}
