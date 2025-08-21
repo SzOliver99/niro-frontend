@@ -1,6 +1,7 @@
 <script>
 	import { getManagers } from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
+	import { permissionsStore } from '$lib/stores/permissions';
 	import { Check, Save } from 'lucide-svelte';
 	import { onMount } from 'svelte';
 
@@ -125,51 +126,43 @@
 					class="mt-1 block w-full cursor-not-allowed rounded-md bg-gray-50 px-3 py-2 ring-1 ring-black/10"
 				/>
 			</div>
-			<div>
-				<label for="userRole" class="block text-sm font-medium">Menedzser</label>
-				<div class="flex items-center gap-3">
-					<div class="flex flex-col">
-						<label class="flex cursor-pointer select-none">
-							<input
-								type="checkbox"
-								class="peer sr-only"
-								bind:checked={formData.is_manager}
-								onchange={() => {
-									if (formData.is_manager) {
-										user_manager.value = null;
-									}
-								}}
-							/>
-							<span
-								class="ms-1 flex h-5 w-5 rounded border border-gray-300 bg-white duration-200 peer-checked:border-blue-600 peer-checked:bg-blue-600"
-							>
-								<!-- Use lucide-svelte Check icon instead of SVG -->
-								{#if formData.is_manager}
-									<Check class="m-auto block size-4 text-white" />
-								{/if}
-							</span>
-						</label>
-					</div>
-					<div class="w-full">
-						<select
-							id="user_manager"
-							name="user_manager"
-							bind:value={formData.user_manager}
-							disabled={formData.is_manager}
-							required
-							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+
+			<div class="text-start">
+				<label for="is_manager" class="block text-sm font-medium">Menedzser jogosultság</label>
+				<select
+					id="is_manager"
+					name="is_manager"
+					bind:value={formData.is_manager}
+					disabled={$permissionsStore.userRole === 'Leaderrr'}
+					onchange={(e) => {
+						formData.is_manager ? (user_manager.value = null) : '';
+					}}
+					required
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+				>
+					<option value={false}>Nem</option>
+					<option value={true}>Igen</option>
+				</select>
+			</div>
+			<div class="w-full text-start">
+				<label class="block text-sm font-medium">Menedzser választása</label>
+				<select
+					id="user_manager"
+					name="user_manager"
+					disabled={formData.is_manager}
+					required
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+				>
+					{#if formData.is_manager}
+						<option value="null">Nincs menedzser</option>
+					{/if}
+					<option value="">Válassz menedzsert</option>
+					{#each managers as manager}
+						<option value={manager.id}
+							>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 						>
-							{#if formData.is_manager}
-								<option value="null">Nincs menedzser</option>
-							{/if}
-							{#each managers as manager}
-								<option value={manager.id}
-									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
-								>
-							{/each}
-						</select>
-					</div>
-				</div>
+					{/each}
+				</select>
 			</div>
 		</div>
 

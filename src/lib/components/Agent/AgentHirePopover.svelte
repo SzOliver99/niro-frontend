@@ -4,11 +4,12 @@
 	import { getManagers, signUp } from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
+	import { permissionsStore } from '$lib/stores/permissions';
 	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
 	let { showModal = $bindable(), toggleModal, data } = $props();
-	let isManager = $state();
+	let is_manager = $state();
 
 	let managers = $state();
 	$effect(async () => {
@@ -156,28 +157,32 @@
 
 				<div class="grid grid-cols-2 gap-4">
 					<div class="text-start">
-						<label for="user_manager" class="block font-medium">Menedzser jogosultság</label>
+						<label for="is_manager" class="block text-sm font-medium">Menedzser jogosultság</label>
 						<select
-							id="user_manager"
-							name="user_manager"
-							disabled={isManager}
+							id="is_manager"
+							name="is_manager"
+							bind:value={is_manager}
+							disabled={$permissionsStore.userRole === 'Leaderrr'}
+							onchange={(e) => {
+								is_manager ? (user_manager.value = null) : '';
+							}}
 							required
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 						>
-							<option value="0">Nem</option>
-							<option value="1">Igen</option>
+							<option value={false}>Nem</option>
+							<option value={true}>Igen</option>
 						</select>
 					</div>
 					<div class="w-full text-start">
-						<label class="block font-medium">Menedzser választása</label>
+						<label class="block text-sm font-medium">Menedzser választása</label>
 						<select
 							id="user_manager"
 							name="user_manager"
-							disabled={isManager}
+							disabled={is_manager}
 							required
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 						>
-							{#if isManager}
+							{#if is_manager}
 								<option value="null">Nincs menedzser</option>
 							{/if}
 							<option value="">Válassz menedzsert</option>
