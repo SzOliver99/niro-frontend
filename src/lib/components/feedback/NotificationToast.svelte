@@ -42,7 +42,7 @@
 	{#each $Notification as { id, message, type } (id)}
 		<button
 			class="rounded-lg border p-4 shadow-lg {colors[type].bg} {colors[type].border}"
-			onclick={Notification.dismiss(id)}
+			onclick={() => Notification.dismiss(id)}
 			transition:fly={{ y: -50, duration: 300 }}
 		>
 			<div class="flex items-start">

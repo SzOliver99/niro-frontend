@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { useUpdateUser } from '$lib/scripts/queries/user';
-	import { convertUserGroup } from '$lib/scripts/utils';
+	import { useUpdateUsers as useUpdateUsers } from '$lib/scripts/queries/user';
+	import { checkPermission, convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
@@ -42,7 +42,7 @@
 		}
 	});
 
-	const updateUser = useUpdateUser($page.data.token);
+	const updateUser = useUpdateUsers($page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
 
@@ -56,7 +56,7 @@
 				agent_code: agent_code.value
 			}
 		};
-		if (+user_manager.value > 0) {
+		if (checkPermission('Leader', $permissionsStore.userRole) && +user_manager.value > 0) {
 			user['manager_id'] = +user_manager.value;
 		}
 
@@ -158,43 +158,45 @@
 				/>
 			</div>
 
-			<div class="text-start">
-				<label for="is_manager" class="block text-sm font-medium">Menedzser jogosultság</label>
-				<select
-					id="is_manager"
-					name="is_manager"
-					bind:value={formData.is_manager}
-					onchange={(e) => {
-						formData.is_manager ? (user_manager.value = null) : '';
-					}}
-					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-				>
-					<option value={false}>Nem</option>
-					<option value={true}>Igen</option>
-				</select>
-			</div>
-			<div class="w-full text-start">
-				<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
-				<select
-					id="user_manager"
-					name="user_manager"
-					bind:value={formData.user_manager}
-					disabled={formData.is_manager}
-					required
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-				>
-					{#if formData.is_manager}
-						<option value="null">Nincs menedzser</option>
-					{/if}
-					<option value="">Válassz menedzsert</option>
-					{#each $managers.data as manager}
-						<option value={manager.id}
-							>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
-						>
-					{/each}
-				</select>
-			</div>
+			{#if checkPermission('Leader', $permissionsStore.userRole)}
+				<div class="text-start">
+					<label for="is_manager" class="block text-sm font-medium">Menedzser jogosultság</label>
+					<select
+						id="is_manager"
+						name="is_manager"
+						bind:value={formData.is_manager}
+						onchange={(e) => {
+							formData.is_manager ? (user_manager.value = null) : '';
+						}}
+						required
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+					>
+						<option value={false}>Nem</option>
+						<option value={true}>Igen</option>
+					</select>
+				</div>
+				<div class="w-full text-start">
+					<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
+					<select
+						id="user_manager"
+						name="user_manager"
+						bind:value={formData.user_manager}
+						disabled={formData.is_manager}
+						required
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+					>
+						{#if formData.is_manager}
+							<option value="null">Nincs menedzser</option>
+						{/if}
+						<option value="">Válassz menedzsert</option>
+						{#each $managers.data as manager}
+							<option value={manager.id}
+								>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
+							>
+						{/each}
+					</select>
+				</div>
+			{/if}
 		</div>
 
 		<!-- Submit Button -->

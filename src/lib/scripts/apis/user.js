@@ -1,9 +1,11 @@
 // All user API functions are now inside userApi
 
+import { Notification } from "$lib/stores/notifications";
+
 const userApi = (customFetch = fetch) => ({
 	// Authentication endpoints
-	signIn: async (svelteFetch = customFetch, username, password) => {
-		const response = await svelteFetch('/api/user/sign-in/username', {
+	signIn: async (username, password) => {
+		const response = await customFetch('/api/user/sign-in/username', {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
@@ -22,7 +24,12 @@ const userApi = (customFetch = fetch) => ({
 			},
 			body: JSON.stringify(agentData)
 		});
-		return await response.json();
+		const data = await response.json()
+		if (!response.ok) {
+			Notification.error(data.error)
+			throw Error(data)
+		}
+		return data;
 	},
 
 	// User management endpoints
@@ -74,14 +81,14 @@ const userApi = (customFetch = fetch) => ({
 		return await response.json();
 	},
 
-	completeFirstLogin: async (newPassword, token) => {
+	completeFirstLogin: async (new_password, token) => {
 		const response = await customFetch('/api/user/first-login/finish', {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
 			},
 			body: JSON.stringify({
-				new_password: newPassword,
+				new_password,
 				token
 			})
 		});

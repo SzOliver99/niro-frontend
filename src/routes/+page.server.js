@@ -8,7 +8,7 @@ export const actions = {
 		const username = form_data.get('username')?.toString();
 		const password = form_data.get('password')?.toString();
 
-		const data = await userApi().signIn(fetch, username, password);
+		const data = await userApi(fetch).signIn(username, password);
 
 		if (data.UserToken) {
 			cookies.set('token', data.UserToken, {
@@ -33,10 +33,15 @@ export const actions = {
 		const form_data = await request.formData();
 		const password = form_data.get('password')?.toString();
 		const password_confirm = form_data.get('password_confirm')?.toString();
+		console.log(password, password_confirm);
 
-		if (password !== password_confirm) return { error: "A két jelszó nem eggyezik" }
 
-		const token = await userApi(fetch).completeFirstLogin(fetch, password, cookies.get("firstLoginToken"))
+		if (password !== password_confirm) {
+			Notification.error("Nem eggyezik meg a két jelszó")
+			return
+		}
+
+		const token = await userApi(fetch).completeFirstLogin(password, cookies.get("firstLoginToken"))
 
 		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });
 		cookies.set('token', token, {

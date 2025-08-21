@@ -17,14 +17,17 @@ export const getManagersQuery = () => queryOptions({
     queryFn: () => userApi().getManagers()
 })
 
-export const useUpdateUser = (user_token) => {
+export const useUpdateUsers = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
         mutationFn: async (user) => userApi().modifyUserInfo(user_token, user),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['users'] });
+            queryClient.invalidateQueries({ queryKey: ['manager-group'] });
             Notification.success("Sikeresen elmentetted", 3)
         }
     });
 };
+
+

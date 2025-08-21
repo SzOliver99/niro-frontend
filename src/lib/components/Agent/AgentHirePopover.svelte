@@ -33,11 +33,7 @@
 			agent['manager_id'] = +user_manager.value;
 		}
 
-		const res_data = await userApi().signUp(agent, $page.data.token);
-		if (!response.ok) {
-			Notification.error(res_data.error, 5);
-			return;
-		}
+		await userApi().signUp(agent, $page.data.token);
 
 		location.reload();
 	}
