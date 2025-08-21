@@ -33,7 +33,7 @@ export default defineConfig({
 	},
 	// Optimize dependencies
 	optimizeDeps: {
-		include: ['axios', 'lucide-svelte']
+		include: ['lucide-svelte']
 	},
 	// CSS optimization
 	css: {
