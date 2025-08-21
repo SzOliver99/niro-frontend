@@ -9,7 +9,7 @@ export async function load({ cookies, url, fetch }) {
 		}
 	});
 
-	if (fetchProtected.status === 401 && url.pathname !== '/') {
+	if (!fetchProtected.ok && url.pathname !== '/') {
 		cookies.set('token', '', { path: '/', expires: new Date(0) });
 
 		throw redirect(308, '/');
