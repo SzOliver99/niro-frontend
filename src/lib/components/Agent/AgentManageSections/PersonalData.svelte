@@ -20,7 +20,7 @@
 		email: '',
 		phone: '',
 		agent_code: '',
-		user_manager: '',
+		user_manager: 'null',
 		is_manager: false
 	});
 
@@ -39,6 +39,7 @@
 				user_manager: agent.manager_id || 'null',
 				is_manager: agent.manager_id === null
 			};
+			$inspect(formData.is_manager);
 		}
 	});
 
@@ -55,11 +56,11 @@
 	<form onsubmit={handleSubmit} class="rounded-lg">
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
 			<div>
-				<label for="lastName" class="block text-sm font-medium">Vezetéknév*</label>
+				<label for="last_name" class="block text-sm font-medium">Vezetéknév*</label>
 				<input
 					type="text"
-					id="lastName"
-					name="lastName"
+					id="last_name"
+					name="last_name"
 					placeholder="Doe"
 					bind:value={formData.last_name}
 					required
@@ -67,11 +68,11 @@
 				/>
 			</div>
 			<div>
-				<label for="firstName" class="block text-sm font-medium">Keresztnév*</label>
+				<label for="first_name" class="block text-sm font-medium">Keresztnév*</label>
 				<input
 					type="text"
-					id="firstName"
-					name="firstName"
+					id="first_name"
+					name="first_name"
 					placeholder="John"
 					bind:value={formData.first_name}
 					required
@@ -93,9 +94,9 @@
 			<div>
 				<label for="phone" class="block text-sm font-medium">Telefonszám*</label>
 				<input
-					type="tel"
 					id="phone"
 					name="phone"
+					type="tel"
 					placeholder="+36 12 345 7891"
 					bind:value={formData.phone}
 					required
@@ -103,27 +104,25 @@
 				/>
 			</div>
 			<div>
-				<label for="hufaCode" class="block text-sm font-medium">HUFA kód</label>
+				<label for="hufa_code" class="block text-sm font-medium">HUFA kód</label>
 				<input
 					type="text"
-					id="hufaCode"
-					name="hufaCode"
+					id="hufa_code"
+					name="hufa_code"
 					placeholder="AG001"
-					bind:value={formData.hufaCode}
-					readonly
-					class="mt-1 block w-full cursor-not-allowed rounded-md bg-gray-50 px-3 py-2 ring-1 ring-black/10"
+					bind:value={formData.hufa_code}
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 			<div>
-				<label for="agentCode" class="block text-sm font-medium">Ügynökségi kód</label>
+				<label for="agent_code" class="block text-sm font-medium">Ügynökségi kód</label>
 				<input
 					type="text"
-					id="agentCode"
-					name="agentCode"
+					id="agent_code"
+					name="agent_code"
 					placeholder="AG001"
 					bind:value={formData.agent_code}
-					readonly
-					class="mt-1 block w-full cursor-not-allowed rounded-md bg-gray-50 px-3 py-2 ring-1 ring-black/10"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 
@@ -148,6 +147,7 @@
 				<select
 					id="user_manager"
 					name="user_manager"
+					bind:value={formData.user_manager}
 					disabled={formData.is_manager}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"

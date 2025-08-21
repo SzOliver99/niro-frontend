@@ -31,7 +31,7 @@ function createPermissionsStore() {
 
                 update(state => ({
                     userRole,
-                    hasPermission: !!userRole,
+                    hasPermission: userRole !== "Agent",
                     loading: false,
                     error: null,
                     lastChecked: now
