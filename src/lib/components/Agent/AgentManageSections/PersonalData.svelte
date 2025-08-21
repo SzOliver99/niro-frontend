@@ -133,7 +133,6 @@
 					id="is_manager"
 					name="is_manager"
 					bind:value={formData.is_manager}
-					disabled={$permissionsStore.userRole === 'Leaderrr'}
 					onchange={(e) => {
 						formData.is_manager ? (user_manager.value = null) : '';
 					}}
