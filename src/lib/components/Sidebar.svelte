@@ -28,7 +28,7 @@
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
-				{ href: '/calendar', label: 'Naptár', icon: Calendar1 }
+				{ href: '/calendar', label: 'Események', icon: Calendar1 }
 			]
 		},
 		teamManagement: {
@@ -44,10 +44,19 @@
 			category: 'Hasznos Linkek',
 			permissionRequired: false,
 			items: [
-				{ href: '', label: 'E-learning', icon: BookUser },
-				{ href: '', label: 'AKP', icon: BookUser },
-				{ href: '', label: 'Kártyás Díjfizetés', icon: BookUser },
-				{ href: '', label: 'Drive', icon: BookUser }
+				{ href: 'https://e-learning.allianz.hu/', label: 'E-learning', icon: BookUser },
+				{ href: 'https://ap.allianz.hu/', label: 'AKP', icon: BookUser },
+				{ href: 'https://allianz.hu/dijfizetes', label: 'Online Díjfizetés', icon: BookUser },
+				{
+					href: 'https://drive.google.com/drive/u/0/folders/1klH7FsF30U7tNM8yKJgIZFqLX23qxKCO',
+					label: 'Drive',
+					icon: BookUser
+				},
+				{
+					href: 'https://www.allianz.hu/hu_HU/lakossagi/karbejelentes-es-ugyintezes/online-ugyintezes.html#TabVerticalNegative12102971254',
+					label: 'Allianz bankszámlaszám',
+					icon: BookUser
+				}
 			]
 		}
 	};
@@ -129,6 +138,7 @@
 		{/if}
 
 		<!-- TEAM MANAGEMENT -->
+		{console.log($permissionsStore.hasPermission)}
 		{#if !sidebarSections.teamManagement.permissionRequired || $permissionsStore.hasPermission}
 			<div>
 				<h3
