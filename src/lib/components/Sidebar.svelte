@@ -139,7 +139,6 @@
 		{/if}
 
 		<!-- TEAM MANAGEMENT -->
-		{console.log($permissionsStore.hasPermission)}
 		{#if !sidebarSections.teamManagement.permissionRequired || $permissionsStore.hasPermission}
 			<div>
 				<h3

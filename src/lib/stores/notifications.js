@@ -5,9 +5,9 @@ function createNotificationStore() {
 
     let counter = 0;
 
-    function show(type, message, duration = 5, title = '') {
+    function show(type, message, duration = 3000) {
         const id = ++counter;
-        update(toasts => [...toasts, { id, type, message, title, duration }]);
+        update(toasts => [...toasts, { id, type, message, duration }]);
 
         if (duration > 0) {
             setTimeout(() => dismiss(id), duration);
@@ -20,10 +20,10 @@ function createNotificationStore() {
 
     return {
         subscribe,
-        success: (msg, duration, title) => show('success', msg, duration * 1000, title),
-        error: (msg, duration, title) => show('error', msg, duration * 1000, title),
-        warning: (msg, duration, title) => show('warning', msg, duration * 1000, title),
-        info: (msg, duration, title) => show('info', msg, duration * 1000, title),
+        success: (msg, duration) => show('success', msg, duration * 1000),
+        error: (msg, duration) => show('error', msg, duration * 1000),
+        warning: (msg, duration) => show('warning', msg, duration * 1000),
+        info: (msg, duration) => show('info', msg, duration * 1000),
         dismiss
     };
 }

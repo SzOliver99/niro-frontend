@@ -31,5 +31,5 @@
 	</div>
 </div>
 {#if agent}
-	<AgentManagePopover bind:showModal {toggleModal} {agent} />
+	<AgentManagePopover bind:showModal {toggleModal} {agent} agent_id={agent.id} />
 {/if}

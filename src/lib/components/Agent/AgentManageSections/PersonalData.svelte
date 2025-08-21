@@ -1,17 +1,17 @@
 <script>
 	import { page } from '$app/stores';
-	import { getManagers, modifyUserInfo } from '$lib/scripts/apis/user';
+	import userApi from '$lib/scripts/apis/user';
+	import { useUpdateUser } from '$lib/scripts/queries/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
 
-	let { agent } = $props();
+	let { agent, toggleModal } = $props();
 
-	let managers = $state();
-	$effect(async () => {
-		const response = await getManagers();
-		const managers_data = await response.json();
-		managers = managers_data;
+	let managers = createQuery({
+		queryKey: ['managers'],
+		queryFn: () => userApi().getManagers()
 	});
 
 	let formData = $state({
@@ -42,6 +42,7 @@
 		}
 	});
 
+	const updateUser = useUpdateUser($page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
 
@@ -53,13 +54,14 @@
 				phone_number: phone_number.value,
 				hufa_code: hufa_code.value,
 				agent_code: agent_code.value
-			},
-			is_manager: true,
-			manager_id: 1
+			}
 		};
+		if (+user_manager.value > 0) {
+			user['manager_id'] = +user_manager.value;
+		}
 
-		let response = await modifyUserInfo($page.data.token, user);
-		let data = await response.json();
+		$updateUser.mutate(user);
+		toggleModal();
 	}
 
 	function formatPhoneNumber() {
@@ -173,7 +175,7 @@
 				</select>
 			</div>
 			<div class="w-full text-start">
-				<label class="block text-sm font-medium">Menedzser választása</label>
+				<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
 				<select
 					id="user_manager"
 					name="user_manager"
@@ -186,7 +188,7 @@
 						<option value="null">Nincs menedzser</option>
 					{/if}
 					<option value="">Válassz menedzsert</option>
-					{#each managers as manager}
+					{#each $managers.data as manager}
 						<option value={manager.id}
 							>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 						>

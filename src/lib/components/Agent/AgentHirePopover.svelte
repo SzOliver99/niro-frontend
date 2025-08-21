@@ -1,20 +1,20 @@
 <script>
 	import { page } from '$app/stores';
-	import { getManagers, signUp } from '$lib/scripts/apis/user';
+	import userApi from '$lib/scripts/apis/user';
+	import { getManagerGroupQuery } from '$lib/scripts/queries/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
 	let { showModal = $bindable(), toggleModal } = $props();
 	let is_manager = $state();
 
-	let managers = $state();
-	$effect(async () => {
-		const response = await getManagers();
-		const managers_data = await response.json();
-		managers = managers_data;
+	let managers = createQuery({
+		queryKey: ['managers'],
+		queryFn: () => userApi().getManagers()
 	});
 
 	async function handleSubmit() {
@@ -33,9 +33,7 @@
 			agent['manager_id'] = +user_manager.value;
 		}
 
-		const response = await signUp(agent, $page.data.token);
-
-		const res_data = await response.json();
+		const res_data = await userApi().signUp(agent, $page.data.token);
 		if (!response.ok) {
 			Notification.error(res_data.error, 5);
 			return;
@@ -173,7 +171,7 @@
 						</select>
 					</div>
 					<div class="w-full text-start">
-						<label class="block text-sm font-medium">Menedzser választása</label>
+						<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
 						<select
 							id="user_manager"
 							name="user_manager"
@@ -185,7 +183,7 @@
 								<option value="null">Nincs menedzser</option>
 							{/if}
 							<option value="">Válassz menedzsert</option>
-							{#each managers as manager}
+							{#each $managers.data as manager}
 								<option value={manager.id}
 									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 								>

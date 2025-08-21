@@ -1,4 +1,4 @@
-import { getUserRole } from '$lib/scripts/apis/user';
+import userApi from '$lib/scripts/apis/user';
 import { writable, get } from 'svelte/store';
 
 function createPermissionsStore() {
@@ -25,8 +25,7 @@ function createPermissionsStore() {
             update(state => ({ ...state, loading: true, error: null }));
 
             try {
-                const response = await getUserRole(user);
-                const userRole = await response.json();
+                const userRole = await userApi().getUserRole(user);
 
                 update(state => ({
                     userRole,

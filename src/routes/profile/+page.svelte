@@ -1,13 +1,12 @@
 <script>
-	import { getUserInfo } from '$lib/scripts/apis/user';
+	import userApi from '$lib/scripts/apis/user';
 	import { CircleArrowRight } from 'lucide-svelte';
 
 	let { data } = $props();
 
 	let userInfo = $state({});
 	$effect.pre(async () => {
-		let response = await getUserInfo(data.token);
-		userInfo = await response.json();
+		userInfo = await userApi().getUserInfo(data.token);
 	});
 
 	const getUserLastName = () => userInfo.full_name?.split(' ')[0];
