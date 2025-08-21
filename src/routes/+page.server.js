@@ -50,3 +50,5 @@ export const actions = {
 		});
 	}
 };
+
+export const prerender = false;
