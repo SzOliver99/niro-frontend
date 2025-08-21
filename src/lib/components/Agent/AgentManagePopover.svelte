@@ -46,7 +46,7 @@
 						</button>
 					{/each}
 				</div>
-				<div class="p-3">
+				<div class="overflow-y-auto p-3">
 					{@render renderNavTab()}
 				</div>
 			</div>
