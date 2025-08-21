@@ -21,13 +21,23 @@ export const useUpdateUsers = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async (user) => userApi().modifyUserInfo(user_token, user),
+        mutationFn: async (user) => await userApi().modifyUserInfo(user_token, user),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['users'] });
             queryClient.invalidateQueries({ queryKey: ['manager-group'] });
-            Notification.success("Sikeresen elmentetted", 3)
         }
     });
 };
 
+export const useCreateUsers = (user_token) => {
+    const queryClient = useQueryClient();
+
+    return createMutation({
+        mutationFn: async (user) => await userApi().signUp(user, user_token),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['users'] });
+            queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+        }
+    });
+};
 

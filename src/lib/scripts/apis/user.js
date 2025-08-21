@@ -15,20 +15,21 @@ const userApi = (customFetch = fetch) => ({
 		return await response.json();
 	},
 
-	signUp: async (agentData, userToken) => {
+	signUp: async (user, userToken) => {
 		const response = await customFetch('/api/user/sign-up', {
 			method: "POST",
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: userToken
 			},
-			body: JSON.stringify(agentData)
+			body: JSON.stringify(user)
 		});
 		const data = await response.json()
 		if (!response.ok) {
-			Notification.error(data.error)
-			throw Error(data)
+			Notification.error(data.error, 3)
+			throw Error(data.error)
 		}
+
 		return data;
 	},
 
@@ -69,7 +70,13 @@ const userApi = (customFetch = fetch) => ({
 			},
 			body: JSON.stringify(user)
 		});
-		return await response.json();
+		const data = await response.json()
+		if (!response.ok) {
+			Notification.error(data.error, 3)
+			throw Error(data.error)
+		}
+
+		return data;
 	},
 
 	getUserRole: async (userToken) => {

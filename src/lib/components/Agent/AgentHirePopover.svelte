@@ -1,8 +1,8 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { getManagerGroupQuery } from '$lib/scripts/queries/user';
-	import { convertUserGroup } from '$lib/scripts/utils';
+	import { getManagerGroupQuery, useCreateUsers, useUpdateUsers } from '$lib/scripts/queries/user';
+	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -17,6 +17,7 @@
 		queryFn: () => userApi().getManagers()
 	});
 
+	const createUser = useCreateUsers($page.data.token);
 	async function handleSubmit() {
 		let agent = {
 			email: email.value,
@@ -33,9 +34,12 @@
 			agent['manager_id'] = +user_manager.value;
 		}
 
-		await userApi().signUp(agent, $page.data.token);
-
-		location.reload();
+		$createUser.mutate(agent, {
+			onSuccess: () => {
+				Notification.success('Sikeresen létrehoztad!', 3);
+				toggleModal();
+			}
+		});
 	}
 </script>
 
@@ -116,6 +120,7 @@
 						name="phone_number"
 						id="phone_number"
 						type="tel"
+						oninput={formatPhoneNumber}
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 						autocomplete="off"
 						required

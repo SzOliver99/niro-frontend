@@ -2,7 +2,8 @@
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
 	import { useUpdateUsers as useUpdateUsers } from '$lib/scripts/queries/user';
-	import { checkPermission, convertUserGroup } from '$lib/scripts/utils';
+	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
+	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
@@ -60,23 +61,12 @@
 			user['manager_id'] = +user_manager.value;
 		}
 
-		$updateUser.mutate(user);
-		toggleModal();
-	}
-
-	function formatPhoneNumber() {
-		let value = phone_number.value.replace(/\D/g, '');
-
-		if (!value.startsWith('36')) {
-			value = '36' + value.replace(/^36/, '');
-		}
-		let rest = value.slice(2);
-
-		let formatted = '+36';
-		if (rest.length > 0) formatted += ' ' + rest.substring(0, 2);
-		if (rest.length > 2) formatted += ' ' + rest.substring(2, 5);
-		if (rest.length > 5) formatted += ' ' + rest.substring(5, 9);
-		phone_number.value = formatted;
+		$updateUser.mutate(user, {
+			onSuccess: () => {
+				Notification.success('Sikeresen elmentetted', 3);
+				toggleModal();
+			}
+		});
 	}
 </script>
 
