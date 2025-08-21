@@ -18,6 +18,7 @@
 		"@sveltejs/kit": "^2.22.0",
 		"@sveltejs/vite-plugin-svelte": "^6.0.0",
 		"@tailwindcss/vite": "^4.0.0",
+		"@tanstack/eslint-plugin-query": "^5.83.1",
 		"eslint": "^9.18.0",
 		"eslint-config-prettier": "^10.0.1",
 		"eslint-plugin-svelte": "^3.0.0",
@@ -37,6 +38,10 @@
 	},
 	"dependencies": {
 		"@sveltejs/adapter-vercel": "^5.10.2",
+		"@tanstack/query-async-storage-persister": "^5.85.5",
+		"@tanstack/svelte-query": "^5.85.5",
+		"@tanstack/svelte-query-devtools": "^5.85.5",
+		"@tanstack/svelte-query-persist-client": "^5.85.5",
 		"lucide-svelte": "^0.525.0"
 	}
 }
