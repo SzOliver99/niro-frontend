@@ -134,6 +134,7 @@
 							name="hufa_code"
 							id="hufa_code"
 							type="text"
+							placeholder="ab12345"
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 							autocomplete="off"
 							required
@@ -145,6 +146,7 @@
 							name="agent_code"
 							id="agent_code"
 							type="text"
+							placeholder="1234567"
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 							autocomplete="off"
 							required
@@ -152,50 +154,39 @@
 					</div>
 				</div>
 
-				<div class="text-start">
-					<label for="user_manager" class="block font-medium">Menedzser</label>
-					<div class="flex items-center gap-3">
-						<div class="flex flex-col">
-							<label class="flex cursor-pointer select-none">
-								<input
-									type="checkbox"
-									class="peer sr-only"
-									bind:checked={isManager}
-									onchange={() => {
-										if (isManager) {
-											user_manager.value = null;
-										}
-									}}
-								/>
-								<span
-									class="ms-1 flex h-5 w-5 rounded border border-gray-300 bg-white duration-200 peer-checked:border-blue-600 peer-checked:bg-blue-600"
+				<div class="grid grid-cols-2 gap-4">
+					<div class="text-start">
+						<label for="user_manager" class="block font-medium">Menedzser jogosultság</label>
+						<select
+							id="user_manager"
+							name="user_manager"
+							disabled={isManager}
+							required
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						>
+							<option value="0">Nem</option>
+							<option value="1">Igen</option>
+						</select>
+					</div>
+					<div class="w-full text-start">
+						<label class="block font-medium">Menedzser választása</label>
+						<select
+							id="user_manager"
+							name="user_manager"
+							disabled={isManager}
+							required
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						>
+							{#if isManager}
+								<option value="null">Nincs menedzser</option>
+							{/if}
+							<option value="">Válassz menedzsert</option>
+							{#each managers as manager}
+								<option value={manager.id}
+									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 								>
-									<!-- Use lucide-svelte Check icon instead of SVG -->
-									{#if isManager}
-										<Check class="m-auto block size-4 text-white" />
-									{/if}
-								</span>
-							</label>
-						</div>
-						<div class="w-full">
-							<select
-								id="user_manager"
-								name="user_manager"
-								disabled={isManager}
-								required
-								class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-							>
-								{#if isManager}
-									<option value="null">Nincs menedzser</option>
-								{/if}
-								<option value="">Válassz menedzsert</option>
-								{#each managers as manager}
-									<option value={manager.id}
-										>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
-									>
-								{/each}
-							</select>
-						</div>
+							{/each}
+						</select>
 					</div>
 				</div>
 
