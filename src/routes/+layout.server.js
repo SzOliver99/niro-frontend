@@ -1,4 +1,3 @@
-import { fetchProtected } from '$lib/scripts/apis/user.js';
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ cookies, url, fetch }) {
