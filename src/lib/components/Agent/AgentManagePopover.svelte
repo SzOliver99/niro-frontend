@@ -1,7 +1,11 @@
 <script>
-	import { BookUser, CalendarClock, CircleArrowRight, FileUser } from 'lucide-svelte';
+	import { BookUser, CalendarClock, CircleArrowRight, FileUser, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { PersonalData, Contacts, Appointments, Contracts } from './AgentManageSections';
+	import { permissionsStore } from '$lib/stores/permissions';
+	import { checkPermission } from '$lib/scripts/utils';
+	import userApi from '$lib/scripts/apis/user';
+	import { page } from '$app/stores';
 
 	let { showModal = $bindable(), toggleModal, agent } = $props();
 
@@ -14,6 +18,10 @@
 			{ title: 'Szerződések', icon: BookUser }
 		]
 	});
+
+	async function handleTermination() {
+		let data = await userApi().terminateUserContact($page.data.token, agent.id);
+	}
 </script>
 
 {#if showModal}
@@ -31,20 +39,35 @@
 			</div>
 			<div class="flex h-[calc(100%-4rem)] w-full flex-col rounded-lg ring ring-black/10">
 				<div
-					id="nav"
-					class="grid grid-cols-2 border-b border-black/10 p-1 text-nowrap sm:grid-cols-3 md:flex"
+					class="flex flex-col gap-2 border-b border-black/10 p-2 sm:flex-row sm:items-center sm:justify-between"
 				>
-					{#each navTabs.tabs as tab}
-						<button
-							class="flex items-center rounded-lg px-3 py-2 text-sm font-medium duration-200 hover:scale-105"
-							class:text-blue-600={navTabs.opened === tab.title}
-							onclick={() => (navTabs.opened = tab.title)}
-						>
-							<tab.icon class="shrink-0 md:me-2" stroke-width={1.5} />
-							<p>{tab.title}</p>
-						</button>
-					{/each}
+					<div id="nav" class="grid grid-cols-2 gap-2 md:flex md:flex-wrap md:gap-2">
+						{#each navTabs.tabs as tab}
+							<button
+								class="flex items-center rounded-lg px-3 py-2 text-sm font-medium duration-200 hover:scale-105"
+								class:text-blue-600={navTabs.opened === tab.title}
+								onclick={() => (navTabs.opened = tab.title)}
+							>
+								<tab.icon class="shrink-0 md:me-2" stroke-width={1.5} />
+								<p>{tab.title}</p>
+							</button>
+						{/each}
+					</div>
+
+					{#if checkPermission('Leader', $permissionsStore.userRole)}
+						<div class="flex justify-end text-nowrap">
+							<button
+								class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-red-500 duration-200 hover:scale-105 disabled:scale-100"
+								onclick={handleTermination}
+								disabled={agent.role === 'Leader'}
+							>
+								<X class="shrink-0" stroke-width={1.5} />
+								<p>Szerződés bontása</p>
+							</button>
+						</div>
+					{/if}
 				</div>
+
 				<div class="overflow-y-auto p-3">
 					{@render renderNavTab()}
 				</div>

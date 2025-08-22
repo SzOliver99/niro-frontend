@@ -97,6 +97,24 @@ const userApi = (customFetch = fetch) => ({
 		return data;
 	},
 
+	terminateUserContact: async (userToken, user_id) => {
+		const response = await customFetch('/api/user/terminate', {
+			method: "DELETE",
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: userToken,
+			},
+			body: JSON.stringify(user_id)
+		});
+		const data = await response.json()
+		if (!response.ok) {
+			Notification.error(data.error, 3)
+			throw Error(data.error)
+		}
+
+		return data;
+	},
+
 	getUserRole: async (userToken) => {
 		const response = await customFetch('/api/user/role/get', {
 			headers: {
