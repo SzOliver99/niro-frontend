@@ -11,7 +11,8 @@
 
 	let users = createQuery({
 		queryKey: ['users', data.token],
-		queryFn: () => userApi().getAllUsers(data.token)
+		queryFn: () => userApi().getAllUsers(data.token),
+		refetchInterval: 1000
 	});
 
 	let showModal = $state(false);
