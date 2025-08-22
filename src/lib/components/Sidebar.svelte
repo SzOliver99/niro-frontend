@@ -99,7 +99,7 @@
 			<a
 				href="/"
 				class="text-2xl font-bold text-black duration-200 text-shadow-md hover:text-blue-600"
-				>Niro</a
+				>NIRO CRM</a
 			>
 		{/if}
 	</div>
