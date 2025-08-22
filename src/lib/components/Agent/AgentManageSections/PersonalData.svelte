@@ -57,9 +57,6 @@
 				agent_code: agent_code.value
 			}
 		};
-		if (checkPermission('Leader', $permissionsStore.userRole) && +user_manager.value > 0) {
-			user['manager_id'] = +user_manager.value;
-		}
 
 		$updateUser.mutate(user, {
 			onSuccess: () => {
@@ -67,6 +64,17 @@
 				toggleModal();
 			}
 		});
+	}
+
+	async function handleModifyUserManager(manager_id = null) {
+		let user = {
+			id: agent.id
+		};
+		if (manager_id) {
+			user['manager_id'] = manager_id;
+		}
+
+		let data = await userApi().modifyUserManager($page.data.token, user);
 	}
 </script>
 
@@ -147,17 +155,34 @@
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
+		</div>
 
+		<!-- Submit Button -->
+		<div class="mt-5 flex justify-end">
+			<button
+				type="submit"
+				class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"
+			>
+				<Save class="size-4" />
+				Változtatások mentése
+			</button>
+		</div>
+
+		<div class="mt-3 grid grid-cols-2 gap-4">
 			{#if checkPermission('Leader', $permissionsStore.userRole)}
-				<div class="text-start">
+				<div>
 					<label for="is_manager" class="block text-sm font-medium">Menedzser jogosultság</label>
 					<select
 						id="is_manager"
 						name="is_manager"
 						bind:value={formData.is_manager}
 						onchange={(e) => {
-							formData.is_manager ? (user_manager.value = null) : '';
+							if (formData.is_manager) {
+								user_manager.value = null;
+								handleModifyUserManager();
+							}
 						}}
+						disabled={agent.role === 'Leader'}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 					>
@@ -165,13 +190,14 @@
 						<option value={true}>Igen</option>
 					</select>
 				</div>
-				<div class="w-full text-start">
+				<div>
 					<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
 					<select
 						id="user_manager"
 						name="user_manager"
 						bind:value={formData.user_manager}
 						disabled={formData.is_manager}
+						onchange={() => handleModifyUserManager(+user_manager.value)}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 					>
@@ -187,17 +213,6 @@
 					</select>
 				</div>
 			{/if}
-		</div>
-
-		<!-- Submit Button -->
-		<div class="mt-5 flex justify-end">
-			<button
-				type="submit"
-				class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"
-			>
-				<Save class="size-4" />
-				Változtatások mentése
-			</button>
 		</div>
 	</form>
 </section>

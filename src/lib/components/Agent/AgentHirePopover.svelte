@@ -23,7 +23,7 @@
 			email: email.value,
 			username: username.value,
 			password: password.value,
-			user_info: {
+			info: {
 				full_name: `${first_name.value} ${last_name.value}`,
 				phone_number: phone_number.value,
 				hufa_code: hufa_code.value,

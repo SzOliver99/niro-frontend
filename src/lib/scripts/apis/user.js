@@ -79,6 +79,24 @@ const userApi = (customFetch = fetch) => ({
 		return data;
 	},
 
+	modifyUserManager: async (userToken, user) => {
+		const response = await customFetch('/api/user/manager/modify', {
+			method: "PUT",
+			headers: {
+				'Content-Type': 'application/json',
+				Authorization: userToken,
+			},
+			body: JSON.stringify(user)
+		});
+		const data = await response.json()
+		if (!response.ok) {
+			Notification.error(data.error, 3)
+			throw Error(data.error)
+		}
+
+		return data;
+	},
+
 	getUserRole: async (userToken) => {
 		const response = await customFetch('/api/user/role/get', {
 			headers: {
