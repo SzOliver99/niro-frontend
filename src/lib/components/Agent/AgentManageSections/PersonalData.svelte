@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { useUpdateUsers as useUpdateUsers } from '$lib/scripts/queries/user';
+	import { useUpdateManagers, useUpdateUsers } from '$lib/scripts/queries/user';
 	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
@@ -15,7 +15,6 @@
 		queryFn: () => userApi().getManagers()
 	});
 
-	
 	let formData = $state({
 		last_name: '',
 		first_name: '',
@@ -67,6 +66,7 @@
 		});
 	}
 
+	const updateManagers = useUpdateManagers($page.data.token);
 	async function handleModifyUserManager(manager_id = null) {
 		let user = {
 			id: agent.id
@@ -75,7 +75,12 @@
 			user['manager_id'] = manager_id;
 		}
 
-		let data = await userApi().modifyUserManager($page.data.token, user);
+		$updateManagers.mutate(user, {
+			onSuccess: () => {
+				Notification.success('Sikeresen elmentetted', 3);
+				toggleModal();
+			}
+		});
 	}
 </script>
 

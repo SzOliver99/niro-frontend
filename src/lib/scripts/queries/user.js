@@ -30,6 +30,7 @@ export const useUpdateUsers = (user_token) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
 };
@@ -42,6 +43,19 @@ export const useCreateUsers = (user_token) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+		}
+	});
+};
+
+export const useUpdateManagers = (user_token) => {
+	const queryClient = useQueryClient();
+
+	return createMutation({
+		mutationFn: async (user) => await userApi().modifyUserManager(user_token, user),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users'] });
+			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
 };
