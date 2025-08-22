@@ -25,7 +25,7 @@
 			category: 'Értékesítés',
 			permissionRequired: false,
 			items: [
-				{ href: '/contacts', label: 'Címanyag', icon: Table },
+				{ href: '/leads', label: 'Címanyag', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
