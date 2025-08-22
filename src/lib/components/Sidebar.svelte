@@ -29,7 +29,9 @@
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
-				{ href: '/calendar', label: 'Események', icon: Calendar1 }
+				{ href: '/to-do', label: 'Teendők', icon: Calendar1 },
+				{ href: '/goals', label: 'Célok', icon: Calendar1 },
+
 			]
 		},
 		teamManagement: {
@@ -37,6 +39,7 @@
 			permissionRequired: true,
 			items: [
 				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser, minRole: 'Leader' },
+				{ href: '/recruitment', label: 'Toborzás', icon: Dumbbell, minRole: 'Manager' },
 				{ href: '/groups', label: 'Csoportok', icon: Dumbbell, minRole: 'Manager' },
 				{ href: '/performance', label: 'Teljesítmény', icon: Dumbbell, minRole: 'Manager' }
 			]
