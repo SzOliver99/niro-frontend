@@ -44,7 +44,10 @@
 </script>
 
 {#if showModal}
-	<div transition:fade={{ duration: 200 }} class="fixed top-0 left-0 h-full w-full overflow-hidden">
+	<div
+		transition:fade={{ duration: 200 }}
+		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
+	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
 			onclick={toggleModal}
