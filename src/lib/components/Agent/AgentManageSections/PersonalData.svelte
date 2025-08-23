@@ -50,12 +50,12 @@
 
 		let user = {
 			id: agent.id,
-			email: email.value,
+			email: formData.email,
 			info: {
-				full_name: `${last_name.value} ${first_name.value}`,
-				phone_number: phone_number.value,
-				hufa_code: hufa_code.value,
-				agent_code: agent_code.value
+				full_name: `${formData.last_name} ${formData.first_name}`,
+				phone_number: formData.phone_number,
+				hufa_code: formData.hufa_code,
+				agent_code: formData.agent_code
 			}
 		};
 
