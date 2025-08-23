@@ -1,7 +1,7 @@
 import { FileUser, Lock } from 'lucide-svelte';
 import { writable } from 'svelte/store';
 
-function createProfileStore(initialValue = false) {
+function createProfileModalStore(initialValue = false) {
 	const { subscribe, set, update } = writable(initialValue);
 
 	function toggle() {
@@ -21,7 +21,7 @@ function createProfileStore(initialValue = false) {
 	};
 }
 
-export const profileStore = createProfileStore();
+export const profileModalStore = createProfileModalStore();
 export const profileListStore = writable([
 	{ href: '/profile', title: 'Személyes adatok', icon: FileUser },
 	{ href: '/profile/security', title: 'Biztonság', icon: Lock }

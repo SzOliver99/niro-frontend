@@ -4,33 +4,29 @@
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
 	import { useTerminateUser } from '$lib/scripts/queries/user';
+	import { userManageModalStore, userTerminationModalStore } from '$lib/stores/user';
 
-	let {
-		showTerminationVerifyModal = $bindable(),
-		toggleTerminationVerify,
-		toggleModal,
-		agent
-	} = $props();
+	let { agent } = $props();
 
 	let terminateUser = useTerminateUser($page.data.token);
 	async function handleTermination() {
 		$terminateUser.mutate(agent.id, {
 			onSuccess: () => {
 				Notification.success('Sikeresen megbontottad a szerződést', 3);
-				toggleModal();
+				userManageModalStore.close();
 			}
 		});
 	}
 </script>
 
-{#if showTerminationVerifyModal}
+{#if $userTerminationModalStore}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 h-full w-full overflow-hidden rounded-lg"
 	>
 		<button
 			class="h-full w-full cursor-default bg-black/10"
-			onclick={toggleTerminationVerify}
+			onclick={userTerminationModalStore.close}
 			aria-label="Close modal"
 		></button>
 		<div
@@ -45,7 +41,7 @@
 				>
 				<button
 					class="hover:bg-primary-600 w-20 rounded-lg bg-blue-600 shadow-lg hover:scale-105"
-					onclick={toggleTerminationVerify}>Nem!</button
+					onclick={userTerminationModalStore.close}>Nem!</button
 				>
 			</div>
 		</div>

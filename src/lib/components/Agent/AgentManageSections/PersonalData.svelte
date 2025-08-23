@@ -5,10 +5,11 @@
 	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { userManageModalStore } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
 
-	let { agent, toggleModal } = $props();
+	let { agent } = $props();
 
 	let managers = createQuery({
 		queryKey: ['managers'],
@@ -61,7 +62,7 @@
 		$updateUser.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				toggleModal();
+				userManageModalStore.close();
 			}
 		});
 	}
@@ -78,7 +79,7 @@
 		$updateManagers.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				toggleModal();
+				userManageModalStore.close();
 			}
 		});
 	}

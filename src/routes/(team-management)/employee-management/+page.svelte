@@ -4,6 +4,7 @@
 	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUsersQuery } from '$lib/scripts/queries/user.js';
+	import { userHireModalStore } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
@@ -15,11 +16,6 @@
 		refetchInterval: 3000,
 		refetchIntervalInBackground: false
 	});
-
-	let showModal = $state(false);
-	function toggleModal() {
-		showModal = !showModal;
-	}
 </script>
 
 <section>
@@ -32,13 +28,13 @@
 			<div class="flex justify-center lg:justify-end">
 				<button
 					class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-nowrap text-white duration-200 hover:bg-blue-700"
-					onclick={toggleModal}
+					onclick={userHireModalStore.open}
 				>
 					<Plus class="shrink-0" />
 					<p>Üzletkötő felvétele</p>
 				</button>
 			</div>
-			<AgentHirePopover bind:showModal {toggleModal} />
+			<AgentHirePopover />
 		</div>
 
 		<div

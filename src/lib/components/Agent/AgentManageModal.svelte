@@ -7,8 +7,9 @@
 	import userApi from '$lib/scripts/apis/user';
 	import { page } from '$app/stores';
 	import AgentTerminationVerifyModal from './AgentTerminationVerifyModal.svelte';
+	import { userManageModalStore, userTerminationModalStore } from '$lib/stores/user';
 
-	let { showModal = $bindable(), toggleModal, agent } = $props();
+	let { agent } = $props();
 
 	let navTabs = $state({
 		opened: 'Személyes adatok',
@@ -19,21 +20,19 @@
 			{ title: 'Szerződések', icon: BookUser }
 		]
 	});
-
-	let showTerminationVerifyModal = $state();
-	function toggleTerminationVerify() {
-		showTerminationVerifyModal = !showTerminationVerifyModal;
-	}
 </script>
 
-{#if showModal}
+{#if $userManageModalStore}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
 	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
-			onclick={toggleModal}
+			onclick={() => {
+				userManageModalStore.close();
+				userTerminationModalStore.close();
+			}}
 			aria-label="Close modal"
 		></button>
 		<div
@@ -63,18 +62,13 @@
 						<div class="flex justify-end text-nowrap">
 							<button
 								class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-red-500 duration-200 hover:scale-105 disabled:scale-100"
-								onclick={toggleTerminationVerify}
+								onclick={userTerminationModalStore.open}
 								disabled={agent.role === 'Leader'}
 							>
 								<X class="shrink-0" stroke-width={1.5} />
 								<p>Szerződés bontása</p>
 							</button>
-							<AgentTerminationVerifyModal
-								bind:showTerminationVerifyModal
-								{toggleTerminationVerify}
-								{toggleModal}
-								{agent}
-							/>
+							<AgentTerminationVerifyModal {agent} />
 						</div>
 					{/if}
 				</div>
@@ -89,7 +83,7 @@
 
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Személyes adatok'}
-		<PersonalData {agent} {toggleModal} />
+		<PersonalData {agent} />
 	{:else if navTabs.opened === 'Címanyagok'}
 		<Contacts {agent} />
 	{:else if navTabs.opened === 'Időpontok'}

@@ -10,7 +10,7 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import background from '$lib/images/background.png';
 	import NotificationToast from '$lib/components/feedback/NotificationToast.svelte';
-	import { profileStore } from '$lib/stores/profile';
+	import { profileModalStore } from '$lib/stores/profile';
 	import ProfilePopover from '$lib/components/Profile/ProfileModal.svelte';
 
 	let { children, data } = $props();
@@ -39,7 +39,7 @@
 <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
 	<!-- svelte-ignore a11y_no_static_element_interactions -->
 	<!-- svelte-ignore a11y_click_events_have_key_events -->
-	<div class="flex h-screen w-screen overflow-hidden bg-white" onclick={profileStore.close}>
+	<div class="flex h-screen w-screen overflow-hidden bg-white" onclick={profileModalStore.close}>
 		{#if data.token}
 			<div>
 				<Sidebar {data} />
@@ -69,12 +69,12 @@
 						<button
 							class="relative z-10 shrink-0 cursor-pointer"
 							href="/profile"
-							onclick={profileStore.toggle}
+							onclick={profileModalStore.toggle}
 						>
 							<img
 								src="https://avatar.iran.liara.run/username?username={userFullName}"
 								class="w-12 duration-200"
-								class:drop-shadow-2xl={$profileStore}
+								class:drop-shadow-2xl={$profileModalStore}
 								alt="Profil"
 							/>
 						</button>

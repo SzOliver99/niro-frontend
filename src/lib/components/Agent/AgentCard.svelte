@@ -2,13 +2,9 @@
 	import { ArrowUpRight } from 'lucide-svelte';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import AgentManagePopover from './AgentManageModal.svelte';
+	import { userManageModalStore } from '$lib/stores/user';
 
 	let { agent = null } = $props();
-
-	let showModal = $state(false);
-	function toggleModal() {
-		showModal = !showModal;
-	}
 </script>
 
 <div
@@ -23,7 +19,7 @@
 		</div>
 		<button
 			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium duration-200 hover:scale-105 hover:bg-blue-700"
-			onclick={toggleModal}
+			onclick={userManageModalStore.open}
 		>
 			<span>Kezelés</span>
 			<ArrowUpRight />
@@ -31,5 +27,5 @@
 	</div>
 </div>
 {#if agent}
-	<AgentManagePopover bind:showModal {toggleModal} {agent} agent_id={agent.id} />
+	<AgentManagePopover {agent} />
 {/if}

@@ -1,11 +1,11 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { profileListStore, profileStore } from '$lib/stores/profile';
+	import { profileListStore, profileModalStore } from '$lib/stores/profile';
 	import { LogOut } from 'lucide-svelte';
 	import { scale } from 'svelte/transition';
 </script>
 
-{#if $profileStore}
+{#if $profileModalStore}
 	<div
 		in:scale={{ duration: 200 }}
 		out:scale={{ duration: 200 }}

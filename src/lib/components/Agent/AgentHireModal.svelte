@@ -5,11 +5,11 @@
 	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { userHireModalStore } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
-	let { showModal = $bindable(), toggleModal } = $props();
 	let is_manager = $state();
 
 	let managers = createQuery({
@@ -37,20 +37,20 @@
 		$createUser.mutate(agent, {
 			onSuccess: () => {
 				Notification.success('Sikeresen létrehoztad!', 3);
-				toggleModal();
+				userHireModalStore.close();
 			}
 		});
 	}
 </script>
 
-{#if showModal}
+{#if $userHireModalStore}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
 	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
-			onclick={toggleModal}
+			onclick={userHireModalStore.close}
 			aria-label="Close modal"
 		></button>
 		<div
