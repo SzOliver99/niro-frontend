@@ -6,6 +6,7 @@
 	import { checkPermission } from '$lib/scripts/utils';
 	import userApi from '$lib/scripts/apis/user';
 	import { page } from '$app/stores';
+	import AgentTerminationVerifyModal from './AgentTerminationVerifyModal.svelte';
 
 	let { showModal = $bindable(), toggleModal, agent } = $props();
 
@@ -19,13 +20,17 @@
 		]
 	});
 
-	async function handleTermination() {
-		let data = await userApi().terminateUserContact($page.data.token, agent.id);
+	let showTerminationVerifyModal = $state();
+	function toggleTerminationVerify() {
+		showTerminationVerifyModal = !showTerminationVerifyModal;
 	}
 </script>
 
 {#if showModal}
-	<div transition:fade={{ duration: 200 }} class="fixed top-0 left-0 h-full w-full overflow-hidden z-50">
+	<div
+		transition:fade={{ duration: 200 }}
+		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
+	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
 			onclick={toggleModal}
@@ -58,12 +63,18 @@
 						<div class="flex justify-end text-nowrap">
 							<button
 								class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-red-500 duration-200 hover:scale-105 disabled:scale-100"
-								onclick={handleTermination}
+								onclick={toggleTerminationVerify}
 								disabled={agent.role === 'Leader'}
 							>
 								<X class="shrink-0" stroke-width={1.5} />
 								<p>Szerződés bontása</p>
 							</button>
+							<AgentTerminationVerifyModal
+								bind:showTerminationVerifyModal
+								{toggleTerminationVerify}
+								{toggleModal}
+								{agent}
+							/>
 						</div>
 					{/if}
 				</div>

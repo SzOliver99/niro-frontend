@@ -1,33 +1,33 @@
 // All user API functions are now inside userApi
 
-import { Notification } from "$lib/stores/notifications";
+import { Notification } from '$lib/stores/notifications';
 
 const userApi = (customFetch = fetch) => ({
 	// Authentication endpoints
 	signIn: async (username, password) => {
 		const response = await customFetch('/api/user/sign-in/username', {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({ username, password })
 		});
 		return await response.json();
 	},
 
-	signUp: async (user, userToken) => {
+	signUp: async (userToken, user) => {
 		const response = await customFetch('/api/user/sign-up', {
-			method: "POST",
+			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
 				Authorization: userToken
 			},
 			body: JSON.stringify(user)
 		});
-		const data = await response.json()
+		const data = await response.json();
 		if (!response.ok) {
-			Notification.error(data.error, 3)
-			throw Error(data.error)
+			Notification.error(data.error, 3);
+			throw Error(data.error);
 		}
 
 		return data;
@@ -63,17 +63,17 @@ const userApi = (customFetch = fetch) => ({
 
 	modifyUserInfo: async (userToken, user) => {
 		const response = await customFetch('/api/user/info/modify', {
-			method: "PUT",
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken,
+				Authorization: userToken
 			},
 			body: JSON.stringify(user)
 		});
-		const data = await response.json()
+		const data = await response.json();
 		if (!response.ok) {
-			Notification.error(data.error, 3)
-			throw Error(data.error)
+			Notification.error(data.error, 3);
+			throw Error(data.error);
 		}
 
 		return data;
@@ -81,17 +81,17 @@ const userApi = (customFetch = fetch) => ({
 
 	modifyUserManager: async (userToken, user) => {
 		const response = await customFetch('/api/user/manager/modify', {
-			method: "PUT",
+			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken,
+				Authorization: userToken
 			},
 			body: JSON.stringify(user)
 		});
-		const data = await response.json()
+		const data = await response.json();
 		if (!response.ok) {
-			Notification.error(data.error, 3)
-			throw Error(data.error)
+			Notification.error(data.error, 3);
+			throw Error(data.error);
 		}
 
 		return data;
@@ -99,20 +99,15 @@ const userApi = (customFetch = fetch) => ({
 
 	terminateUserContact: async (userToken, user_id) => {
 		const response = await customFetch('/api/user/terminate', {
-			method: "DELETE",
+			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken,
+				Authorization: userToken
 			},
 			body: JSON.stringify(user_id)
 		});
-		const data = await response.json()
-		if (!response.ok) {
-			Notification.error(data.error, 3)
-			throw Error(data.error)
-		}
 
-		return data;
+		return response;
 	},
 
 	getUserRole: async (userToken) => {
@@ -126,9 +121,9 @@ const userApi = (customFetch = fetch) => ({
 
 	completeFirstLogin: async (new_password, token) => {
 		const response = await customFetch('/api/user/first-login/finish', {
-			method: "POST",
+			method: 'POST',
 			headers: {
-				'Content-Type': 'application/json',
+				'Content-Type': 'application/json'
 			},
 			body: JSON.stringify({
 				new_password,

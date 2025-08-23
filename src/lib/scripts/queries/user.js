@@ -39,10 +39,23 @@ export const useCreateUsers = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi().signUp(user, user_token),
+		mutationFn: async (user) => await userApi().signUp(user_token, user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+		}
+	});
+};
+
+export const useTerminateUser = (user_token) => {
+	const queryClient = useQueryClient();
+
+	return createMutation({
+		mutationFn: async (user) => await userApi().terminateUserContact(user_token, user),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users'] });
+			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
 };

@@ -1,6 +1,6 @@
 <script>
 	import Agent from '$lib/components/Agent/AgentCard.svelte';
-	import AgentHirePopover from '$lib/components/Agent/AgentHirePopover.svelte';
+	import AgentHirePopover from '$lib/components/Agent/AgentHireModal.svelte';
 	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
 	import { getManagerGroupQuery } from '$lib/scripts/queries/user.js';
 	import { createQuery } from '@tanstack/svelte-query';

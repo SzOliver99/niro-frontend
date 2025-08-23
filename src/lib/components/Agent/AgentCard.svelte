@@ -1,7 +1,7 @@
 <script>
 	import { ArrowUpRight } from 'lucide-svelte';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
-	import AgentManagePopover from './AgentManagePopover.svelte';
+	import AgentManagePopover from './AgentManageModal.svelte';
 
 	let { agent = null } = $props();
 

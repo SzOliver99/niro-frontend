@@ -11,7 +11,7 @@
 	import background from '$lib/images/background.png';
 	import NotificationToast from '$lib/components/feedback/NotificationToast.svelte';
 	import { profileStore } from '$lib/stores/profile';
-	import ProfilePopover from '$lib/components/Profile/ProfilePopover.svelte';
+	import ProfilePopover from '$lib/components/Profile/ProfileModal.svelte';
 
 	let { children, data } = $props();
 
