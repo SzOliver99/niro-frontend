@@ -1,25 +1,59 @@
-import { writable } from 'svelte/store';
+import { get, writable } from 'svelte/store';
 
-function createModalStore(initialValue = false) {
-	const { subscribe, set, update } = writable(initialValue);
+function createHireModalStore(initialValue = false) {
+	const store = writable(initialValue);
 
 	function open() {
-		set(true);
+		store.set(true);
 	}
 
 	function close() {
-		set(false);
+		store.set(false);
 	}
 
 	return {
-		subscribe,
-		set,
-		update,
+		...store,
 		open,
 		close
 	};
 }
 
-export const userHireModalStore = createModalStore();
-export const userManageModalStore = createModalStore();
-export const userTerminationModalStore = createModalStore();
+export function createModalStore(user_id, modals = { Manage: false, Termination: false }) {
+	const store = writable({ user_id, modals });
+
+	function open(type) {
+		store.update((state) => {
+			state.modals[type] = true;
+			console.log(get(store));
+			return state;
+		});
+	}
+
+	function close(type = null) {
+		store.update((state) => {
+			if (type) {
+				state.modals[type] = false;
+			} else {
+				state.modals = Object.fromEntries(
+					Object.entries(state.modals).map(([key, value]) => [key, false])
+				);
+			}
+			return state;
+		});
+	}
+
+	function isOpen(type) {
+		const currentState = get(store);
+		return currentState.modals[type];
+	}
+
+	return {
+		...store,
+		open,
+		close,
+		isOpen
+	};
+}
+
+export const userHireModalStore = createHireModalStore();
+export const userManageModalsStore = writable([]);

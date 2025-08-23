@@ -16,12 +16,6 @@ export const getManagerGroupQuery = (user_token) =>
 		refetchIntervalInBackground: false
 	});
 
-export const getManagersQuery = () =>
-	queryOptions({
-		queryKey: ['managers'],
-		queryFn: () => userApi().getManagers()
-	});
-
 export const useUpdateUsers = (user_token) => {
 	const queryClient = useQueryClient();
 

@@ -133,8 +133,14 @@ const userApi = (customFetch = fetch) => ({
 		return await response.json();
 	},
 
-	getManagers: async () => {
-		const response = await customFetch('/api/user/managers');
+	getManagers: async (user_id = null) => {
+		const response = await customFetch('/api/user/managers', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(user_id)
+		});
 		return await response.json();
 	},
 

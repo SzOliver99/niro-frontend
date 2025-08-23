@@ -5,15 +5,15 @@
 	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
-	import { userManageModalStore } from '$lib/stores/user';
+	import { userManageModalsStore } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
 
 	let { agent } = $props();
 
 	let managers = createQuery({
-		queryKey: ['managers'],
-		queryFn: () => userApi().getManagers()
+		queryKey: ['managers', agent.id],
+		queryFn: () => userApi().getManagers(agent.id)
 	});
 
 	let formData = $state({
@@ -62,7 +62,7 @@
 		$updateUser.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalStore.close();
+				userManageModalsStore.close();
 			}
 		});
 	}
@@ -79,7 +79,7 @@
 		$updateManagers.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalStore.close();
+				userManageModalsStore.close();
 			}
 		});
 	}
