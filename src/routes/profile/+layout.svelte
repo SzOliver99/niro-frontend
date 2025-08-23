@@ -1,14 +1,10 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
-	import { FileUser, Lock, LogOut } from 'lucide-svelte';
+	import { profileListStore } from '$lib/stores/profile';
 	let { children, data } = $props();
 
-	const list = $state([
-		{ href: '/profile', title: 'Személyes adatok', icon: FileUser },
-		{ href: '/profile/security', title: 'Biztonság', icon: Lock }
-	]);
-	let currentPage = $state(list[0]);
+	let currentPage = $state();
 
 	let loggedIn = $state();
 	$effect(async () => {
@@ -16,7 +12,7 @@
 	});
 
 	$effect.pre(() => {
-		currentPage = list.find((item) => item.href === $page.url.pathname);
+		currentPage = $profileListStore.find((item) => item.href === $page.url.pathname).href;
 	});
 </script>
 
@@ -29,26 +25,17 @@
 			<div class="rounded-lg bg-white shadow-lg ring ring-black/10">
 				<div class="flex h-full justify-between border-b border-black/10 py-2 *:font-medium">
 					<div class="flex flex-row *:duration-200 *:hover:scale-105">
-						{#each list as item}
+						{#each $profileListStore as item}
 							<a
 								href={item.href}
 								class="flex items-center rounded-lg px-3 py-2 text-sm"
-								class:text-blue-600={item === currentPage}
+								class:text-blue-600={item.href === currentPage}
 							>
 								<item.icon class="md:me-2" stroke-width={1.5} />
 								<p>{item.title}</p>
 							</a>
 						{/each}
 					</div>
-					<button
-						class="flex items-center rounded-lg px-3 py-2 text-sm text-red-800 duration-200 hover:scale-105"
-						onclick={() => {
-							goto('/profile/logout');
-						}}
-					>
-						<LogOut class="md:me-2" stroke-width={1.5} />
-						<p>Kijelentkezés</p>
-					</button>
 				</div>
 				<div class="w-full overflow-y-auto">
 					{@render children()}

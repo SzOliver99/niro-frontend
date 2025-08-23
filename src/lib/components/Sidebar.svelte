@@ -17,8 +17,9 @@
 		Users
 	} from 'lucide-svelte';
 	import { onMount } from 'svelte';
+	import { sideBarStore } from '$lib/stores/sidebar';
 
-	let { isMenuOpen = $bindable(), data } = $props();
+	let { data } = $props();
 
 	const sidebarSections = {
 		sales: {
@@ -30,8 +31,7 @@
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
 				{ href: '/to-do', label: 'Teendők', icon: Calendar1 },
-				{ href: '/goals', label: 'Célok', icon: Calendar1 },
-
+				{ href: '/goals', label: 'Célok', icon: Calendar1 }
 			]
 		},
 		teamManagement: {
@@ -74,28 +74,28 @@
 
 <div
 	class="sidebar relative flex h-full flex-col bg-white p-2 shadow-2xl transition-all duration-200"
-	class:items-center={!isMenuOpen}
-	class:rounded-r-lg={isMenuOpen}
-	class:closed={!isMenuOpen}
+	class:items-center={!$sideBarStore}
+	class:rounded-r-lg={$sideBarStore}
+	class:closed={!$sideBarStore}
 >
 	<!-- Toggle button -->
-	{#if isMenuOpen}
+	{#if $sideBarStore}
 		<div class="absolute top-6 right-4">
-			<button onclick={() => (isMenuOpen = false)}>
+			<button onclick={sideBarStore.close}>
 				<ArrowLeftToLine class="duration-200 hover:text-blue-600" />
 			</button>
 		</div>
 	{:else}
 		<div class="absolute top-6">
-			<button onclick={() => (isMenuOpen = true)}>
+			<button onclick={sideBarStore.open}>
 				<ArrowRightFromLine class="duration-200 hover:text-blue-600" />
 			</button>
 		</div>
 	{/if}
 
 	<!-- Logo -->
-	<div class="ms-2 mt-3 flex">
-		{#if isMenuOpen}
+	<div class="ms-2 mt-3 flex text-nowrap">
+		{#if $sideBarStore}
 			<a
 				href="/"
 				class="text-2xl font-bold text-black duration-200 text-shadow-md hover:text-blue-600"
@@ -112,7 +112,7 @@
 				<h3
 					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
 				>
-					{#if isMenuOpen}
+					{#if $sideBarStore}
 						{sidebarSections.sales.category}
 					{:else}
 						<p class="text-center">...</p>
@@ -131,7 +131,7 @@
 									: ''}"
 							>
 								<link.icon class="shrink-0 text-blue-600 group-hover:scale-115" />
-								{#if isMenuOpen}
+								{#if $sideBarStore}
 									<p class="group-hover:text-blue-600">{link.label}</p>
 								{/if}
 							</a>
@@ -147,7 +147,7 @@
 				<h3
 					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
 				>
-					{#if isMenuOpen}
+					{#if $sideBarStore}
 						{sidebarSections.teamManagement.category}
 					{:else}
 						<p class="text-center">...</p>
@@ -168,7 +168,7 @@
 										: ''}"
 								>
 									<link.icon class="shrink-0 text-blue-600 group-hover:scale-115" />
-									{#if isMenuOpen}
+									{#if $sideBarStore}
 										<p class="group-hover:text-blue-600">{link.label}</p>
 									{/if}
 								</a>
@@ -185,7 +185,7 @@
 				<h3
 					class="mb-2 bg-gradient-to-r from-blue-600 to-pink bg-clip-text font-medium text-transparent uppercase"
 				>
-					{#if isMenuOpen}
+					{#if $sideBarStore}
 						{sidebarSections.usefulLinks.category}
 					{:else}
 						<p class="text-center">...</p>
@@ -205,7 +205,7 @@
 									: ''}"
 							>
 								<link.icon class="shrink-0 text-blue-600 group-hover:scale-115" />
-								{#if isMenuOpen}
+								{#if $sideBarStore}
 									<p class="group-hover:text-blue-600">{link.label}</p>
 								{/if}
 							</a>

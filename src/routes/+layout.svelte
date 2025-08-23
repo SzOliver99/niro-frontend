@@ -10,18 +10,16 @@
 	import Sidebar from '$lib/components/Sidebar.svelte';
 	import background from '$lib/images/background.png';
 	import NotificationToast from '$lib/components/feedback/NotificationToast.svelte';
+	import { profileStore } from '$lib/stores/profile';
+	import ProfilePopover from '$lib/components/Profile/ProfilePopover.svelte';
 
 	let { children, data } = $props();
-	let userFullName = $state('');
 
+	let userFullName = $state('');
 	$effect.pre(async () => {
 		if (data.token) {
-			try {
-				const res_data = await userApi().getUserInfo(data.token);
-				userFullName = res_data.full_name;
-			} catch (error) {
-				console.error('Failed to fetch user info:', error);
-			}
+			const res_data = await userApi().getUserInfo(data.token);
+			userFullName = res_data.full_name;
 		}
 	});
 
@@ -36,15 +34,15 @@
 	const persister = createAsyncStoragePersister({
 		storage: browser ? window.localStorage : null
 	});
-
-	let isMenuOpen = $state(true);
 </script>
 
 <PersistQueryClientProvider client={queryClient} persistOptions={{ persister }}>
-	<div class="flex h-screen w-screen overflow-hidden bg-white">
+	<!-- svelte-ignore a11y_no_static_element_interactions -->
+	<!-- svelte-ignore a11y_click_events_have_key_events -->
+	<div class="flex h-screen w-screen overflow-hidden bg-white" onclick={profileStore.close}>
 		{#if data.token}
 			<div>
-				<Sidebar bind:isMenuOpen {data} />
+				<Sidebar {data} />
 			</div>
 		{/if}
 
@@ -60,14 +58,27 @@
 							<p class="me-5">Keresés...</p>
 						</button>
 					</div>
-					<div>
-						<a href="/profile">
+					<div
+						class="flex"
+						onclick={(e) => {
+							if (e.target.tagName !== 'A') {
+								e.stopPropagation();
+							}
+						}}
+					>
+						<button
+							class="relative z-10 shrink-0 cursor-pointer"
+							href="/profile"
+							onclick={profileStore.toggle}
+						>
 							<img
 								src="https://avatar.iran.liara.run/username?username={userFullName}"
-								class="w-12"
+								class="w-12 duration-200"
+								class:drop-shadow-2xl={$profileStore}
 								alt="Profil"
 							/>
-						</a>
+						</button>
+						<ProfilePopover />
 					</div>
 				</header>
 			{/if}
