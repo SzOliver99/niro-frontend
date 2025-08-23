@@ -10,11 +10,14 @@
 	import { Check, Save } from 'lucide-svelte';
 
 	let { agent } = $props();
+	console.log(agent.id);
+	
 
 	let managers = createQuery({
 		queryKey: ['managers', agent.id],
 		queryFn: () => userApi().getManagers(agent.id)
 	});
+	console.log($managers.data);
 
 	let formData = $state({
 		last_name: '',

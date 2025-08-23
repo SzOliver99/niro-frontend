@@ -24,7 +24,6 @@ export function createModalStore(user_id, modals = { Manage: false, Termination:
 	function open(type) {
 		store.update((state) => {
 			state.modals[type] = true;
-			console.log(get(store));
 			return state;
 		});
 	}
