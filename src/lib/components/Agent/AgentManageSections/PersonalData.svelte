@@ -9,15 +9,12 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
 
-	let { agent } = $props();
-	console.log(agent.id);
-	
+	let { agent, userManageModalStore = $bindable() } = $props();
 
 	let managers = createQuery({
 		queryKey: ['managers', agent.id],
 		queryFn: () => userApi().getManagers(agent.id)
 	});
-	console.log($managers.data);
 
 	let formData = $state({
 		last_name: '',
@@ -65,7 +62,7 @@
 		$updateUser.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalsStore.close();
+				userManageModalStore.close();
 			}
 		});
 	}
@@ -82,7 +79,7 @@
 		$updateManagers.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalsStore.close();
+				userManageModalStore.close();
 			}
 		});
 	}

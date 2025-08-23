@@ -84,7 +84,7 @@
 
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Személyes adatok'}
-		<PersonalData {agent} />
+		<PersonalData {agent} bind:userManageModalStore />
 	{:else if navTabs.opened === 'Címanyagok'}
 		<Contacts {agent} />
 	{:else if navTabs.opened === 'Időpontok'}
