@@ -73,7 +73,8 @@
 						>
 							<img
 								src="https://avatar.iran.liara.run/username?username={userFullName}"
-								class="w-12 duration-200 hover:scale-110  origin-top-right"
+								class="w-12 origin-top-right duration-200 hover:scale-110"
+								class:scale-110={$profileModalStore}
 								class:drop-shadow-2xl={$profileModalStore}
 								alt="Profil"
 							/>
