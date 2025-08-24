@@ -34,10 +34,31 @@
 			agent['manager_id'] = +user_manager.value;
 		}
 
+		// Regex for validation
+		const email_rgx = new RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
+		const phone_number_length = agent.info.phone_number.length === 15;
+		const hufa_code_rgx = new RegExp(/\b[a-z]{2}\d{5}/g);
+		const agent_code_rgx = new RegExp(/\d{7}/g);
+		if (!email_rgx.test(agent.email.trim())) {
+			Notification.error('Hibás email', 3);
+		}
+		if (!phone_number_length) {
+			Notification.error('Túl rövid telefonszám', 3);
+		}
+		if (!hufa_code_rgx.test(agent.info.hufa_code.trim())) {
+			Notification.error('Hibás HUFA kód', 3);
+		}
+		if (!agent_code_rgx.test(agent.info.agent_code.trim())) {
+			Notification.error('Hibás üzletkötő kód', 3);
+		}
+
 		$createUser.mutate(agent, {
 			onSuccess: () => {
 				Notification.success('Sikeresen létrehoztad!', 3);
 				userHireModalStore.close();
+			},
+			onError: (error) => {
+				console.error(error);
 			}
 		});
 	}
@@ -122,6 +143,7 @@
 					<input
 						name="phone_number"
 						id="phone_number"
+						maxlength="15"
 						type="tel"
 						oninput={formatPhoneNumber}
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
@@ -135,6 +157,7 @@
 						<input
 							name="hufa_code"
 							id="hufa_code"
+							maxlength="7"
 							type="text"
 							placeholder="ab12345"
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
@@ -147,6 +170,7 @@
 						<input
 							name="agent_code"
 							id="agent_code"
+							maxlength="7"
 							type="text"
 							placeholder="1234567"
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
