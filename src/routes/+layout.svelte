@@ -67,13 +67,13 @@
 						}}
 					>
 						<button
-							class="relative z-10 shrink-0 cursor-pointer"
+							class="relative z-10 cursor-pointer"
 							href="/profile"
 							onclick={profileModalStore.toggle}
 						>
 							<img
 								src="https://avatar.iran.liara.run/username?username={userFullName}"
-								class="w-12 duration-200"
+								class="w-12 duration-200 hover:scale-110  origin-top-right"
 								class:drop-shadow-2xl={$profileModalStore}
 								alt="Profil"
 							/>
