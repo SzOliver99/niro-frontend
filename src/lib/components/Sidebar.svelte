@@ -26,6 +26,7 @@
 			category: 'Értékesítés',
 			permissionRequired: false,
 			items: [
+				{ href: '/customers', label: 'Ügyfelek', icon: Table },
 				{ href: '/leads', label: 'Címanyag', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },

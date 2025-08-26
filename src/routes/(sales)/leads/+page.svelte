@@ -1,5 +1,6 @@
 <script>
 	import DataTable from '$lib/components/data/DataTable.svelte';
+	import { Plus } from 'lucide-svelte';
 
 	const columns = [
 		{ key: 'name', label: 'Név' },
@@ -9,7 +10,8 @@
 		{ key: 'leadType', label: 'Címanyag típus' },
 		{ key: 'inquiryType', label: 'Megkeresés jellege' },
 		{ key: 'status', label: 'Státusz' },
-		{ key: 'handleAt', label: 'Dátum' }
+		{ key: 'handleAt', label: 'Dátum' },
+		{ key: '', label: 'Üzletkötő' },
 	];
 
 	const leadTypes = {
@@ -200,11 +202,439 @@
 					Math.floor(Math.random() * Object.entries(statusTypes).length)
 				][1],
 			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
+		},
+		{
+			id: 12,
+			name: 'Liam Martin',
+			phone: '+36 70 234 5678',
+			email: 'liam@example.com',
+			address: 'Sopron, Várkerület 12.',
+			leadType:
+				Object.entries(leadTypes)[Math.floor(Math.random() * Object.entries(leadTypes).length)][1],
+			inquiryType: 'Kapcsolatfelvétel',
+			status:
+				Object.entries(statusTypes)[
+					Math.floor(Math.random() * Object.entries(statusTypes).length)
+				][1],
+			handleAt: '2025-08-12'
 		}
 	];
 </script>
 
 <div class="p-4">
-	<h1 class="mb-4 text-xl font-semibold">Leads</h1>
-	<DataTable {data} {columns} searchable={true} filterable={true} sortable={true} pageSize={10} />
+	<div class="flex justify-between text-center">
+		<h1 class="mb-4 text-xl font-semibold">Címanyagok</h1>
+		<button
+			class="bg-gray me-4 flex items-center rounded-lg bg-blue-600 px-3 py-2 text-center text-nowrap text-white duration-200 hover:bg-blue-700"
+		>
+			<Plus />
+			<p>Címanyag hozzáadása</p>
+		</button>
+	</div>
+	<DataTable {data} {columns} searchable={true} filterable={true} sortable={true} pageSize={30} />
 </div>

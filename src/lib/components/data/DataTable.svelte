@@ -106,7 +106,7 @@
 				{#if filterable}
 					<button
 						onclick={clearFilters}
-						class="px-4 py-2 text-sm text-gray-600 hover:text-gray-800"
+						class="rounded-lg border-1 border-black/30 px-4 py-2 text-sm shadow-2xl duration-200 hover:bg-black/20"
 					>
 						Szűrők törlése
 					</button>
@@ -154,7 +154,7 @@
 
 	{#if totalPages > 1}
 		<div class="border-t border-gray-200 px-6 py-3">
-			<div class="flex items-center justify-between">
+			<div class="flex flex-wrap items-center justify-between text-nowrap">
 				<div class="text-sm text-gray-700">
 					{filteredData().length} találat
 				</div>
