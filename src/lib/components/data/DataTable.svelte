@@ -111,6 +111,11 @@
 						Szűrők törlése
 					</button>
 				{/if}
+				<button
+					class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-800"
+				>
+					Üzletkötő módosítása
+				</button>
 			</div>
 		</div>
 	{/if}
