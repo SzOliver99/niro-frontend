@@ -5,7 +5,7 @@ import { Notification } from '$lib/stores/notifications';
 const userApi = (customFetch = fetch) => ({
 	// Authentication endpoints
 	signIn: async (username, password) => {
-		const response = await customFetch('/api/user/sign-in/username', {
+		const response = await customFetch('/api/user/login/username', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -15,12 +15,12 @@ const userApi = (customFetch = fetch) => ({
 		return await response.json();
 	},
 
-	signUp: async (userToken, user) => {
-		const response = await customFetch('/api/user/sign-up', {
+	signUp: async (user_token, user) => {
+		const response = await customFetch('/api/user/register', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken
+				Authorization: user_token
 			},
 			body: JSON.stringify(user)
 		});
@@ -34,39 +34,39 @@ const userApi = (customFetch = fetch) => ({
 	},
 
 	// User management endpoints
-	getAllUsers: async (userToken) => {
-		const response = await customFetch('/api/user/get-all', {
+	getAllUsers: async (user_token) => {
+		const response = await customFetch('/api/user/all', {
 			headers: {
-				Authorization: userToken
+				Authorization: user_token
 			}
 		});
 		return await response.json();
 	},
 
-	getManagerGroup: async (userToken) => {
-		const response = await customFetch('/api/user/manager/get-all', {
+	getManagerGroup: async (user_token) => {
+		const response = await customFetch('/api/user/managers/group', {
 			headers: {
-				Authorization: userToken
+				Authorization: user_token
 			}
 		});
 		return await response.json();
 	},
 
-	getUserInfo: async (userToken) => {
-		const response = await customFetch('/api/user/info/get', {
+	getUserInfo: async (user_token) => {
+		const response = await customFetch('/api/user/info', {
 			headers: {
-				Authorization: userToken
+				Authorization: user_token
 			}
 		});
 		return await response.json();
 	},
 
-	modifyUserInfo: async (userToken, user) => {
-		const response = await customFetch('/api/user/info/modify', {
+	modifyUserInfo: async (user_token, user) => {
+		const response = await customFetch('/api/user/info', {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken
+				Authorization: user_token
 			},
 			body: JSON.stringify(user)
 		});
@@ -79,12 +79,12 @@ const userApi = (customFetch = fetch) => ({
 		return data;
 	},
 
-	modifyUserManager: async (userToken, user) => {
-		const response = await customFetch('/api/user/manager/modify', {
+	modifyUserManager: async (user_token, user) => {
+		const response = await customFetch('/api/user/manager', {
 			method: 'PUT',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken
+				Authorization: user_token
 			},
 			body: JSON.stringify(user)
 		});
@@ -97,12 +97,12 @@ const userApi = (customFetch = fetch) => ({
 		return data;
 	},
 
-	terminateUserContact: async (userToken, user_id) => {
-		const response = await customFetch('/api/user/terminate', {
+	terminateUserContact: async (user_token, user_id) => {
+		const response = await customFetch('/api/user/delete', {
 			method: 'DELETE',
 			headers: {
 				'Content-Type': 'application/json',
-				Authorization: userToken
+				Authorization: user_token
 			},
 			body: JSON.stringify(user_id)
 		});
@@ -110,17 +110,17 @@ const userApi = (customFetch = fetch) => ({
 		return response;
 	},
 
-	getUserRole: async (userToken) => {
-		const response = await customFetch('/api/user/role/get', {
+	getUserRole: async (user_token) => {
+		const response = await customFetch('/api/user/role', {
 			headers: {
-				Authorization: userToken
+				Authorization: user_token
 			}
 		});
 		return await response.json();
 	},
 
 	completeFirstLogin: async (new_password, token) => {
-		const response = await customFetch('/api/user/first-login/finish', {
+		const response = await customFetch('/api/user/first-login/complete', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -134,7 +134,7 @@ const userApi = (customFetch = fetch) => ({
 	},
 
 	getManagers: async (user_id = 0) => {
-		const response = await customFetch('/api/user/managers', {
+		const response = await customFetch('/api/user/managers/list', {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -144,10 +144,19 @@ const userApi = (customFetch = fetch) => ({
 		return await response.json();
 	},
 
-	validateToken: async (userToken) => {
+	getUserSubUsers: async (user_token) => {
+		const response = await customFetch('/api/user/sub-users', {
+			headers: {
+				Authorization: user_token
+			}
+		});
+		return await response.json();
+	},
+
+	validateToken: async (user_token) => {
 		const response = await customFetch('/api/user/protected', {
 			headers: {
-				Authorization: userToken
+				Authorization: user_token
 			}
 		});
 		return await response.json();

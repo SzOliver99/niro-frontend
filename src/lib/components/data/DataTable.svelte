@@ -1,5 +1,7 @@
 <script>
-	import { ChevronDown, ChevronUp, Search, Filter } from 'lucide-svelte';
+	import { changeCustomerUserStore } from '$lib/stores/user';
+	import { ChevronDown, ChevronUp, Search, Filter, X, TestTube } from 'lucide-svelte';
+	import ChangeCustomerUserModal from '../User/ChangeCustomerUserModal.svelte';
 
 	let {
 		data = [],
@@ -16,6 +18,7 @@
 	let sortColumn = $state('');
 	let sortDirection = $state('asc');
 	let filters = $state({});
+	let selectedRows = $state([]);
 
 	let filteredData = $derived(() => {
 		let result = [...data];
@@ -77,9 +80,23 @@
 
 	function clearFilters() {
 		filters = {};
+		selectedRows = [];
 		sortColumn = '';
 		searchTerm = '';
 		currentPage = 1;
+	}
+
+	function toggleSelectedRow(selectedRowId) {
+		if (selectedRows.includes(selectedRowId)) {
+			selectedRows = selectedRows.filter((row) => row !== selectedRowId);
+			return;
+		}
+
+		selectedRows.push(selectedRowId);
+	}
+
+	function modifySelectedRowsUser() {
+		changeCustomerUserStore.open();
 	}
 </script>
 
@@ -106,21 +123,24 @@
 				{#if filterable}
 					<button
 						onclick={clearFilters}
-						class="rounded-lg border-1 border-black/30 px-4 py-2 text-sm shadow-2xl duration-200 hover:bg-black/20"
+						class="rounded-lg border-1 border-gray-300 px-4 py-2 text-sm shadow-2xl duration-200 hover:border-gray-500"
 					>
 						Szűrők törlése
 					</button>
 				{/if}
 				<button
-					class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-800"
+					class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700 disabled:bg-blue-800"
+					disabled={selectedRows.length === 0}
+					onclick={modifySelectedRowsUser}
 				>
 					Üzletkötő módosítása
 				</button>
+				<ChangeCustomerUserModal bind:selectedRows />
 			</div>
 		</div>
 	{/if}
 
-	<div class="overflow-x-auto">
+	<div class="overflow-x-auto rounded-b-lg">
 		<table class="w-full">
 			<thead class="bg-gray-50">
 				<tr>
@@ -147,9 +167,30 @@
 				{#each paginatedData() as item, index}
 					<tr class="hover:bg-gray-50" onclick={() => console.log(item.id)}>
 						{#each columns as column}
-							<td class="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
-								{item[column.key]}
-							</td>
+							{#if column.key === 'action'}
+								<td class="px-5">
+									<label
+										class="group flex h-5 w-5 items-center rounded border-2 border-gray-300 bg-white duration-200 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-600"
+									>
+										<input
+											type="checkbox"
+											checked={selectedRows.includes(item.id)}
+											onchange={() => toggleSelectedRow(item.id)}
+											class="sr-only"
+										/>
+
+										<X class="hidden text-white group-has-[:checked]:block" />
+									</label>
+								</td>
+							{:else}
+								<td class="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
+									{#if column.action}
+										{column.action(item.user_id)}
+									{:else}
+										{item[column.key]}
+									{/if}
+								</td>
+							{/if}
 						{/each}
 					</tr>
 				{/each}

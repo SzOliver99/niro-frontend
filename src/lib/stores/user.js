@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 
-function createHireModalStore(initialValue = false) {
+function createSimpleModalStore(initialValue = false) {
 	const store = writable(initialValue);
 
 	function open() {
@@ -54,5 +54,6 @@ export function createModalStore(user_id, modals = { Manage: false, Termination:
 	};
 }
 
-export const userHireModalStore = createHireModalStore();
+export const userHireModalStore = createSimpleModalStore();
+export const changeCustomerUserStore = createSimpleModalStore();
 export const userManageModalsStore = writable([]);

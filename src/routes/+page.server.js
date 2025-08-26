@@ -33,8 +33,6 @@ export const actions = {
 		const form_data = await request.formData();
 		const password = form_data.get('password')?.toString();
 		const password_confirm = form_data.get('password_confirm')?.toString();
-		console.log(password, password_confirm);
-
 
 		if (password !== password_confirm) {
 			Notification.error("Nem eggyezik meg a két jelszó")

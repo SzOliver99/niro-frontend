@@ -3,15 +3,16 @@
 	import { Plus } from 'lucide-svelte';
 
 	const columns = [
+		{ key: 'action', label: '#' },
 		{ key: 'name', label: 'Név' },
 		{ key: 'phone', label: 'Telefonszám' },
 		{ key: 'email', label: 'Email' },
 		{ key: 'address', label: 'Lakcím' },
 		{ key: 'leadType', label: 'Címanyag típus' },
 		{ key: 'inquiryType', label: 'Megkeresés jellege' },
-		{ key: 'status', label: 'Státusz' },
+		{ key: 'leadStatus', label: 'Státusz' },
 		{ key: 'handleAt', label: 'Dátum' },
-		{ key: '', label: 'Üzletkötő' },
+		{ key: 'userModify', label: 'Üzletkötő' }
 	];
 
 	const leadTypes = {
