@@ -4,20 +4,23 @@
 
 	let { data } = $props();
 
-	let userInfo = $state({});
+	let user = $state({});
 	$effect.pre(async () => {
-		userInfo = await userApi().getUserInfo(data.token);
+		user = await userApi().getUserInfo(data.token);
 	});
 
-	const getUserLastName = () => userInfo.full_name?.split(' ')[0];
-	const getUserFirstName = () => userInfo.full_name?.split(' ')[1];
+	const getUserLastName = () => user.info?.full_name.split(' ')[0];
+	const getUserFirstName = () => user.info?.full_name.split(' ')[1];
+
+	async function handleSubmit() {
+		console.log(user);
+	}
 </script>
 
 <section class="w-full px-4 py-3">
 	<h2 class="text-xl italic">Személyes adatok</h2>
 
-	<!-- {#await getUserInfo() then userInfo} -->
-	<form id="informations" class="rounded-lg p-3">
+	<form onsubmit={handleSubmit} class="rounded-lg p-3">
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
 			<div>
 				<label for="lastName" class="block text-sm font-medium">Vezetéknév*</label>
@@ -26,7 +29,7 @@
 					id="lastName"
 					name="lastName"
 					placeholder="Doe"
-					value={getUserLastName() || ''}
+					value={getUserLastName()}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -38,7 +41,7 @@
 					id="firstName"
 					name="firstName"
 					placeholder="John"
-					value={getUserFirstName() || ''}
+					value={getUserFirstName()}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -50,7 +53,7 @@
 					id="email"
 					name="email"
 					placeholder="test@test.hu"
-					value={userInfo.phone_number || ''}
+					bind:value={user.email}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -62,9 +65,33 @@
 					id="phone"
 					name="phone_number"
 					placeholder="+36 12 345 7891"
-					value={userInfo.phone_number || ''}
+					value={user.info?.phone_number}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+				/>
+			</div>
+			<div>
+				<label for="hufa_code" class="block text-sm font-medium">Hufa kód</label>
+				<input
+					type="text"
+					id="hufa_code"
+					name="hufa_code"
+					placeholder="ab12345"
+					value={user.info?.hufa_code}
+					disabled
+					class="mt-1 block w-full rounded-md px-3 py-2 text-black/60 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+				/>
+			</div>
+			<div>
+				<label for="agent_code" class="block text-sm font-medium">Ügynökségi kód</label>
+				<input
+					type="text"
+					id="agent_code"
+					name="agent_code"
+					placeholder="1234567"
+					value={user.info?.agent_code}
+					disabled
+					class="mt-1 block w-full rounded-md px-3 py-2 text-black/60 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
 		</div>
@@ -78,6 +105,4 @@
 			>
 		</div>
 	</form>
-
-	<!-- {/await} -->
 </section>
