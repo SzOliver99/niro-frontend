@@ -2,7 +2,6 @@
 	import { fade } from 'svelte/transition';
 	import { Notification } from '$lib/stores/notifications';
 	import { page } from '$app/stores';
-	import userApi from '$lib/scripts/apis/user';
 	import { deleteUserMutation } from '$lib/scripts/queries/user';
 
 	let { user, userManageModal = $bindable() } = $props();

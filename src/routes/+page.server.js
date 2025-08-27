@@ -1,7 +1,5 @@
-import { wrapFetch } from '$lib/scripts/apis/api';
 import userApi from '$lib/scripts/apis/user';
 import { Notification } from '$lib/stores/notifications';
-import { redirect } from '@sveltejs/kit';
 
 export const actions = {
 	"sign-in": async ({ cookies, request, fetch }) => {

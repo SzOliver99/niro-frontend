@@ -1,5 +1,4 @@
 <script>
-	import { goto } from '$app/navigation';
 	import { page } from '$app/stores';
 	import { profileListStore } from '$lib/stores/profile';
 	let { children, data } = $props();

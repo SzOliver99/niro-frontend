@@ -1,6 +1,5 @@
 <script>
 	import userApi from '$lib/scripts/apis/user';
-	import { CircleArrowRight } from 'lucide-svelte';
 
 	let { data } = $props();
 

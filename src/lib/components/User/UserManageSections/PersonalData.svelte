@@ -5,9 +5,8 @@
 	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
-	import { userManageModalsStore } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { Check, Save } from 'lucide-svelte';
+	import { Save } from 'lucide-svelte';
 
 	let { user, userManageModal = $bindable() } = $props();
 

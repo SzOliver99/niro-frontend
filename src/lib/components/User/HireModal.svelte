@@ -1,17 +1,12 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import {
-		getManagerGroupQuery,
-		createUsersMutation,
-		updateUsersMutation
-	} from '$lib/scripts/queries/user';
+	import { createUsersMutation } from '$lib/scripts/queries/user';
 	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
-	import { permissionsStore } from '$lib/stores/permissions';
 	import { userHireModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { Check, CircleArrowRight } from 'lucide-svelte';
+	import { CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
 	let is_manager = $state();
@@ -200,7 +195,9 @@
 						</select>
 					</div>
 					<div class="w-full text-start">
-						<label for="user_manager" class="block text-sm font-medium">Menedzser választása <span class="text-red-700">*</span></label>
+						<label for="user_manager" class="block text-sm font-medium"
+							>Menedzser választása <span class="text-red-700">*</span></label
+						>
 						<select
 							id="user_manager"
 							name="user_manager"

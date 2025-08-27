@@ -2,7 +2,6 @@
 	import UserCard from '$lib/components/User/UserCard.svelte';
 	import HirePopover from '$lib/components/User/HireModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
-	import { getUsersQuery } from '$lib/scripts/queries/user.js';
 	import { userHireModal } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';

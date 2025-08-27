@@ -2,7 +2,7 @@
 	import { ArrowUpRight } from 'lucide-svelte';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import ManagePopover from './ManageModal.svelte';
-	import { createModalStore, userManageModalsStore } from '$lib/stores/user';
+	import { createModalStore } from '$lib/stores/user';
 
 	let { user = null } = $props();
 	let userManageModal = $state(createModalStore(user.id));

@@ -1,6 +1,5 @@
 <script>
 	import '../app.css';
-	import { page } from '$app/stores';
 	import { browser } from '$app/environment';
 	import { Search } from 'lucide-svelte';
 	import { QueryClient } from '@tanstack/svelte-query';

@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import { permissionsStore } from '$lib/stores/permissions.js';
-	import { checkPermission, convertUserGroup } from '$lib/scripts/utils.js';
+	import { checkPermission } from '$lib/scripts/utils.js';
 	import {
 		ArrowLeftToLine,
 		ArrowRightFromLine,
@@ -10,13 +10,9 @@
 		CalendarClock,
 		Clock1,
 		Dumbbell,
-		Home,
 		ReceiptText,
-		Table,
-		User,
-		Users
+		Table
 	} from 'lucide-svelte';
-	import { onMount } from 'svelte';
 	import { sideBarStore } from '$lib/stores/sidebar';
 
 	let { data } = $props();
@@ -71,7 +67,7 @@
 		}
 	};
 
-	onMount(async () => {
+	$effect.pre(async () => {
 		if (data.token) {
 			await permissionsStore.checkPermissions(data.token);
 		}

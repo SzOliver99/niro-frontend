@@ -1,13 +1,11 @@
 <script>
-	import { BookUser, CalendarClock, CircleArrowRight, FileUser, X } from 'lucide-svelte';
+	import { BookUser, CalendarClock, FileUser, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { PersonalData, Contacts, Appointments, Contracts } from './UserManageSections';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { checkPermission } from '$lib/scripts/utils';
-	import userApi from '$lib/scripts/apis/user';
 	import { page } from '$app/stores';
 	import DeleteVerifyModal from './DeleteVerifyModal.svelte';
-	import { userManageModalsStore } from '$lib/stores/user';
 
 	let { user, userManageModal = $bindable() } = $props();
 
