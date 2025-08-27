@@ -4,11 +4,9 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import ProfileModal from './ProfileModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
+	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 
-	const userInfoQuery = createQuery({
-		queryKey: ['user_info', $page.data.token],
-		queryFn: async () => await userApi({ user_token: $page.data.token }).getUserInfo()
-	});
+	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->
@@ -26,7 +24,7 @@
 			<div class="h-12 w-12 animate-pulse rounded-full bg-gray-200"></div>
 		{:else if $userInfoQuery.isError}
 			<img
-				src="https://avatar.iran.liara.run/username?username=unknown"
+				src="https://avatar.iran.liara.run/username?username=xy"
 				class="w-12 origin-top-right duration-200 hover:scale-110"
 				class:scale-110={$profileModalStore}
 				class:drop-shadow-2xl={$profileModalStore}
@@ -35,7 +33,7 @@
 		{:else if $userInfoQuery.data}
 			<img
 				src="https://avatar.iran.liara.run/username?username={$userInfoQuery.data.info.full_name ||
-					'unknown'}"
+					'xy'}"
 				class="w-12 origin-top-right duration-200 hover:scale-110"
 				class:scale-110={$profileModalStore}
 				class:drop-shadow-2xl={$profileModalStore}

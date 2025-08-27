@@ -1,14 +1,17 @@
 <script>
 	import { page } from '$app/stores';
 	import { createCustomerMutation } from '$lib/scripts/queries/customer';
+	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 	import { formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { createCustomerModal } from '$lib/stores/user';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 
 	let { selected_user = $bindable() } = $props();
 
+	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
 	const createCustomer = createCustomerMutation();
 	async function handleSubmit() {
 		let customer = {
@@ -16,7 +19,8 @@
 			phone_number: phone_number.value,
 			address: address.value,
 			email: email.value,
-			user_id: selected_user
+			user_id: selected_user,
+			created_by: $userInfoQuery.data.info.full_name
 		};
 
 		const email_rgx = new RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);

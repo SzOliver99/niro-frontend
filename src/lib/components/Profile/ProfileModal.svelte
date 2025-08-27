@@ -1,8 +1,15 @@
 <script>
 	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
+	import userApi from '$lib/scripts/apis/user';
+	import { getUserInfoQuery } from '$lib/scripts/queries/user';
+	import { convertUserGroup } from '$lib/scripts/utils';
 	import { profileListStore, profileModalStore } from '$lib/stores/profile';
+	import { createQuery } from '@tanstack/svelte-query';
 	import { LogOut } from 'lucide-svelte';
 	import { scale } from 'svelte/transition';
+
+	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
 </script>
 
 {#if $profileModalStore}
@@ -12,8 +19,8 @@
 		style="transform-origin: top right;"
 		class="absolute top-0 right-0 z-10 h-[16rem] w-[18rem] rounded-lg rounded-tr-3xl border-1 border-black/10 bg-white p-2 shadow-xl"
 	>
-		<h2 class="font-semibold">Szvetnyik Olivér</h2>
-		<p class="text-sm">Üzletkötő</p>
+		<h2 class="font-semibold">{$userInfoQuery.data.info.full_name}</h2>
+		<p class="text-sm">{convertUserGroup($userInfoQuery.data.user_role)}</p>
 		<div class="mt-5 flex flex-col gap-2">
 			{#each $profileListStore as link, i}
 				<button onclick={() => goto(link.href)} class="group flex origin-left items-center text-sm">
