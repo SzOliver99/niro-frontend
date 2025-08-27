@@ -32,8 +32,6 @@
 		})
 	);
 
-	let delete_mutation = deleteCustomerMutation(data.token);
-
 	const columns = [
 		{ key: 'action', label: '#' },
 		{ key: 'full_name', label: 'Név' },
@@ -78,7 +76,7 @@
 	<DataTable
 		data={$customers.data}
 		{columns}
-		{delete_mutation}
+		delete_mutation={deleteCustomerMutation(data.token)}
 		searchable={true}
 		filterable={true}
 		sortable={true}
