@@ -61,6 +61,11 @@
 					href: 'https://www.allianz.hu/hu_HU/lakossagi/karbejelentes-es-ugyintezes/online-ugyintezes.html#TabVerticalNegative12102971254',
 					label: 'Allianz bankszámlaszám',
 					icon: BookUser
+				},
+				{
+					href: 'https://invisualist.com/hu/auth/login',
+					label: 'Invisualist',
+					icon: BookUser
 				}
 			]
 		}
