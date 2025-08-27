@@ -40,7 +40,11 @@
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
-		{ key: 'user_id', label: 'Üzletkötő', action: (user_id) => user_id }
+		{
+			key: 'user_id',
+			label: 'Üzletkötő',
+			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
+		}
 	];
 </script>
 

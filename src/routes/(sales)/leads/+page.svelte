@@ -25,7 +25,11 @@
 		{ key: 'inquiryType', label: 'Megkeresés jellege' },
 		{ key: 'leadStatus', label: 'Státusz' },
 		{ key: 'handleAt', label: 'Dátum' },
-		{ key: 'userModify', label: 'Üzletkötő' }
+		{
+			key: 'user_id',
+			label: 'Üzletkötő',
+			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
+		}
 	];
 
 	const leadTypes = {

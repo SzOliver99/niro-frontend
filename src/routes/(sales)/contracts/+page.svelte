@@ -25,7 +25,11 @@
 		{ key: 'annual_fee', label: 'Éves állománydíj' },
 		{ key: 'payment_frequency', label: 'Fizetési gyakoriság' },
 		{ key: 'payment_method', label: 'Fizetési mód' },
-		{ key: 'user_id', label: 'Üzletkötő neve', action: (user_id) => user_id },
+		{
+			key: 'user_id',
+			label: 'Üzletkötő neve',
+			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
+		},
 		{ key: 'contract_date', label: 'Létrehozás/Szerződéskötés dátuma' }
 	];
 

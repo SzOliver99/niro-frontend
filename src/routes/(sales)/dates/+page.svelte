@@ -23,7 +23,11 @@
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'meet_location', label: 'Találkozó helyszíne' },
 		{ key: 'meet_type', label: 'Találkozó típusa' },
-		{ key: 'user_id', label: 'Üzletkötő', action: (user_id) => user_id }
+		{
+			key: 'user_id',
+			label: 'Üzletkötő',
+			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
+		}
 	];
 
 	const leadTypes = {
