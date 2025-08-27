@@ -1,11 +1,11 @@
 <script>
 	import { ArrowUpRight } from 'lucide-svelte';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
-	import AgentManagePopover from './UserManageModal.svelte';
+	import ManagePopover from './ManageModal.svelte';
 	import { createModalStore, userManageModalsStore } from '$lib/stores/user';
 
-	let { agent = null } = $props();
-	let userManageModalStore = $state(createModalStore(agent.id));
+	let { user = null } = $props();
+	let userManageModal = $state(createModalStore(user.id));
 
 	let isManageModalOpen = $state();
 </script>
@@ -15,15 +15,15 @@
 >
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
-			<h3 class="font-bold">{agent?.info?.full_name || 'Ismeretlen'}</h3>
-			<p>{convertUserGroup(agent?.user_role)}</p>
-			<p>{agent?.info?.agent_code || 'N/A'}</p>
-			<p>{agent?.info?.phone_number || 'N/A'}</p>
+			<h3 class="font-bold">{user?.info?.full_name || 'Ismeretlen'}</h3>
+			<p>{convertUserGroup(user?.user_role)}</p>
+			<p>{user?.info?.agent_code || 'N/A'}</p>
+			<p>{user?.info?.phone_number || 'N/A'}</p>
 		</div>
 		<button
 			class="flex w-full justify-between rounded-lg bg-blue-600 px-5 py-2 font-medium duration-200 hover:scale-105 hover:bg-blue-700"
 			onclick={() => {
-				userManageModalStore.open('Manage');
+				userManageModal.open('Manage');
 			}}
 		>
 			<span>Kezelés</span>
@@ -31,6 +31,6 @@
 		</button>
 	</div>
 </div>
-{#if agent}
-	<AgentManagePopover {agent} bind:userManageModalStore />
+{#if user}
+	<ManagePopover {user} bind:userManageModal />
 {/if}

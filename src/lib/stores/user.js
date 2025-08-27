@@ -18,7 +18,7 @@ function createSimpleModalStore(initialValue = false) {
 	};
 }
 
-export function createModalStore(user_id, modals = { Manage: false, Termination: false }) {
+export function createModalStore(user_id, modals = { Manage: false, Delete: false }) {
 	const store = writable({ user_id, modals });
 
 	function open(type) {

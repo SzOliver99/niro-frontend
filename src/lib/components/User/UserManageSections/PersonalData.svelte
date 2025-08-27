@@ -9,11 +9,11 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, Save } from 'lucide-svelte';
 
-	let { agent, userManageModalStore = $bindable() } = $props();
+	let { user, userManageModal = $bindable() } = $props();
 
 	let managers = createQuery({
-		queryKey: ['managers', agent.id],
-		queryFn: () => userApi().getManagers(agent.id)
+		queryKey: ['managers', user.id],
+		queryFn: () => userApi().getManagers(user.id)
 	});
 
 	let formData = $state({
@@ -27,19 +27,19 @@
 	});
 
 	$effect(() => {
-		if (agent) {
-			const full_name = agent.info?.full_name || '';
+		if (user) {
+			const full_name = user.info?.full_name || '';
 			const name_parts = full_name.split(' ');
 
 			formData = {
 				last_name: name_parts[0] || '',
 				first_name: name_parts[1] || '',
-				email: agent.email || '',
-				phone_number: agent.info?.phone_number || '',
-				agent_code: agent.info?.agent_code || '',
-				hufa_code: agent.info?.hufa_code || '',
-				user_manager: agent.manager_id || 'null',
-				is_manager: agent.manager_id === null
+				email: user.email || '',
+				phone_number: user.info?.phone_number || '',
+				agent_code: user.info?.agent_code || '',
+				hufa_code: user.info?.hufa_code || '',
+				user_manager: user.manager_id || 'null',
+				is_manager: user.manager_id === null
 			};
 		}
 	});
@@ -49,7 +49,7 @@
 		event.preventDefault();
 
 		let user = {
-			id: agent.id,
+			id: user.id,
 			email: formData.email,
 			info: {
 				full_name: `${formData.last_name} ${formData.first_name}`,
@@ -78,7 +78,7 @@
 		$updateUser.mutate(user, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalStore.close();
+				userManageModal.close();
 			}
 		});
 	}
@@ -86,7 +86,7 @@
 	const updateManagers = updateManagersMutation($page.data.token);
 	async function handleModifyUserManager(manager_id = null) {
 		let user = {
-			id: agent.id
+			id: user.id
 		};
 		if (manager_id) {
 			user['manager_id'] = manager_id;
@@ -215,7 +215,7 @@
 								handleModifyUserManager();
 							}
 						}}
-						disabled={agent.user_role === 'Leader'}
+						disabled={user.user_role === 'Leader'}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 					>

@@ -97,8 +97,12 @@
 		selectedRows.push(selectedRowId);
 	}
 
-	function modifySelectedRowsUser() {
+	function openChangeCustomerUserModal() {
 		changeCustomerUserModal.open();
+	}
+
+	function openDeleteVerifyModal() {
+		
 	}
 </script>
 
@@ -135,13 +139,14 @@
 						{#if modifiable}
 							<button
 								class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700"
-								onclick={modifySelectedRowsUser}
+								onclick={openChangeCustomerUserModal}
 							>
 								Üzletkötő módosítása
 							</button>
 						{/if}
 						<button
 							class="rounded-lg bg-red-900 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-red-950"
+							onclick={openDeleteVerifyModal}
 						>
 							Sor(ok) törlése
 						</button>
@@ -178,7 +183,7 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200 bg-white">
 				{#each paginatedData() as item, index}
-					<tr class="hover:bg-gray-50" onclick={() => console.log(item.id)}>
+					<tr class="hover:bg-gray-50" onclick={() => {}}>
 						{#each columns as column}
 							{#if column.key === 'action'}
 								<td class="px-5">

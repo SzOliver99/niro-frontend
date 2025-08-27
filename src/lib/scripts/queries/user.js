@@ -46,7 +46,7 @@ export const deleteUserMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi({ user_token }).terminateUserContact(user),
+		mutationFn: async (user) => await userApi({ user_token }).deleteUserContact(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });

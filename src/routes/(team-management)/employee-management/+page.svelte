@@ -1,7 +1,6 @@
 <script>
-	import AgentCard from '$lib/components/User/UserCard.svelte';
-	import AgentHirePopover from '$lib/components/User/UserHireModal.svelte';
-	import AgentSearch from '$lib/components/User/UserSearch.svelte';
+	import UserCard from '$lib/components/User/UserCard.svelte';
+	import HirePopover from '$lib/components/User/HireModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUsersQuery } from '$lib/scripts/queries/user.js';
 	import { userHireModal } from '$lib/stores/user.js';
@@ -34,14 +33,14 @@
 					<p>Üzletkötő felvétele</p>
 				</button>
 			</div>
-			<AgentHirePopover />
+			<HirePopover />
 		</div>
 
 		<div
 			class="grid grid-cols-1 justify-items-center gap-y-15 rounded-lg p-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 		>
 			{#each $users.data as user}
-				<AgentCard agent={user} />
+				<UserCard {user} />
 			{/each}
 		</div>
 	</div>

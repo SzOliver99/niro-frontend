@@ -5,20 +5,20 @@
 	import userApi from '$lib/scripts/apis/user';
 	import { deleteUserMutation } from '$lib/scripts/queries/user';
 
-	let { agent, userManageModalStore = $bindable() } = $props();
+	let { user, userManageModal = $bindable() } = $props();
 
 	let deleteUser = deleteUserMutation($page.data.token);
 	async function handleDelete() {
-		$deleteUser.mutate(agent.id, {
+		$deleteUser.mutate(user.id, {
 			onSuccess: () => {
 				Notification.success('Sikeresen megbontottad a szerződést', 3);
-				userManageModalsStore.close();
+				userManageModal.close();
 			}
 		});
 	}
 </script>
 
-{#if $userManageModalStore.modals['Termination']}
+{#if $userManageModal.modals['Delete']}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 h-full w-full overflow-hidden rounded-lg"
@@ -26,7 +26,7 @@
 		<button
 			class="h-full w-full cursor-default bg-black/10"
 			onclick={() => {
-				userManageModalStore.close('Termination');
+				userManageModal.close('Delete');
 			}}
 			aria-label="Close modal"
 		></button>
@@ -43,7 +43,7 @@
 				<button
 					class="hover:bg-primary-600 w-20 rounded-lg bg-blue-600 shadow-lg hover:scale-105"
 					onclick={() => {
-						userManageModalStore.close('Termination');
+						userManageModal.close('Delete');
 					}}>Nem!</button
 				>
 			</div>

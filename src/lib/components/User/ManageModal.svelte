@@ -6,10 +6,10 @@
 	import { checkPermission } from '$lib/scripts/utils';
 	import userApi from '$lib/scripts/apis/user';
 	import { page } from '$app/stores';
-	import AgentTerminationVerifyModal from './UserDeleteVerifyModal.svelte';
+	import DeleteVerifyModal from './DeleteVerifyModal.svelte';
 	import { userManageModalsStore } from '$lib/stores/user';
 
-	let { agent, userManageModalStore = $bindable() } = $props();
+	let { user, userManageModal = $bindable() } = $props();
 
 	let navTabs = $state({
 		opened: 'Személyes adatok',
@@ -22,7 +22,7 @@
 	});
 </script>
 
-{#if $userManageModalStore.modals['Manage']}
+{#if $userManageModal.modals['Manage']}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
@@ -30,7 +30,7 @@
 		<button
 			class="h-full w-full cursor-default bg-black/30"
 			onclick={() => {
-				userManageModalStore.close();
+				userManageModal.close();
 			}}
 			aria-label="Close modal"
 		></button>
@@ -38,7 +38,7 @@
 			class="fixed top-1/2 left-1/2 h-[45rem] w-4/5 -translate-1/2 rounded-lg bg-white p-4 text-black shadow-2xl md:w-[80%] lg:w-[60%]"
 		>
 			<div class="h-16">
-				<h1 class="text-xl font-bold">{agent?.info?.full_name || 'Üzletkötő'}</h1>
+				<h1 class="text-xl font-bold">{user.info?.full_name || 'Üzletkötő'}</h1>
 			</div>
 			<div class="flex h-[calc(100%-4rem)] w-full flex-col rounded-lg ring ring-black/10">
 				<div
@@ -62,14 +62,14 @@
 							<button
 								class="flex items-center rounded-lg px-3 py-2 text-sm font-medium text-red-500 duration-200 hover:scale-105 disabled:scale-100"
 								onclick={() => {
-									userManageModalStore.open('Termination');
+									userManageModal.open('Delete');
 								}}
-								disabled={agent.role === 'Leader'}
+								disabled={user.role === 'Leader'}
 							>
 								<X class="shrink-0" stroke-width={1.5} />
 								<p>Szerződés bontása</p>
 							</button>
-							<AgentTerminationVerifyModal {agent} bind:userManageModalStore />
+							<DeleteVerifyModal {user} bind:userManageModal />
 						</div>
 					{/if}
 				</div>
@@ -84,12 +84,12 @@
 
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Személyes adatok'}
-		<PersonalData {agent} bind:userManageModalStore />
+		<PersonalData {user} bind:userManageModal />
 	{:else if navTabs.opened === 'Címanyagok'}
-		<Contacts {agent} />
+		<Contacts {user} />
 	{:else if navTabs.opened === 'Időpontok'}
-		<Appointments {agent} />
+		<Appointments {user} />
 	{:else if navTabs.opened === 'Szerződések'}
-		<Contracts {agent} />
+		<Contracts {user} />
 	{/if}
 {/snippet}

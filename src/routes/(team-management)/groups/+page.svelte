@@ -1,18 +1,11 @@
 <script>
-	import Agent from '$lib/components/User/UserCard.svelte';
-	import AgentHirePopover from '$lib/components/User/UserHireModal.svelte';
-	import AgentSearch from '$lib/components/User/UserSearch.svelte';
+	import UserCard from '$lib/components/User/UserCard.svelte';
 	import { getManagerGroupQuery } from '$lib/scripts/queries/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
 	let { data } = $props();
 	let users = createQuery(getManagerGroupQuery(data.token));
-
-	let showModal = $state(false);
-	function toggleModal() {
-		showModal = !showModal;
-	}
 </script>
 
 <section>
@@ -27,7 +20,7 @@
 			class="grid grid-cols-1 justify-items-center gap-y-15 rounded-lg p-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5"
 		>
 			{#each $users.data as user}
-				<Agent agent={user} />
+				<UserCard {user} />
 			{/each}
 		</div>
 	</div>

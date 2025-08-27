@@ -93,7 +93,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			return data;
 		},
 
-		terminateUserContact: async (user_id) => {
+		deleteUserContact: async (user_id) => {
 			const response = await fetch('/api/user/delete', {
 				method: 'DELETE',
 				headers: {
