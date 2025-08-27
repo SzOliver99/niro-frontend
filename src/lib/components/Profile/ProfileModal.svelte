@@ -10,7 +10,7 @@
 		in:scale={{ duration: 200 }}
 		out:scale={{ duration: 200 }}
 		style="transform-origin: top right;"
-		class="absolute top-0 right-0 z-0 h-[16rem] w-[18rem] rounded-lg rounded-tr-3xl border-1 border-black/10 bg-white p-2 shadow-xl"
+		class="absolute top-0 right-0 z-10 h-[16rem] w-[18rem] rounded-lg rounded-tr-3xl border-1 border-black/10 bg-white p-2 shadow-xl"
 	>
 		<h2 class="font-semibold">Szvetnyik Olivér</h2>
 		<p class="text-sm">Üzletkötő</p>

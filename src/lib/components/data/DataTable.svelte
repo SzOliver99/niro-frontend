@@ -116,7 +116,7 @@
 					<div class="flex-1">
 						<div class="relative">
 							<Search
-								class="absolute top-1/2 left-3 size-4 -translate-y-1/2 transform text-gray-400"
+								class="absolute top-1/2 left-3 size-4 -translate-y-1/2 transform text-gray-400 z-0"
 							/>
 							<input
 								type="text"
