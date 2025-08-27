@@ -16,7 +16,8 @@ export const getManagerGroupQuery = (user_token) =>
 		refetchIntervalInBackground: false
 	});
 
-export const useUpdateUsers = (user_token) => {
+// MUTATIONS
+export const updateUsersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
@@ -29,7 +30,7 @@ export const useUpdateUsers = (user_token) => {
 	});
 };
 
-export const useCreateUsers = (user_token) => {
+export const createUsersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
@@ -41,7 +42,7 @@ export const useCreateUsers = (user_token) => {
 	});
 };
 
-export const useTerminateUser = (user_token) => {
+export const deleteUserMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
@@ -54,7 +55,7 @@ export const useTerminateUser = (user_token) => {
 	});
 };
 
-export const useUpdateManagers = (user_token) => {
+export const updateManagersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({

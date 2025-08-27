@@ -1,7 +1,7 @@
 <script>
 	import { changeCustomerUserStore } from '$lib/stores/user';
 	import { ChevronDown, ChevronUp, Search, Filter, X, TestTube } from 'lucide-svelte';
-	import ChangeCustomerUserModal from '../User/ChangeCustomerUserModal.svelte';
+	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
 
 	let {
 		data = [],

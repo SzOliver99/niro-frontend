@@ -1,7 +1,11 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { getManagerGroupQuery, useCreateUsers, useUpdateUsers } from '$lib/scripts/queries/user';
+	import {
+		getManagerGroupQuery,
+		createUsersMutation,
+		updateUsersMutation
+	} from '$lib/scripts/queries/user';
 	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
@@ -17,7 +21,7 @@
 		queryFn: () => userApi().getManagers()
 	});
 
-	const createUser = useCreateUsers($page.data.token);
+	const createUser = createUsersMutation($page.data.token);
 	async function handleSubmit() {
 		let agent = {
 			email: email.value,

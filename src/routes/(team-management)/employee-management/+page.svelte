@@ -1,7 +1,7 @@
 <script>
-	import AgentCard from '$lib/components/Agent/AgentCard.svelte';
-	import AgentHirePopover from '$lib/components/Agent/AgentHireModal.svelte';
-	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
+	import AgentCard from '$lib/components/User/UserCard.svelte';
+	import AgentHirePopover from '$lib/components/User/UserHireModal.svelte';
+	import AgentSearch from '$lib/components/User/UserSearch.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUsersQuery } from '$lib/scripts/queries/user.js';
 	import { userHireModalStore } from '$lib/stores/user.js';

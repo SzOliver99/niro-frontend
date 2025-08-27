@@ -1,7 +1,8 @@
 import { createMutation, useQueryClient } from "@tanstack/svelte-query";
 import customerApi from "../apis/customer";
 
-export const useChangeCustomerUser = (user_token) => {
+// MUTATIONS
+export const changeCustomerUserMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({

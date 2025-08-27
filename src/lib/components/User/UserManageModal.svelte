@@ -1,12 +1,12 @@
 <script>
 	import { BookUser, CalendarClock, CircleArrowRight, FileUser, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
-	import { PersonalData, Contacts, Appointments, Contracts } from './AgentManageSections';
+	import { PersonalData, Contacts, Appointments, Contracts } from './UserManageSections';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { checkPermission } from '$lib/scripts/utils';
 	import userApi from '$lib/scripts/apis/user';
 	import { page } from '$app/stores';
-	import AgentTerminationVerifyModal from './AgentTerminationVerifyModal.svelte';
+	import AgentTerminationVerifyModal from './UserDeleteVerifyModal.svelte';
 	import { userManageModalsStore } from '$lib/stores/user';
 
 	let { agent, userManageModalStore = $bindable() } = $props();

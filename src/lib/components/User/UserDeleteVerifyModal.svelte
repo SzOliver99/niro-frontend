@@ -3,13 +3,13 @@
 	import { Notification } from '$lib/stores/notifications';
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { useTerminateUser } from '$lib/scripts/queries/user';
+	import { deleteUserMutation } from '$lib/scripts/queries/user';
 
 	let { agent, userManageModalStore = $bindable() } = $props();
 
-	let terminateUser = useTerminateUser($page.data.token);
-	async function handleTermination() {
-		$terminateUser.mutate(agent.id, {
+	let deleteUser = deleteUserMutation($page.data.token);
+	async function handleDelete() {
+		$deleteUser.mutate(agent.id, {
 			onSuccess: () => {
 				Notification.success('Sikeresen megbontottad a szerződést', 3);
 				userManageModalsStore.close();
@@ -38,7 +38,7 @@
 			<div class="mt-2 flex justify-center text-white">
 				<button
 					class="me-5 w-20 rounded-lg py-2 text-red-800 shadow-lg hover:scale-105"
-					onclick={handleTermination}>Igen</button
+					onclick={handleDelete}>Igen</button
 				>
 				<button
 					class="hover:bg-primary-600 w-20 rounded-lg bg-blue-600 shadow-lg hover:scale-105"

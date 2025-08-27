@@ -17,25 +17,25 @@
 
 	const columns = [
 		{ key: 'action', label: '#' },
-		{ key: '', label: 'Szerződés szám' },
-		{ key: '', label: 'Termék neve' },
-		{ key: '', label: 'Partner neve' },
-		{ key: '', label: 'Partner címe' },
-		{ key: '', label: 'Partner telefonszáma' },
-		{ key: '', label: 'Partner emailcíme' },
-		{ key: '', label: 'Kintlévőséges napok száma' },
-		{ key: '', label: 'Egyenleg' },
-		{ key: '', label: 'Feldolgozási határidő' },
-		{ key: '', label: 'Megjegyzés' },
-		{ key: '', label: 'Státusz' },
+		{ key: 'contract_number', label: 'Szerződés szám' },
+		{ key: 'product_name', label: 'Termék neve' },
+		{ key: 'partner_name', label: 'Partner neve' },
+		{ key: 'partner_address', label: 'Partner címe' },
+		{ key: 'partner_phone', label: 'Partner telefonszáma' },
+		{ key: 'partner_email', label: 'Partner emailcíme' },
+		{ key: 'outstanding_days', label: 'Kintlévőséges napok száma' },
+		{ key: 'balance', label: 'Egyenleg' },
+		{ key: 'processing_deadline', label: 'Feldolgozási határidő' },
+		{ key: 'note', label: 'Megjegyzés' },
+		{ key: 'status', label: 'Státusz' },
 		{ key: 'user_id', label: 'Üzletkötő', action: (user_id) => user_id }
 	];
 
 	const statusTypes = {
-		'': 'Fizetési ígéret',
-		'': 'Elintézett',
-		'': 'Nem szeretne fizetni az ügyfél',
-		'': 'Törlésre vár'
+		payment_promise: 'Fizetési ígéret',
+		processed: 'Elintézett',
+		nonpayment: 'Fizetésmegtagadás',
+		pending_deletion: 'Törlésre vár'
 	};
 </script>
 

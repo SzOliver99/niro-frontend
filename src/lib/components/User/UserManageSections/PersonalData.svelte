@@ -1,7 +1,7 @@
 <script>
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
-	import { useUpdateManagers, useUpdateUsers } from '$lib/scripts/queries/user';
+	import { updateManagersMutation, updateUsersMutation } from '$lib/scripts/queries/user';
 	import { checkPermission, convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
@@ -44,7 +44,7 @@
 		}
 	});
 
-	const updateUser = useUpdateUsers($page.data.token);
+	const updateUser = updateUsersMutation($page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
 
@@ -83,7 +83,7 @@
 		});
 	}
 
-	const updateManagers = useUpdateManagers($page.data.token);
+	const updateManagers = updateManagersMutation($page.data.token);
 	async function handleModifyUserManager(manager_id = null) {
 		let user = {
 			id: agent.id

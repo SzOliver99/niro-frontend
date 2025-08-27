@@ -1,7 +1,7 @@
 <script>
-	import Agent from '$lib/components/Agent/AgentCard.svelte';
-	import AgentHirePopover from '$lib/components/Agent/AgentHireModal.svelte';
-	import AgentSearch from '$lib/components/Agent/AgentSearch.svelte';
+	import Agent from '$lib/components/User/UserCard.svelte';
+	import AgentHirePopover from '$lib/components/User/UserHireModal.svelte';
+	import AgentSearch from '$lib/components/User/UserSearch.svelte';
 	import { getManagerGroupQuery } from '$lib/scripts/queries/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
