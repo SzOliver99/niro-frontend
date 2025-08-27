@@ -24,3 +24,14 @@ export const changeCustomerUserMutation = (user_token) => {
         }
     });
 };
+
+export const deleteCustomerMutation = () => {
+    const queryClient = useQueryClient();
+
+    return createMutation({
+        mutationFn: async (customer_id) => await customerApi().delete(customer_id),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['customers'] });
+        }
+    });
+};
