@@ -1,3 +1,4 @@
+import { Notification } from "$lib/stores/notifications";
 import { wrapFetch } from "./api";
 
 const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
@@ -9,7 +10,12 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                 method: 'POST',
                 body: JSON.stringify(customer)
             });
-            return await response.json();
+            const data = await response.json();
+            if (!response.ok) {
+                Notification.error(data.error, 3);
+            }
+
+            return data;
         },
         getAllById: async (user_id) => {
             const response = await fetch('/api/customer/get-all', {
@@ -19,7 +25,12 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                 },
                 body: JSON.stringify(user_id)
             });
-            return await response.json();
+            const data = await response.json();
+            if (!response.ok) {
+                Notification.error(data.error, 3);
+            }
+
+            return data;
         },
         changeCustomerUser: async (user_full_name, customer_ids) => {
             const response = await fetch('/api/customer/change/user', {
@@ -29,7 +40,12 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                 },
                 body: JSON.stringify({ user_full_name, customer_ids })
             });
-            return await response.json();
+            const data = await response.json();
+            if (!response.ok) {
+                Notification.error(data.error, 3);
+            }
+
+            return data;
         },
         delete: async (customer_ids) => {
             const response = await fetch('/api/customer/delete', {
@@ -39,7 +55,12 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                 },
                 body: JSON.stringify(customer_ids)
             });
-            return await response.json();
+            const data = await response.json();
+            if (!response.ok) {
+                Notification.error(data.error, 3);
+            }
+
+            return data;
         },
     }
 }

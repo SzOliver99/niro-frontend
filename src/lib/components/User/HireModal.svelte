@@ -55,9 +55,6 @@
 			onSuccess: () => {
 				Notification.success('Sikeresen létrehoztad!', 3);
 				userHireModal.close();
-			},
-			onError: (error) => {
-				console.error(error);
 			}
 		});
 	}

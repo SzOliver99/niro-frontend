@@ -11,7 +11,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 				method: 'POST',
 				body: JSON.stringify({ username, password })
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		signUp: async (user) => {
@@ -25,7 +30,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			const data = await response.json();
 			if (!response.ok) {
 				Notification.error(data.error, 3);
-				throw Error(data.error);
 			}
 
 			return data;
@@ -38,7 +42,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		getManagerGroup: async () => {
@@ -47,7 +56,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		getUserInfo: async () => {
@@ -56,7 +70,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		modifyUserInfo: async (user) => {
@@ -111,7 +130,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		completeFirstLogin: async (new_password, token) => {
@@ -122,7 +146,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					token
 				})
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		getManagers: async (user_id = 0) => {
@@ -130,7 +159,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 				method: 'POST',
 				body: JSON.stringify(user_id)
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		getUserSubUsers: async () => {
@@ -139,7 +173,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		},
 
 		validateToken: async () => {
@@ -148,7 +187,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			return await response.json();
+			const data = await response.json();
+			if (!response.ok) {
+				Notification.error(data.error, 3);
+			}
+
+			return data;
 		}
 	}
 };
