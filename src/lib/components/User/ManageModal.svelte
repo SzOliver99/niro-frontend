@@ -62,7 +62,7 @@
 								onclick={() => {
 									userManageModal.open('Delete');
 								}}
-								disabled={user.role === 'Leader'}
+								disabled={user.user_role === 'Leader'}
 							>
 								<X class="shrink-0" stroke-width={1.5} />
 								<p>Szerződés bontása</p>
