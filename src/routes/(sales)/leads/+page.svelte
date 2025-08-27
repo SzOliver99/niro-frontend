@@ -19,7 +19,7 @@
 		{ key: 'action', label: '#' },
 		{ key: 'name', label: 'Név' },
 		{ key: 'phone', label: 'Telefonszám' },
-		{ key: 'email', label: 'Email' },
+		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
 		{ key: 'leadType', label: 'Címanyag típus' },
 		{ key: 'inquiryType', label: 'Megkeresés jellege' },

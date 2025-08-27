@@ -19,7 +19,7 @@
 		{ key: 'action', label: '#' },
 		{ key: 'full_name', label: 'Név' },
 		{ key: 'phone_number', label: 'Telefonszám' },
-		{ key: 'email', label: 'Email' },
+		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
 		{ key: 'contract_type', label: 'Szerződés típus' },
 		{ key: 'annual_fee', label: 'Éves állománydíj' },

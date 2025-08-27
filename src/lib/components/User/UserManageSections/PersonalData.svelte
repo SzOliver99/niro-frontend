@@ -107,7 +107,9 @@
 	<form onsubmit={handleSubmit} class="rounded-lg">
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
 			<div>
-				<label for="last_name" class="block text-sm font-medium">Vezetéknév*</label>
+				<label for="last_name" class="block text-sm font-medium"
+					>Vezetéknév <span class="text-red-700">*</span></label
+				>
 				<input
 					type="text"
 					id="last_name"
@@ -119,7 +121,9 @@
 				/>
 			</div>
 			<div>
-				<label for="first_name" class="block text-sm font-medium">Keresztnév*</label>
+				<label for="first_name" class="block text-sm font-medium"
+					>Keresztnév <span class="text-red-700">*</span></label
+				>
 				<input
 					type="text"
 					id="first_name"
@@ -131,7 +135,9 @@
 				/>
 			</div>
 			<div>
-				<label for="email" class="block text-sm font-medium">Email cím*</label>
+				<label for="email" class="block text-sm font-medium"
+					>Email-cím <span class="text-red-700">*</span></label
+				>
 				<input
 					type="email"
 					id="email"
@@ -143,7 +149,9 @@
 				/>
 			</div>
 			<div>
-				<label for="phone_number" class="block text-sm font-medium">Telefonszám*</label>
+				<label for="phone_number" class="block text-sm font-medium"
+					>Telefonszám <span class="text-red-700">*</span></label
+				>
 				<input
 					id="phone_number"
 					name="phone_number"

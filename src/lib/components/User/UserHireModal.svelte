@@ -9,7 +9,7 @@
 	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { permissionsStore } from '$lib/stores/permissions';
-	import { userHireModalStore } from '$lib/stores/user';
+	import { userHireModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Check, CircleArrowRight } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
@@ -59,7 +59,7 @@
 		$createUser.mutate(agent, {
 			onSuccess: () => {
 				Notification.success('Sikeresen létrehoztad!', 3);
-				userHireModalStore.close();
+				userHireModal.close();
 			},
 			onError: (error) => {
 				console.error(error);
@@ -68,14 +68,14 @@
 	}
 </script>
 
-{#if $userHireModalStore}
+{#if $userHireModal}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
 	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
-			onclick={userHireModalStore.close}
+			onclick={userHireModal.close}
 			aria-label="Close modal"
 		></button>
 		<div
@@ -84,7 +84,7 @@
 			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Üzletkötő felvétele</h1>
 			<form onsubmit={handleSubmit} class="mt-5 flex flex-col gap-5">
 				<div class="flex flex-col text-start font-medium">
-					<label for="email">Email*</label>
+					<label for="email">Email-cím <span class="text-red-700">*</span></label>
 					<input
 						name="email"
 						id="email"
@@ -95,7 +95,7 @@
 					/>
 				</div>
 				<div class="flex flex-col text-start font-medium">
-					<label for="username">Felhasználónév*</label>
+					<label for="username">Felhasználónév <span class="text-red-700">*</span></label>
 					<input
 						name="username"
 						id="username"
@@ -106,7 +106,7 @@
 					/>
 				</div>
 				<div class="flex flex-col text-start font-medium">
-					<label for="password">Ideiglenes jelszó*</label>
+					<label for="password">Ideiglenes jelszó <span class="text-red-700">*</span></label>
 					<input
 						name="password"
 						id="password"
@@ -120,7 +120,7 @@
 				<h2 class="text-xl font-semibold">Üzletkötő adatai</h2>
 				<div class="grid grid-cols-2 gap-4">
 					<div class="flex flex-col text-start font-medium">
-						<label for="last_name">Vezetéknév*</label>
+						<label for="last_name">Vezetéknév <span class="text-red-700">*</span></label>
 						<input
 							name="last_name"
 							id="last_name"
@@ -131,7 +131,7 @@
 						/>
 					</div>
 					<div class="flex flex-col text-start font-medium">
-						<label for="first_name">Keresztnév*</label>
+						<label for="first_name">Keresztnév <span class="text-red-700">*</span></label>
 						<input
 							name="first_name"
 							id="first_name"
@@ -143,7 +143,7 @@
 					</div>
 				</div>
 				<div class="flex flex-col text-start font-medium">
-					<label for="phone_number">Telefonszám*</label>
+					<label for="phone_number">Telefonszám <span class="text-red-700">*</span></label>
 					<input
 						name="phone_number"
 						id="phone_number"
@@ -157,7 +157,7 @@
 				</div>
 				<div class="grid grid-cols-2 gap-4">
 					<div class="flex flex-col text-start font-medium">
-						<label for="hufa_code">Hufa kód*</label>
+						<label for="hufa_code">Hufa kód <span class="text-red-700">*</span></label>
 						<input
 							name="hufa_code"
 							id="hufa_code"
@@ -170,7 +170,7 @@
 						/>
 					</div>
 					<div class="flex flex-col text-start font-medium">
-						<label for="agent_code">Üzletkötő kód*</label>
+						<label for="agent_code">Üzletkötő kód <span class="text-red-700">*</span></label>
 						<input
 							name="agent_code"
 							id="agent_code"
@@ -200,7 +200,7 @@
 						</select>
 					</div>
 					<div class="w-full text-start">
-						<label for="user_manager" class="block text-sm font-medium">Menedzser választása</label>
+						<label for="user_manager" class="block text-sm font-medium">Menedzser választása <span class="text-red-700">*</span></label>
 						<select
 							id="user_manager"
 							name="user_manager"

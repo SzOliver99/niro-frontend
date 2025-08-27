@@ -3,7 +3,7 @@
 	import userApi from '$lib/scripts/apis/user';
 	import { changeCustomerUserMutation } from '$lib/scripts/queries/customer';
 	import { convertUserGroup } from '$lib/scripts/utils';
-	import { changeCustomerUserStore } from '$lib/stores/user';
+	import { changeCustomerUserModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { fade } from 'svelte/transition';
 
@@ -22,7 +22,7 @@
 			{
 				onSuccess: () => {
 					new_user = '';
-					changeCustomerUserStore.close();
+					changeCustomerUserModal.close();
 					selectedRows = [];
 				}
 			}
@@ -30,7 +30,7 @@
 	}
 </script>
 
-{#if $changeCustomerUserStore}
+{#if $changeCustomerUserModal}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 h-full w-full overflow-hidden rounded-lg"
@@ -38,7 +38,7 @@
 		<button
 			class="h-full w-full cursor-default bg-black/10"
 			onclick={() => {
-				changeCustomerUserStore.close();
+				changeCustomerUserModal.close();
 			}}
 			aria-label="Close modal"
 		></button>

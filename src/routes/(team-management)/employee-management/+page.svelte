@@ -4,7 +4,7 @@
 	import AgentSearch from '$lib/components/User/UserSearch.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUsersQuery } from '$lib/scripts/queries/user.js';
-	import { userHireModalStore } from '$lib/stores/user.js';
+	import { userHireModal } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
@@ -28,7 +28,7 @@
 			<div class="flex justify-center lg:justify-end">
 				<button
 					class="bg-gray flex rounded-lg bg-blue-600 px-3 py-2 text-nowrap text-white duration-200 hover:bg-blue-700"
-					onclick={userHireModalStore.open}
+					onclick={userHireModal.open}
 				>
 					<Plus class="shrink-0" />
 					<p>Üzletkötő felvétele</p>

@@ -1,9 +1,11 @@
 <script>
+	import CreateCustomerModal from '$lib/components/Customer/CreateCustomerModal.svelte';
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import customerApi from '$lib/scripts/apis/customer';
 	import userApi from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import { permissionsStore } from '$lib/stores/permissions.js';
+	import { createCustomerModal } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
@@ -33,7 +35,7 @@
 		{ key: 'action', label: '#' },
 		{ key: 'full_name', label: 'Név' },
 		{ key: 'phone_number', label: 'Telefonszám' },
-		{ key: 'email', label: 'Email' },
+		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
 		{ key: 'user_id', label: 'Üzletkötő', action: (user_id) => user_id }
 	];
@@ -59,10 +61,12 @@
 		</div>
 		<button
 			class="bg-gray me-4 flex items-center rounded-lg bg-blue-600 px-3 py-2 text-center text-nowrap text-white duration-200 hover:bg-blue-700"
+			onclick={createCustomerModal.open}
 		>
 			<Plus />
 			<p>Ügyfél hozzáadása</p>
 		</button>
+		<CreateCustomerModal bind:selected_user />
 	</div>
 	<DataTable
 		data={$customers.data}
