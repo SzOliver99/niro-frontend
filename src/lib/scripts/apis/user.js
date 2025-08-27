@@ -1,7 +1,7 @@
 import { wrapFetch } from "./api";
 import { Notification } from '$lib/stores/notifications';
 
-const userApi = ({ baseFetch = fetch, user_token = null }) => {
+const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 	const fetch = wrapFetch(baseFetch, user_token)
 
 	return {

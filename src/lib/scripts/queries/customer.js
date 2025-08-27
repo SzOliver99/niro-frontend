@@ -2,11 +2,11 @@ import { createMutation, useQueryClient } from "@tanstack/svelte-query";
 import customerApi from "../apis/customer";
 
 // MUTATIONS
-export const createCustomerMutation = (user_token) => {
+export const createCustomerMutation = () => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async (customer) => await customerApi({ user_token }).createCustomer(customer),
+        mutationFn: async (customer) => await customerApi().create(customer),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
         }

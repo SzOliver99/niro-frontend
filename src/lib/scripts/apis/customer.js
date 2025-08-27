@@ -1,6 +1,6 @@
 import { wrapFetch } from "./api";
 
-const customerApi = ({ baseFetch = fetch, user_token = null }) => {
+const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     const fetch = wrapFetch(baseFetch, user_token)
 
     return {

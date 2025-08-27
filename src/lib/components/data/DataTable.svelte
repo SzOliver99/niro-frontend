@@ -2,6 +2,7 @@
 	import { changeCustomerUserModal } from '$lib/stores/user';
 	import { ChevronDown, ChevronUp, Search, Filter, X, TestTube } from 'lucide-svelte';
 	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
+	import { scale } from 'svelte/transition';
 
 	let {
 		data = [],
@@ -129,15 +130,24 @@
 						Szűrők törlése
 					</button>
 				{/if}
-				{#if modifiable}
-					<button
-						class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700 disabled:bg-blue-800"
-						disabled={selectedRows.length === 0}
-						onclick={modifySelectedRowsUser}
-					>
-						Üzletkötő módosítása
-					</button>
+				{#if selectedRows.length !== 0}
+					<div in:scale={{ start: 0.8, duration: 200 }} out:scale={{ end: 0.8, duration: 200 }}>
+						{#if modifiable}
+							<button
+								class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700"
+								onclick={modifySelectedRowsUser}
+							>
+								Üzletkötő módosítása
+							</button>
+						{/if}
+						<button
+							class="rounded-lg bg-red-900 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-red-950"
+						>
+							Sor(ok) törlése
+						</button>
+					</div>
 				{/if}
+
 				<ChangeCustomerUserModal bind:selectedRows />
 			</div>
 		</div>

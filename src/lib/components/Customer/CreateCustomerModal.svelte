@@ -1,4 +1,5 @@
 <script>
+	import { page } from '$app/stores';
 	import { createCustomerMutation } from '$lib/scripts/queries/customer';
 	import { formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
@@ -8,7 +9,7 @@
 
 	let { selected_user = $bindable() } = $props();
 
-	let createCustomer = createCustomerMutation();
+	const createCustomer = createCustomerMutation();
 	async function handleSubmit() {
 		let customer = {
 			full_name: `${last_name.value} ${first_name.value}`,
@@ -26,6 +27,13 @@
 		if (!phone_number_length) {
 			Notification.error('Túl rövid telefonszám', 3);
 		}
+
+		$createCustomer.mutate(customer, {
+			onSuccess: () => {
+				Notification.success('Sikeresen létrehoztad az ügyfelet', 3);
+				createCustomerModal.close();
+			}
+		});
 	}
 </script>
 
