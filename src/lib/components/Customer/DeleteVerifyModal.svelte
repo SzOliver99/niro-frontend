@@ -5,12 +5,13 @@
 	import { deleteVerifyModal } from '$lib/stores/user';
 	import { deleteCustomerMutation } from '$lib/scripts/queries/customer';
 
-	let { selectedRows, delete_mutation } = $props();
+	let { selectedRows = $bindable(), delete_mutation } = $props();
 
 	async function handleDelete() {
 		$delete_mutation.mutate(selectedRows, {
 			onSuccess: () => {
 				Notification.success('Sikeresen kitörölted a sor(okat)', 3);
+				selectedRows = [];
 				deleteVerifyModal.close();
 			}
 		});
