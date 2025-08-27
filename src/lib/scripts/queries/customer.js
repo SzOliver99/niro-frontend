@@ -25,11 +25,11 @@ export const changeCustomerUserMutation = (user_token) => {
     });
 };
 
-export const deleteCustomerMutation = () => {
+export const deleteCustomerMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async (customer_id) => await customerApi().delete(customer_id),
+        mutationFn: async (customer_id) => await customerApi({ user_token }).delete(customer_id),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
         }

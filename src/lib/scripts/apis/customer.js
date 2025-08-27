@@ -31,10 +31,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             return await response.json();
         },
-        delete: async (customer_id) => {
+        delete: async (customer_ids) => {
             const response = await fetch('/api/customer/delete', {
                 method: 'DELETE',
-                body: JSON.stringify(customer_id)
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify(customer_ids)
             });
             return await response.json();
         },

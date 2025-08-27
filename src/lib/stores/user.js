@@ -55,6 +55,7 @@ export function createModalStore(user_id, modals = { Manage: false, Delete: fals
 }
 
 export const userHireModal = createSimpleModalStore();
+
 export const changeCustomerUserModal = createSimpleModalStore();
 export const createCustomerModal = createSimpleModalStore();
-export const userManageModalsStore = writable([]);
+export const deleteVerifyModal = createSimpleModalStore();

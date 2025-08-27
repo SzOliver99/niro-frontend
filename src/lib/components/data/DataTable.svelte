@@ -1,12 +1,14 @@
 <script>
-	import { changeCustomerUserModal } from '$lib/stores/user';
+	import { changeCustomerUserModal, deleteVerifyModal } from '$lib/stores/user';
 	import { ChevronDown, ChevronUp, Search, Filter, X, TestTube } from 'lucide-svelte';
 	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
 	import { scale } from 'svelte/transition';
+	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
 
 	let {
 		data = [],
 		columns = [],
+		delete_mutation = null,
 		searchable = true,
 		filterable = true,
 		sortable = true,
@@ -102,7 +104,7 @@
 	}
 
 	function openDeleteVerifyModal() {
-		
+		deleteVerifyModal.open();
 	}
 </script>
 
@@ -154,6 +156,7 @@
 				{/if}
 
 				<ChangeCustomerUserModal bind:selectedRows />
+				<DeleteVerifyModal bind:selectedRows {delete_mutation} />
 			</div>
 		</div>
 	{/if}

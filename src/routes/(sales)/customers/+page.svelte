@@ -3,6 +3,7 @@
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import customerApi from '$lib/scripts/apis/customer';
 	import userApi from '$lib/scripts/apis/user';
+	import { deleteCustomerMutation } from '$lib/scripts/queries/customer.js';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import { permissionsStore } from '$lib/stores/permissions.js';
 	import { createCustomerModal } from '$lib/stores/user.js';
@@ -30,6 +31,8 @@
 			enabled: selected_user !== undefined
 		})
 	);
+
+	let delete_mutation = deleteCustomerMutation(data.token);
 
 	const columns = [
 		{ key: 'action', label: '#' },
@@ -71,6 +74,7 @@
 	<DataTable
 		data={$customers.data}
 		{columns}
+		{delete_mutation}
 		searchable={true}
 		filterable={true}
 		sortable={true}
