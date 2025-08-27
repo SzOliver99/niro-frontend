@@ -6,7 +6,7 @@
 
 	let user = $state({});
 	$effect.pre(async () => {
-		user = await userApi().getUserInfo(data.token);
+		user = await userApi({ user_token: data.token }).getUserInfo();
 	});
 
 	const getUserLastName = () => user.info?.full_name.split(' ')[0];

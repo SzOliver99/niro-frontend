@@ -5,13 +5,13 @@ import { Notification } from '$lib/stores/notifications';
 export const getUsersQuery = (user_token) =>
 	queryOptions({
 		queryKey: ['users', user_token],
-		queryFn: () => userApi().getAllUsers(user_token)
+		queryFn: () => userApi({ user_token }).getAllUsers()
 	});
 
 export const getManagerGroupQuery = (user_token) =>
 	queryOptions({
 		queryKey: ['manager-group', user_token],
-		queryFn: () => userApi().getManagerGroup(user_token),
+		queryFn: () => userApi({ user_token }).getManagerGroup(),
 		refetchInterval: 3000,
 		refetchIntervalInBackground: false
 	});
@@ -21,7 +21,7 @@ export const updateUsersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi().modifyUserInfo(user_token, user),
+		mutationFn: async (user) => await userApi({ user_token }).modifyUserInfo(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
@@ -34,7 +34,7 @@ export const createUsersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi().signUp(user_token, user),
+		mutationFn: async (user) => await userApi({ user_token }).signUp(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
@@ -46,7 +46,7 @@ export const deleteUserMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi().terminateUserContact(user_token, user),
+		mutationFn: async (user) => await userApi({ user_token }).terminateUserContact(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
@@ -59,7 +59,7 @@ export const updateManagersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi().modifyUserManager(user_token, user),
+		mutationFn: async (user) => await userApi({ user_token }).modifyUserManager(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });

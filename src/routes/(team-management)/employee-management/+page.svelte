@@ -12,7 +12,7 @@
 
 	let users = createQuery({
 		queryKey: ['users', data.token],
-		queryFn: () => userApi().getAllUsers(data.token),
+		queryFn: () => userApi({ user_token: data.token }).getAllUsers(),
 		refetchInterval: 3000,
 		refetchIntervalInBackground: false
 	});

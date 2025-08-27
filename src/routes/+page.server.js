@@ -1,3 +1,4 @@
+import { wrapFetch } from '$lib/scripts/apis/api';
 import userApi from '$lib/scripts/apis/user';
 import { Notification } from '$lib/stores/notifications';
 import { redirect } from '@sveltejs/kit';
@@ -8,7 +9,7 @@ export const actions = {
 		const username = form_data.get('username')?.toString();
 		const password = form_data.get('password')?.toString();
 
-		const data = await userApi(fetch).signIn(username, password);
+		const data = await userApi({ baseFetch: fetch }).signIn(username, password);
 
 		if (data.UserToken) {
 			cookies.set('token', data.UserToken, {

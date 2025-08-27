@@ -14,7 +14,7 @@ function createPermissionsStore() {
 
     return {
         subscribe,
-        async checkPermissions(user) {
+        async checkPermissions(user_token) {
             const store = get(this);
             const now = Date.now();
 
@@ -25,7 +25,7 @@ function createPermissionsStore() {
             update(state => ({ ...state, loading: true, error: null }));
 
             try {
-                const userRole = await userApi().getUserRole(user);
+                const userRole = await userApi({ user_token }).getUserRole();
 
                 update(state => ({
                     userRole,

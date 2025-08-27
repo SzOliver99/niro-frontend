@@ -10,7 +10,7 @@
 
 	let sub_users = createQuery({
 		queryKey: ['sub_users', data.token],
-		queryFn: async () => await userApi().getUserSubUsers(data.token)
+		queryFn: async () => await userApi({ user_token: data.token }).getUserSubUsers()
 	});
 
 	let selected_user = $state();
@@ -65,7 +65,7 @@
 		searchable={true}
 		filterable={true}
 		sortable={true}
-        modifiable={false}
+		modifiable={false}
 		pageSize={30}
 	/>
 </div>

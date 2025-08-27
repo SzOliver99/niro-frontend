@@ -11,7 +11,7 @@
 
 	let users = createQuery({
 		queryKey: ['sub_users', $page.data.token],
-		queryFn: async () => await userApi().getUserSubUsers($page.data.token)
+		queryFn: async () => await userApi({ user_token: $page.data.token }).getUserSubUsers()
 	});
 
 	let new_user = $state('');

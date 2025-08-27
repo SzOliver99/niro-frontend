@@ -13,7 +13,7 @@
 
 	let sub_users = createQuery({
 		queryKey: ['sub_users', data.token],
-		queryFn: async () => await userApi().getUserSubUsers(data.token)
+		queryFn: async () => await userApi({ user_token: data.token }).getUserSubUsers()
 	});
 
 	let selected_user = $state();
@@ -26,7 +26,7 @@
 	let customers = $derived(
 		createQuery({
 			queryKey: ['customers', data.token, selected_user],
-			queryFn: async () => await customerApi().getAllById(data.token, selected_user),
+			queryFn: async () => await customerApi({ user_token: data.token }).getAllById(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);

@@ -18,7 +18,7 @@
 	let userFullName = $state('');
 	$effect.pre(async () => {
 		if (data.token) {
-			const res_data = await userApi().getUserInfo(data.token);
+			const res_data = await userApi({ user_token: data.token }).getUserInfo();
 			userFullName = res_data.info?.full_name;
 		}
 	});
