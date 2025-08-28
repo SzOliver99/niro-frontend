@@ -11,12 +11,7 @@
 
 	let navTabs = $state({
 		opened: 'Személyes adatok',
-		tabs: [
-			{ title: 'Személyes adatok', icon: FileUser },
-			{ title: 'Címanyagok', icon: BookUser },
-			{ title: 'Időpontok', icon: CalendarClock },
-			{ title: 'Szerződések', icon: BookUser }
-		]
+		tabs: [{ title: 'Személyes adatok', icon: FileUser }]
 	});
 </script>
 
