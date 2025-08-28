@@ -85,6 +85,21 @@
 	<h2 class="mb-4 text-xl italic">Személyes adatok</h2>
 
 	<form onsubmit={handleSubmit} class="rounded-lg">
+		<div class="mb-6 grid grid-cols-1 gap-4 md:grid-cols-2">
+			<div>
+				<label for="username" class="block text-sm font-medium">Felhasználónév</label>
+				<input
+					type="text"
+					id="username"
+					name="username"
+					placeholder="Doe"
+					value={user.username}
+					disabled
+					required
+					class="mt-1 block w-full rounded-md px-3 py-2 text-gray-400 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+				/>
+			</div>
+		</div>
 		<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
 			<div>
 				<label for="last_name" class="block text-sm font-medium"
