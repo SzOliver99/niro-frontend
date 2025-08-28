@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { createCustomerMutation } from '$lib/scripts/queries/customer';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
-	import { checkHouseNumber, formatPhoneNumber } from '$lib/scripts/utils';
+	import { checkHouseNumber, formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { createCustomerModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
