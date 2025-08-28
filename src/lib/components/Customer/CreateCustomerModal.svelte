@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import { createCustomerMutation } from '$lib/scripts/queries/customer';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
-	import { formatPhoneNumber } from '$lib/scripts/utils';
+	import { checkHouseNumber, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { createCustomerModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -17,7 +17,7 @@
 		let customer = {
 			full_name: `${last_name.value} ${first_name.value}`,
 			phone_number: phone_number.value,
-			address: address.value,
+			address: `${postal_code.value} ${settlement.value} ${street.value} ${house_number.value}`,
 			email: email.value,
 			user_id: selected_user,
 			created_by: $userInfoQuery.data.info.full_name
@@ -104,18 +104,58 @@
 						required
 					/>
 				</div>
-				<div class="flex flex-col text-start font-medium">
-					<label for="address">Lakcím <span class="text-red-700">*</span></label>
-					<input
-						name="address"
-						id="address"
-						type="text"
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
-				</div>
 
+				<div class="grid grid-cols-2 gap-4">
+					<div class="flex flex-col text-start font-medium">
+						<label for="postal_code">Irányítoszám <span class="text-red-700">*</span></label>
+						<input
+							name="postal_code"
+							id="postal_code"
+							maxlength="4"
+							type="text"
+							oninput={() => formatNumberOnly(postal_code)}
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+					<div class="flex flex-col text-start font-medium">
+						<label for="settlement">Település <span class="text-red-700">*</span></label>
+						<input
+							name="settlement"
+							id="settlement"
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div class="flex flex-col text-start font-medium">
+						<label for="street">Közterület <span class="text-red-700">*</span></label>
+						<input
+							name="street"
+							id="street"
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+					<div class="flex flex-col text-start font-medium">
+						<label for="house_number">Házszám <span class="text-red-700">*</span></label>
+						<input
+							name="house_number"
+							id="house_number"
+							oninput={() => formatNumberOnly(house_number)}
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+				</div>
 				<div class="flex justify-end">
 					<button
 						class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"

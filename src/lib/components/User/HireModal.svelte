@@ -2,7 +2,7 @@
 	import { page } from '$app/stores';
 	import userApi from '$lib/scripts/apis/user';
 	import { createUsersMutation } from '$lib/scripts/queries/user';
-	import { convertUserGroup, formatPhoneNumber } from '$lib/scripts/utils';
+	import { convertUserGroup, formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
 	import { userHireModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
@@ -169,6 +169,7 @@
 							maxlength="7"
 							type="text"
 							placeholder="1234567"
+							oninput={() => formatNumberOnly(agent_code)}
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 							autocomplete="off"
 							required

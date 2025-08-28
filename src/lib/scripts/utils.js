@@ -29,3 +29,7 @@ export function formatPhoneNumber() {
     if (rest.length > 5) formatted += ' ' + rest.substring(5, 9);
     phone_number.value = formatted;
 }
+
+export const formatNumberOnly = (input) => {
+    input.value = input.value.replace(/\D/g, '')
+}

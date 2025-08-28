@@ -66,7 +66,6 @@
 		if (manager_id) {
 			user_data['manager_id'] = manager_id;
 		}
-		console.log(user_data);
 
 		$updateManagers.mutate(user_data, {
 			onSuccess: () => {
