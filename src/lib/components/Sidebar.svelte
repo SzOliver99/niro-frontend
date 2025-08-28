@@ -5,13 +5,28 @@
 	import {
 		ArrowLeftToLine,
 		ArrowRightFromLine,
+		Banknote,
 		BookUser,
 		Calendar1,
 		CalendarClock,
+		ChartCandlestick,
+		ChartNoAxesColumnIncreasing,
+		ChartNoAxesCombined,
+		ChartPie,
 		Clock1,
+		CreditCard,
+		Crown,
 		Dumbbell,
+		FileWarning,
+		Goal,
+		GraduationCap,
+		HardDrive,
+		LaptopMinimalCheck,
 		ReceiptText,
-		Table
+		Table,
+		User,
+		UserRoundSearch,
+		Users
 	} from 'lucide-svelte';
 	import { sideBarStore } from '$lib/stores/sidebar';
 
@@ -22,13 +37,14 @@
 			category: 'Értékesítés',
 			permissionRequired: false,
 			items: [
-				{ href: '/customers', label: 'Ügyfelek', icon: Table },
+				{ href: '/customers', label: 'Ügyfelek', icon: UserRoundSearch },
 				{ href: '/leads', label: 'Címanyag', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
+				{ href: '/offers', label: 'Ajánlások', icon: Crown },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
-				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: BookUser },
+				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: FileWarning },
 				{ href: '/to-do', label: 'Teendők', icon: Calendar1 },
-				{ href: '/goals', label: 'Célok', icon: Calendar1 }
+				{ href: '/goals', label: 'Célok', icon: Goal }
 			]
 		},
 		teamManagement: {
@@ -36,32 +52,32 @@
 			permissionRequired: true,
 			items: [
 				{ href: '/employee-management', label: 'Üzletkötők', icon: BookUser, minRole: 'Leader' },
-				{ href: '/recruitment', label: 'Toborzás', icon: Dumbbell, minRole: 'Manager' },
-				{ href: '/groups', label: 'Csoportok', icon: Dumbbell, minRole: 'Manager' },
-				{ href: '/performance', label: 'Teljesítmény', icon: Dumbbell, minRole: 'Manager' }
+				{ href: '/recruitment', label: 'Toborzás', icon: ChartNoAxesCombined, minRole: 'Manager' },
+				{ href: '/groups', label: 'Csoportok', icon: Users, minRole: 'Manager' },
+				{ href: '/performance', label: 'Teljesítmény', icon: ChartPie, minRole: 'Manager' }
 			]
 		},
 		usefulLinks: {
 			category: 'Hasznos Linkek',
 			permissionRequired: false,
 			items: [
-				{ href: 'https://e-learning.allianz.hu/', label: 'E-learning', icon: BookUser },
-				{ href: 'https://ap.allianz.hu/', label: 'AKP', icon: BookUser },
-				{ href: 'https://allianz.hu/dijfizetes', label: 'Online Díjfizetés', icon: BookUser },
+				{ href: 'https://e-learning.allianz.hu/', label: 'E-learning', icon: GraduationCap },
+				{ href: 'https://ap.allianz.hu/', label: 'AKP', icon: LaptopMinimalCheck },
+				{ href: 'https://allianz.hu/dijfizetes', label: 'Online Díjfizetés', icon: CreditCard },
 				{
 					href: 'https://drive.google.com/drive/u/0/folders/1klH7FsF30U7tNM8yKJgIZFqLX23qxKCO',
 					label: 'Drive',
-					icon: BookUser
+					icon: HardDrive
 				},
 				{
 					href: 'https://www.allianz.hu/hu_HU/lakossagi/karbejelentes-es-ugyintezes/online-ugyintezes.html#TabVerticalNegative12102971254',
 					label: 'Allianz bankszámlaszám',
-					icon: BookUser
+					icon: Banknote
 				},
 				{
 					href: 'https://invisualist.com/hu/auth/login',
 					label: 'Invisualist',
-					icon: BookUser
+					icon: ChartCandlestick
 				}
 			]
 		}

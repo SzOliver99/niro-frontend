@@ -1,7 +1,7 @@
 <script>
 	import { BookUser, CalendarClock, FileUser, X } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
-	import { PersonalData, Contacts, Appointments, Contracts } from './UserManageSections';
+	import { PersonalData } from './UserManageSections';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { checkPermission } from '$lib/scripts/utils';
 	import { page } from '$app/stores';
@@ -78,11 +78,5 @@
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Személyes adatok'}
 		<PersonalData {user} bind:userManageModal />
-	{:else if navTabs.opened === 'Címanyagok'}
-		<Contacts {user} />
-	{:else if navTabs.opened === 'Időpontok'}
-		<Appointments {user} />
-	{:else if navTabs.opened === 'Szerződések'}
-		<Contracts {user} />
 	{/if}
 {/snippet}
