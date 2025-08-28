@@ -38,16 +38,19 @@ export const actions = {
 			return
 		}
 
-		const token = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
+		const complete_first_login_response = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
+		const token_data = await complete_first_login_response.json()
 
+		if (complete_first_login_response.ok) {
+			cookies.set('token', token_data, {
+				path: '/',
+				httpOnly: true,
+				sameSite: 'lax',
+				secure: true,
+				maxAge: 60 * 60
+			});
+		}
 		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });
-		cookies.set('token', token, {
-			path: '/',
-			httpOnly: true,
-			sameSite: 'lax',
-			secure: true,
-			maxAge: 60 * 60
-		});
 	}
 };
 

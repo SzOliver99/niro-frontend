@@ -3,9 +3,11 @@
 	import SignInForm from '$lib/components/SignInForm.svelte';
 
 	let { data } = $props();
+
+	const isLoggedIn = $derived(!!data.token);
 </script>
 
-{#if data.token}
+{#if isLoggedIn}
 	Kezdőlap
 {:else if data.firstLoginToken}
 	<FirstLoginForm />

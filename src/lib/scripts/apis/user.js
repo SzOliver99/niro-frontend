@@ -146,12 +146,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					token
 				})
 			});
-			const data = await response.json();
-			if (!response.ok) {
-				Notification.error(data.error, 3);
-			}
-
-			return data;
+			return response;
 		},
 
 		getManagers: async (user_id = 0) => {
@@ -187,12 +182,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
-			const data = await response.json();
-			if (!response.ok) {
-				Notification.error(data.error, 3);
-			}
-
-			return data;
+			return response;
 		}
 	}
 };
