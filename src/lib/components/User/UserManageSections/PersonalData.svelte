@@ -96,7 +96,7 @@
 					value={user.username}
 					disabled
 					required
-					class="mt-1 block w-full rounded-md px-3 py-2 text-gray-400 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 				/>
 			</div>
 		</div>
@@ -213,7 +213,7 @@
 							}
 						}}
 						required
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 					>
 						<option value={false}>Nem</option>
 						<option value={true}>Igen</option>
@@ -227,7 +227,7 @@
 						value={manager_id}
 						disabled={is_manager}
 						onchange={() => handleModifyUserManager(+user_manager.value)}
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 					>
 						{#if is_manager}
 							<option value={null}>Nincs menedzser</option>

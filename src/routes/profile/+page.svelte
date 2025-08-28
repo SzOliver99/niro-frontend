@@ -80,7 +80,7 @@
 						placeholder="ab12345"
 						value={$userInfoQuery.data.info?.hufa_code}
 						disabled
-						class="mt-1 block w-full rounded-md px-3 py-2 text-gray-400 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 					/>
 				</div>
 				<div>
@@ -92,7 +92,7 @@
 						placeholder="1234567"
 						value={$userInfoQuery.data.info?.agent_code}
 						disabled
-						class="mt-1 block w-full rounded-md px-3 py-2 text-gray-400 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 					/>
 				</div>
 			</div>
