@@ -38,7 +38,7 @@ export const actions = {
 			return
 		}
 
-		const token = await userApi(fetch).completeFirstLogin(password, cookies.get("firstLoginToken"))
+		const token = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
 
 		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });
 		cookies.set('token', token, {
