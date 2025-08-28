@@ -7,6 +7,7 @@
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Save } from 'lucide-svelte';
+	import { onMount } from 'svelte';
 
 	let { user, userManageModal = $bindable() } = $props();
 
@@ -15,66 +16,41 @@
 		queryFn: () => userApi().getManagers(user.id)
 	});
 
-	let formData = $state({
-		last_name: '',
-		first_name: '',
-		email: '',
-		phone_number: '',
-		agent_code: '',
-		user_manager: null,
-		is_manager: false
-	});
-
-	$effect(() => {
-		if (user) {
-			const full_name = user.info?.full_name || '';
-			const name_parts = full_name.split(' ');
-
-			formData = {
-				last_name: name_parts[0] || '',
-				first_name: name_parts[1] || '',
-				email: user.email || '',
-				phone_number: user.info?.phone_number || '',
-				agent_code: user.info?.agent_code || '',
-				hufa_code: user.info?.hufa_code || '',
-				user_manager: user.manager_id || 'null',
-				is_manager: user.manager_id === null
-			};
-		}
-	});
+	let is_manager = $state(!user.manager_id ? true : false);
+	let manager_id = $state(user.manager_id);
 
 	const updateUser = updateUsersMutation($page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
-
-		let user = {
+		let user_data = {
 			id: user.id,
-			email: formData.email,
+			email: email.value,
 			info: {
-				full_name: `${formData.last_name} ${formData.first_name}`,
-				phone_number: formData.phone_number,
-				hufa_code: formData.hufa_code,
-				agent_code: formData.agent_code
+				full_name: `${last_name.value} ${first_name.value}`,
+				phone_number: phone_number.value,
+				hufa_code: hufa_code.value,
+				agent_code: agent_code.value
 			}
 		};
+
 		const email_rgx = new RegExp(/\b[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}\b/i);
-		const phone_number_length = user.info.phone_number.length === 15;
+		const phone_number_length = user_data.info.phone_number.length === 15;
 		const hufa_code_rgx = new RegExp(/\b[a-z]{2}\d{5}/g);
 		const agent_code_rgx = new RegExp(/\d{7}/g);
-		if (!email_rgx.test(user.email.trim())) {
+		if (!email_rgx.test(user_data.email.trim())) {
 			Notification.error('Hibás email', 3);
 		}
 		if (!phone_number_length) {
 			Notification.error('Túl rövid telefonszám', 3);
 		}
-		if (!hufa_code_rgx.test(user.info.hufa_code.trim())) {
+		if (!hufa_code_rgx.test(user_data.info.hufa_code.trim())) {
 			Notification.error('Hibás HUFA kód', 3);
 		}
-		if (!agent_code_rgx.test(user.info.agent_code.trim())) {
+		if (!agent_code_rgx.test(user_data.info.agent_code.trim())) {
 			Notification.error('Hibás üzletkötő kód', 3);
 		}
 
-		$updateUser.mutate(user, {
+		$updateUser.mutate(user_data, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
 				userManageModal.close();
@@ -84,17 +60,18 @@
 
 	const updateManagers = updateManagersMutation($page.data.token);
 	async function handleModifyUserManager(manager_id = null) {
-		let user = {
+		let user_data = {
 			id: user.id
 		};
 		if (manager_id) {
-			user['manager_id'] = manager_id;
+			user_data['manager_id'] = manager_id;
 		}
+		console.log(user_data);
 
-		$updateManagers.mutate(user, {
+		$updateManagers.mutate(user_data, {
 			onSuccess: () => {
 				Notification.success('Sikeresen elmentetted', 3);
-				userManageModalStore.close();
+				userManageModal.close();
 			}
 		});
 	}
@@ -114,7 +91,7 @@
 					id="last_name"
 					name="last_name"
 					placeholder="Doe"
-					bind:value={formData.last_name}
+					value={user.info.full_name.split(' ')[0]}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -128,7 +105,7 @@
 					id="first_name"
 					name="first_name"
 					placeholder="John"
-					bind:value={formData.first_name}
+					value={user.info.full_name.split(' ')[1]}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -142,7 +119,7 @@
 					id="email"
 					name="email"
 					placeholder="test@test.hu"
-					bind:value={formData.email}
+					value={user.email}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -158,7 +135,7 @@
 					maxlength="15"
 					placeholder="+36 12 345 7891"
 					oninput={formatPhoneNumber}
-					bind:value={formData.phone_number}
+					value={user.info.phone_number}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
@@ -171,7 +148,7 @@
 					name="hufa_code"
 					maxlength="7"
 					placeholder="ab12345"
-					bind:value={formData.hufa_code}
+					value={user.info.hufa_code}
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
@@ -183,7 +160,7 @@
 					name="agent_code"
 					maxlength="7"
 					placeholder="1234567"
-					bind:value={formData.agent_code}
+					value={user.info.agent_code}
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
 			</div>
@@ -207,14 +184,14 @@
 					<select
 						id="is_manager"
 						name="is_manager"
-						bind:value={formData.is_manager}
+						bind:value={is_manager}
+						disabled={user.user_role === 'Leader'}
 						onchange={() => {
-							if (formData.is_manager) {
-								user_manager.value = null;
+							manager_id = null;
+							if (is_manager) {
 								handleModifyUserManager();
 							}
 						}}
-						disabled={user.user_role === 'Leader'}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 					>
@@ -227,16 +204,16 @@
 					<select
 						id="user_manager"
 						name="user_manager"
-						bind:value={formData.user_manager}
-						disabled={formData.is_manager}
+						value={manager_id}
+						disabled={is_manager}
 						onchange={() => handleModifyUserManager(+user_manager.value)}
-						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 					>
-						{#if formData.is_manager}
-							<option value="null">Nincs menedzser</option>
+						{#if is_manager}
+							<option value={null}>Nincs menedzser</option>
+						{:else}
+							<option value={null}>Válassz menedzsert</option>
 						{/if}
-						<option value="">Válassz menedzsert</option>
 						{#each $managers.data as manager}
 							<option value={manager.id}
 								>{manager.full_name} - {convertUserGroup(manager.user_role)}</option

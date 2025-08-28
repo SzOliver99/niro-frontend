@@ -1,10 +1,10 @@
 <script>
 	import { ArrowUpRight } from 'lucide-svelte';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
-	import ManagePopover from './ManageModal.svelte';
+	import ManageModal from './ManageModal.svelte';
 	import { createModalStore } from '$lib/stores/user';
 
-	let { user = null } = $props();
+	let { user } = $props();
 	let userManageModal = $state(createModalStore(user.id));
 
 	let isManageModalOpen = $state();
@@ -15,8 +15,8 @@
 >
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
-			<h3 class="font-bold">{user?.info?.full_name || 'Ismeretlen'}</h3>
-			<p>{convertUserGroup(user?.user_role)}</p>
+			<h3 class="font-bold">{user.info?.full_name || 'Ismeretlen'}</h3>
+			<p>{convertUserGroup(user.user_role)}</p>
 			<p>{user?.info?.agent_code || 'N/A'}</p>
 			<p>{user?.info?.phone_number || 'N/A'}</p>
 		</div>
@@ -32,5 +32,5 @@
 	</div>
 </div>
 {#if user}
-	<ManagePopover {user} bind:userManageModal />
+	<ManageModal {user} bind:userManageModal />
 {/if}

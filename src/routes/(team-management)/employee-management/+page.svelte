@@ -8,7 +8,7 @@
 
 	let { data } = $props();
 
-	let users = createQuery({
+	const users = createQuery({
 		queryKey: ['users', data.token],
 		queryFn: () => userApi({ user_token: data.token }).getAllUsers(),
 		refetchInterval: 3000,
