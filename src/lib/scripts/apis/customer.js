@@ -17,13 +17,28 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getAllById: async (user_id) => {
+        getAllByUserId: async (user_id) => {
             const response = await fetch('/api/customer/get-all', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
                 body: JSON.stringify(user_id)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                Notification.error(data.error, 3);
+            }
+
+            return data;
+        },
+        getById: async (customer_id) => {
+            const response = await fetch('/api/customer/get', {
+                method: 'POST',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify(customer_id)
             });
             const data = await response.json();
             if (!response.ok) {

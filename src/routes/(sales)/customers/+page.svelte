@@ -27,7 +27,8 @@
 	let customers = $derived(
 		createQuery({
 			queryKey: ['customers', data.token, selected_user],
-			queryFn: async () => await customerApi({ user_token: data.token }).getAllById(selected_user),
+			queryFn: async () =>
+				await customerApi({ user_token: data.token }).getAllByUserId(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);

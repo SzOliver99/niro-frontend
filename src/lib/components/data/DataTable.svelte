@@ -4,6 +4,8 @@
 	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
 	import { scale } from 'svelte/transition';
 	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
+	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 
 	let {
 		data = [],
@@ -186,7 +188,12 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200 bg-white">
 				{#each paginatedData() as item, index}
-					<tr class="hover:bg-gray-50" onclick={() => {}}>
+					<tr
+						class="hover:bg-gray-50"
+						onclick={() => {
+							goto(`${$page.url.pathname}/${item.id}`);
+						}}
+					>
 						{#each columns as column}
 							{#if column.key === 'action'}
 								<td class="px-5">
