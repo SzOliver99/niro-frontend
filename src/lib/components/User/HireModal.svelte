@@ -40,15 +40,19 @@
 		const agent_code_rgx = new RegExp(/\d{7}/g);
 		if (!email_rgx.test(agent.email.trim())) {
 			Notification.error('Hibás email', 3);
+			return;
 		}
 		if (!phone_number_length) {
 			Notification.error('Túl rövid telefonszám', 3);
+			return;
 		}
 		if (!hufa_code_rgx.test(agent.info.hufa_code.trim())) {
 			Notification.error('Hibás HUFA kód', 3);
+			return;
 		}
 		if (!agent_code_rgx.test(agent.info.agent_code.trim())) {
 			Notification.error('Hibás üzletkötő kód', 3);
+			return;
 		}
 
 		$createUser.mutate(agent, {

@@ -27,9 +27,11 @@
 		const phone_number_length = customer.phone_number.length === 15;
 		if (!email_rgx.test(customer.email.trim())) {
 			Notification.error('Hibás email', 3);
+			return;
 		}
 		if (!phone_number_length) {
 			Notification.error('Túl rövid telefonszám', 3);
+			return;
 		}
 
 		$createCustomer.mutate(customer, {

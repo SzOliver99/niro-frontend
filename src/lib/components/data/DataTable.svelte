@@ -196,7 +196,7 @@
 					>
 						{#each columns as column}
 							{#if column.key === 'action'}
-								<td class="px-5">
+								<td class="px-5" onclick={(e) => e.stopPropagation()}>
 									<label
 										class="group flex h-5 w-5 items-center rounded border-2 border-gray-300 bg-white duration-200 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-600"
 									>

@@ -12,9 +12,6 @@ function createNotificationStore() {
 		if (duration > 0) {
 			setTimeout(() => dismiss(id), duration);
 		}
-		if (type === 'error') {
-			throw Error(message);
-		}
 	}
 
 	function dismiss(id) {

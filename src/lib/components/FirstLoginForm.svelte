@@ -1,4 +1,7 @@
 <script>
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+	import { Notification } from '$lib/stores/notifications';
 	import { CircleArrowRight } from 'lucide-svelte';
 </script>
 
@@ -8,7 +11,16 @@
 	<h1 class="my-4 text-4xl font-semibold text-shadow-md">Első bejelentkezés</h1>
 	<p>Észleltük, hogy ideiglenes jelszóval jelentkeztél be!</p>
 	<p>Kérjük változtass jelszót!</p>
-	<form method="POST" action="?/first-login" class="mt-5 flex flex-col gap-5">
+	<form
+		method="POST"
+		action="?/first-login"
+		class="mt-5 flex flex-col gap-5"
+		use:enhance={() => {
+			if ($page.form?.error) {
+				Notification.error($page.form?.error, 3);
+			}
+		}}
+	>
 		<div class="flex flex-col text-start font-medium">
 			<label for="password">Jelszó</label>
 			<input

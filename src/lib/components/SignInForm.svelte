@@ -1,4 +1,7 @@
 <script>
+	import { enhance } from '$app/forms';
+	import { page } from '$app/stores';
+	import { Notification } from '$lib/stores/notifications';
 	import { CircleArrowRight } from 'lucide-svelte';
 </script>
 
@@ -6,7 +9,16 @@
 	class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 >
 	<h1 class="my-4 text-4xl text-shadow-md"><b>NIRO</b> Kezelőfelület</h1>
-	<form method="POST" action="?/sign-in" class="mt-5 flex flex-col gap-5">
+	<form
+		method="POST"
+		action="?/sign-in"
+		class="mt-5 flex flex-col gap-5"
+		use:enhance={() => {
+			if ($page.form?.error) {
+				Notification.error($page.form?.error);
+			}
+		}}
+	>
 		<div class="flex flex-col text-start font-medium">
 			<label for="username">Felhasználónév <span class="text-red-700">*</span></label>
 			<input

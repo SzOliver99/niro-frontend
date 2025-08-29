@@ -12,7 +12,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                Notification.error(data.error, 3);
+                await Promise.reject(Notification.error(data.error, 3));
             }
 
             return data;
@@ -27,7 +27,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                Notification.error(data.error, 3);
+                await Promise.reject(Notification.error(data.error, 3));
             }
 
             return data;
@@ -42,7 +42,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                Notification.error(data.error, 3);
+                await Promise.reject(Notification.error(data.error, 3));
             }
 
             return data;
@@ -57,7 +57,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                Notification.error(data.error, 3);
+                await Promise.reject(Notification.error(data.error, 3));
             }
 
             return data;
@@ -72,7 +72,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             });
             const data = await response.json();
             if (!response.ok) {
-                Notification.error(data.error, 3);
+                await Promise.reject(Notification.error(data.error, 3));
             }
 
             return data;

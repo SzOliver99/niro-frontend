@@ -1,5 +1,6 @@
 import userApi from '$lib/scripts/apis/user';
 import { Notification } from '$lib/stores/notifications';
+import { fail, redirect } from '@sveltejs/kit';
 
 export const actions = {
 	"sign-in": async ({ cookies, request, fetch }) => {
@@ -10,22 +11,13 @@ export const actions = {
 		const data = await userApi({ baseFetch: fetch }).signIn(username, password);
 
 		if (data.UserToken) {
-			cookies.set('token', data.UserToken, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				secure: true,
-				maxAge: 60 * 60
-			});
-
+			cookies.set('token', data.UserToken, { path: '/', httpOnly: true, secure: true, maxAge: 3600 });
+			return { success: true };
 		} else if (data.FirstLoginToken) {
-			cookies.set('firstLoginToken', data.FirstLoginToken, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				secure: true,
-				maxAge: 60 * 2
-			});
+			cookies.set('firstLoginToken', data.FirstLoginToken, { path: '/', httpOnly: true, secure: true, maxAge: 120 });
+			return { firstLogin: true };
+		} else {
+			return fail(401, { error: 'Hibás felhasználónév vagy jelszó' });
 		}
 	},
 	"first-login": async ({ cookies, request, fetch }) => {
@@ -34,8 +26,7 @@ export const actions = {
 		const password_confirm = form_data.get('password_confirm')?.toString();
 
 		if (password !== password_confirm) {
-			Notification.error("Nem eggyezik meg a két jelszó")
-			return
+			return fail(402, { error: "Nem eggyezik meg a két jelszó" })
 		}
 
 		const complete_first_login_response = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
@@ -51,6 +42,7 @@ export const actions = {
 			});
 		}
 		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });
+		return fail(402, { error: "Valami hiba történt" })
 	}
 };
 

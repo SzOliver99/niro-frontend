@@ -11,12 +11,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 				method: 'POST',
 				body: JSON.stringify({ username, password })
 			});
-			const data = await response.json();
-			if (!response.ok) {
-				Notification.error(data.error, 3);
-			}
-
-			return data;
+			return await response.json();
 		},
 
 		signUp: async (user) => {
@@ -29,7 +24,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -44,7 +39,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -58,7 +53,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -72,7 +67,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -88,8 +83,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
-				throw Error(data.error);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -105,8 +99,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
-				throw Error(data.error);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -132,7 +125,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -156,7 +149,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
@@ -170,7 +163,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			const data = await response.json();
 			if (!response.ok) {
-				Notification.error(data.error, 3);
+				await Promise.reject(Notification.error(data.error, 3));
 			}
 
 			return data;
