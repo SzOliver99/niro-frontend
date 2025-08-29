@@ -1,12 +1,12 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { profileModalStore } from '$lib/stores/profile';
 	import { createQuery } from '@tanstack/svelte-query';
 	import ProfileModal from './ProfileModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 
-	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
+	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
 </script>
 
 <!-- svelte-ignore a11y_click_events_have_key_events -->

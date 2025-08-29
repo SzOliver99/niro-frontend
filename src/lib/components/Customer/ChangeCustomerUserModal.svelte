@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import userApi from '$lib/scripts/apis/user';
 	import { changeCustomerUserMutation } from '$lib/scripts/queries/customer';
 	import { convertUserGroup } from '$lib/scripts/utils';
@@ -10,12 +10,12 @@
 	let { selectedRows = $bindable() } = $props();
 
 	let users = createQuery({
-		queryKey: ['sub_users', $page.data.token],
-		queryFn: async () => await userApi({ user_token: $page.data.token }).getUserSubUsers()
+		queryKey: ['sub_users', page.data.token],
+		queryFn: async () => await userApi({ user_token: page.data.token }).getUserSubUsers()
 	});
 
 	let new_user = $state('');
-	let changeCustomerUser = changeCustomerUserMutation($page.data.token);
+	let changeCustomerUser = changeCustomerUserMutation(page.data.token);
 	async function handleSubmit() {
 		$changeCustomerUser.mutate(
 			{ user_full_name: new_user, customer_ids: selectedRows },

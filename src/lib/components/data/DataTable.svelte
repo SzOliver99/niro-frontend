@@ -5,7 +5,7 @@
 	import { scale } from 'svelte/transition';
 	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 
 	let {
 		data = [],
@@ -191,7 +191,7 @@
 					<tr
 						class="hover:bg-gray-50"
 						onclick={() => {
-							goto(`${$page.url.pathname}/${item.id}`);
+							goto(`${page.url.pathname}/${item.id}`);
 						}}
 					>
 						{#each columns as column}

@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import userApi from '$lib/scripts/apis/user';
 	import { createUsersMutation } from '$lib/scripts/queries/user';
 	import { convertUserGroup, formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
@@ -16,7 +16,7 @@
 		queryFn: () => userApi().getManagers()
 	});
 
-	const createUser = createUsersMutation($page.data.token);
+	const createUser = createUsersMutation(page.data.token);
 	async function handleSubmit() {
 		let agent = {
 			email: email.value,

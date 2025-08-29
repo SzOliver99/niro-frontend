@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { permissionsStore } from '$lib/stores/permissions.js';
 	import { checkPermission } from '$lib/scripts/utils.js';
 	import {
@@ -143,7 +143,7 @@
 							<a
 								href={link.href}
 								title={link.label}
-								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page.url
+								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {page.url
 									.pathname === link.href
 									? 'bg-gray-50/60 text-blue-600'
 									: ''}"
@@ -180,7 +180,7 @@
 								<a
 									href={link.href}
 									title={link.label}
-									class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page
+									class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {page
 										.url.pathname === link.href
 										? 'bg-gray-50/60 text-blue-600'
 										: ''}"
@@ -217,7 +217,7 @@
 								href={link.href}
 								title={link.label}
 								target="_blank"
-								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {$page.url
+								class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {page.url
 									.pathname === link.href
 									? 'bg-gray-50/60 text-blue-600'
 									: ''}"

@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { profileListStore } from '$lib/stores/profile';
 	let { children, data } = $props();
 
@@ -11,7 +11,7 @@
 	});
 
 	$effect.pre(() => {
-		currentPage = $profileListStore.find((item) => item.href === $page.url.pathname).href;
+		currentPage = $profileListStore.find((item) => item.href === page.url.pathname).href;
 	});
 </script>
 

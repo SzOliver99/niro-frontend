@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { createCustomerMutation } from '$lib/scripts/queries/customer';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 	import { formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
@@ -11,7 +11,7 @@
 
 	let { selected_user = $bindable() } = $props();
 
-	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
+	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
 	const createCustomer = createCustomerMutation();
 	async function handleSubmit() {
 		let customer = {

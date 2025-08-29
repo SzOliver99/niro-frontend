@@ -1,6 +1,6 @@
 <script>
 	import { goto } from '$app/navigation';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import userApi from '$lib/scripts/apis/user';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
@@ -9,7 +9,7 @@
 	import { LogOut } from 'lucide-svelte';
 	import { scale } from 'svelte/transition';
 
-	const userInfoQuery = createQuery(getUserInfoQuery($page.data.token));
+	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
 </script>
 
 {#if $profileModalStore}

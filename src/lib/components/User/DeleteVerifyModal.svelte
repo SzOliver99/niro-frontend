@@ -1,12 +1,12 @@
 <script>
 	import { fade } from 'svelte/transition';
 	import { Notification } from '$lib/stores/notifications';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { deleteUserMutation } from '$lib/scripts/queries/user';
 
 	let { user, userManageModal = $bindable() } = $props();
 
-	let deleteUser = deleteUserMutation($page.data.token);
+	let deleteUser = deleteUserMutation(page.data.token);
 	async function handleDelete() {
 		$deleteUser.mutate(user.id, {
 			onSuccess: () => {

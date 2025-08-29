@@ -1,6 +1,6 @@
 <script>
 	import { enhance } from '$app/forms';
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import { Notification } from '$lib/stores/notifications';
 	import { CircleArrowRight } from 'lucide-svelte';
 </script>
@@ -16,8 +16,8 @@
 		action="?/first-login"
 		class="mt-5 flex flex-col gap-5"
 		use:enhance={() => {
-			if ($page.form?.error) {
-				Notification.error($page.form?.error, 3);
+			if (page.form?.error) {
+				Notification.error(page.form?.error, 3);
 			}
 		}}
 	>

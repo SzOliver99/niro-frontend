@@ -1,5 +1,5 @@
 <script>
-	import { page } from '$app/stores';
+	import { page } from '$app/state';
 	import userApi from '$lib/scripts/apis/user';
 	import { updateManagersMutation, updateUsersMutation } from '$lib/scripts/queries/user';
 	import {
@@ -24,7 +24,7 @@
 	let is_manager = $state(!user.manager_id ? true : false);
 	let manager_id = $state(user.manager_id);
 
-	const updateUser = updateUsersMutation($page.data.token);
+	const updateUser = updateUsersMutation(page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let user_data = {
@@ -63,7 +63,7 @@
 		});
 	}
 
-	const updateManagers = updateManagersMutation($page.data.token);
+	const updateManagers = updateManagersMutation(page.data.token);
 	async function handleModifyUserManager(manager_id = null) {
 		let user_data = {
 			id: user.id
