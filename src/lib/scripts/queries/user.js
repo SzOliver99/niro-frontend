@@ -2,25 +2,11 @@ import { createMutation, createQuery, queryOptions, useQueryClient } from '@tans
 import userApi from '../apis/user';
 import { Notification } from '$lib/stores/notifications';
 
-export const getUsersQuery = (user_token) =>
-	queryOptions({
-		queryKey: ['users', user_token],
-		queryFn: () => userApi({ user_token }).getAllUsers()
-	});
-
 export const getUserInfoQuery = (user_token) => queryOptions({
 	queryKey: ['user_info', user_token],
 	queryFn: async () => await userApi({ user_token }).getUserInfo(),
 	staleTime: 60 * 60
 });
-
-export const getManagerGroupQuery = (user_token) =>
-	queryOptions({
-		queryKey: ['manager-group', user_token],
-		queryFn: () => userApi({ user_token }).getManagerGroup(),
-		refetchInterval: 3000,
-		refetchIntervalInBackground: false
-	});
 
 // MUTATIONS
 export const updateUsersMutation = (user_token) => {

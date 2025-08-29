@@ -31,11 +31,13 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 		},
 
 		// User management endpoints
-		getAllUsers: async () => {
-			const response = await fetch('/api/user/all', {
+		getUsersById: async (user_id = null) => {
+			const response = await fetch('/api/user/list/by-id', {
+				method: "POST",
 				headers: {
 					Authorization: user_token
-				}
+				},
+				body: JSON.stringify(user_id)
 			});
 			const data = await response.json();
 			if (!response.ok) {
