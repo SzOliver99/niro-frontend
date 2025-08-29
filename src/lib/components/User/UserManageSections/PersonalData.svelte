@@ -22,7 +22,7 @@
 	});
 
 	let is_manager = $state(!user.manager_id ? true : false);
-	let manager_id = $state(user.manager_id);
+	let manager_id = $state(user.manager_id ?? null);
 
 	const updateUser = updateUsersMutation(page.data.token);
 	async function handleSubmit(event) {
