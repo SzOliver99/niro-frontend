@@ -10,7 +10,7 @@
 
 	const users = createQuery({
 		queryKey: ['users', data.token],
-		queryFn: () => userApi({ user_token: data.token }).getUsersById(),
+		queryFn: () => userApi({ user_token: data.token }).getUsers(),
 		refetchInterval: 3000,
 		refetchIntervalInBackground: false
 	});

@@ -30,7 +30,19 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			return data;
 		},
 
-		// User management endpoints
+		getUsers: async () => {
+			const response = await fetch('/api/user/list', {
+				headers: {
+					Authorization: user_token
+				}
+			});
+			const data = await response.json();
+			if (!response.ok) {
+				await Promise.reject(Notification.error(data.error, 3));
+			}
+
+			return data;
+		},
 		getUsersById: async (user_id = null) => {
 			const response = await fetch('/api/user/list/by-id', {
 				method: "POST",
@@ -157,11 +169,13 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			return data;
 		},
 
-		getUserSubUsers: async () => {
+		getUserSubUsers: async (min_role = "Any") => {
 			const response = await fetch('/api/user/sub-users', {
+				method: "POST",
 				headers: {
 					Authorization: user_token
-				}
+				},
+				body: JSON.stringify(min_role)
 			});
 			const data = await response.json();
 			if (!response.ok) {
