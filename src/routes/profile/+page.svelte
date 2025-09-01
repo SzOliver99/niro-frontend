@@ -84,7 +84,7 @@
 					/>
 				</div>
 				<div>
-					<label for="agent_code" class="block text-sm font-medium">Ügynökségi kód</label>
+					<label for="agent_code" class="block text-sm font-medium">Dolgozói kód</label>
 					<input
 						type="text"
 						id="agent_code"

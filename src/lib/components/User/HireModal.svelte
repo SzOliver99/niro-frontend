@@ -51,7 +51,7 @@
 			return;
 		}
 		if (!agent_code_rgx.test(agent.info.agent_code.trim())) {
-			Notification.error('Hibás üzletkötő kód', 3);
+			Notification.error('Hibás dolgozói kód', 3);
 			return;
 		}
 
@@ -166,7 +166,7 @@
 						/>
 					</div>
 					<div class="flex flex-col text-start font-medium">
-						<label for="agent_code">Üzletkötő kód <span class="text-red-700">*</span></label>
+						<label for="agent_code">Dolgozói kód <span class="text-red-700">*</span></label>
 						<input
 							name="agent_code"
 							id="agent_code"

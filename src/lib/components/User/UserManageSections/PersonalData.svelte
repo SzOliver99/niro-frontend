@@ -52,7 +52,7 @@
 			Notification.error('Hibás HUFA kód', 3);
 		}
 		if (!agent_code_rgx.test(user_data.info.agent_code.trim())) {
-			Notification.error('Hibás üzletkötő kód', 3);
+			Notification.error('Hibás dolgozói kód', 3);
 		}
 
 		$updateUser.mutate(user_data, {
@@ -172,7 +172,7 @@
 				/>
 			</div>
 			<div>
-				<label for="agent_code" class="block text-sm font-medium">Ügynökségi kód</label>
+				<label for="agent_code" class="block text-sm font-medium">Dolgozói kód</label>
 				<input
 					type="text"
 					id="agent_code"
