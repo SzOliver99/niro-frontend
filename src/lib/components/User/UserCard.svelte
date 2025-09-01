@@ -3,6 +3,7 @@
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import ManageModal from './ManageModal.svelte';
 	import { createModalStore } from '$lib/stores/user';
+	import user_placeholder from '$lib/images/user_placeholder.png';
 
 	let { user } = $props();
 	let userManageModal = $state(createModalStore(user.id));
@@ -11,7 +12,7 @@
 </script>
 
 <div
-	class="flex h-90 w-60 flex-col justify-end rounded-xl bg-[url(https://images.randomhouse.com/author/2197978)] bg-cover bg-center text-center shadow-[40px_15px_15px_-3px_rgba(0,0,0,0.1)]"
+	class="flex h-90 w-60 flex-col justify-end rounded-xl bg-[url({user_placeholder})] bg-cover bg-center text-center shadow-[40px_15px_15px_-3px_rgba(0,0,0,0.1)]"
 >
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
