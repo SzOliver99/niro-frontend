@@ -11,38 +11,11 @@ export const actions = {
 		const data = await userApi({ baseFetch: fetch }).signIn(username, password);
 
 		if (data.UserToken) {
-			cookies.set('token', data.UserToken, { path: '/', httpOnly: true, secure: true, maxAge: 60 * 60 * 1 });
+			cookies.set('token', data.UserToken, { path: '/', httpOnly: true, secure: true, maxAge: 60 * 60 * 3 });
 			return { success: true };
-		} else if (data.FirstLoginToken) {
-			cookies.set('firstLoginToken', data.FirstLoginToken, { path: '/', httpOnly: true, secure: true, maxAge: 120 });
-			return { firstLogin: true };
 		} else {
 			return fail(401, { error: 'Hibás felhasználónév vagy jelszó' });
 		}
-	},
-	"first-login": async ({ cookies, request, fetch }) => {
-		const form_data = await request.formData();
-		const password = form_data.get('password')?.toString();
-		const password_confirm = form_data.get('password_confirm')?.toString();
-
-		if (password !== password_confirm) {
-			return fail(402, { error: "Nem egyezik meg a két jelszó" })
-		}
-
-		const complete_first_login_response = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
-		const token_data = await complete_first_login_response.json()
-
-		if (complete_first_login_response.ok) {
-			cookies.set('token', token_data, {
-				path: '/',
-				httpOnly: true,
-				sameSite: 'lax',
-				secure: true,
-				maxAge: 60 * 60
-			});
-		}
-		cookies.set('firstLoginToken', '', { path: '/', expires: new Date(0) });
-		return fail(402, { error: "Valami hiba történt" })
 	}
 };
 

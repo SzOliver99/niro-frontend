@@ -4,7 +4,6 @@ import { redirect } from '@sveltejs/kit';
 
 export async function load({ cookies, url, fetch }) {
 	const token = cookies.get('token');
-	const firstLoginToken = cookies.get('firstLoginToken');
 	const fetchProtected = await userApi({ baseFetch: fetch, user_token: token }).validateToken();
 
 	if (!fetchProtected.ok && url.pathname !== '/') {
@@ -13,7 +12,7 @@ export async function load({ cookies, url, fetch }) {
 		throw redirect(308, '/');
 	}
 
-	return { token, firstLoginToken };
+	return { token };
 }
 
 export const prerender = true
