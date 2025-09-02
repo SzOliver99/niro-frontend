@@ -1,12 +1,16 @@
 <script>
 	import DataTable from '$lib/components/data/DataTable.svelte';
+	import CreateDateModal from '$lib/components/Dates/CreateDateModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { createSimpleModalStore } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
 	let { data } = $props();
+
+	let dateCreateModalStore = $state(createSimpleModalStore());
 
 	let sub_users = createQuery({
 		queryKey: ['sub_users', data.token],
@@ -18,24 +22,13 @@
 	const columns = [
 		{ key: 'action', label: '#' },
 		{ key: 'date', label: 'Dátum' },
-		{ key: 'date', label: 'Megvalósult' }, // Legyen választható igen/nem
+		{ key: 'is_completed', label: 'Megvalósult' }, // Legyen választható igen/nem
 		{ key: 'full_name', label: 'Ügyfél neve' },
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'meet_location', label: 'Találkozó helyszíne' },
 		{ key: 'meet_type', label: 'Találkozó típusa' },
-		{
-			key: 'user_id',
-			label: 'Üzletkötő',
-			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
-		}
+		{ key: 'user_id', label: 'Üzletkötő' }
 	];
-
-	const leadTypes = {
-		needs_assessment: 'Igényfelmérés',
-		consultation: 'Tanácsadás',
-		service: 'Szervíz',
-		annual_review: 'Évfordulós tárgyalás'
-	};
 </script>
 
 <div class="p-4">
@@ -58,10 +51,12 @@
 		</div>
 		<button
 			class="bg-gray me-4 flex items-center rounded-lg bg-blue-600 px-3 py-2 text-center text-nowrap text-white duration-200 hover:bg-blue-700"
+			onclick={dateCreateModalStore.open}
 		>
 			<Plus />
 			<p>Időpont hozzáadása</p>
 		</button>
+		<CreateDateModal bind:selected_user bind:dateCreateModalStore />
 	</div>
 	<DataTable
 		user_data={[]}
