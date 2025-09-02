@@ -1,25 +1,19 @@
 import { Notification } from "$lib/stores/notifications";
 import { wrapFetch } from "./api";
 
-const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
+const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     const fetch = wrapFetch(baseFetch, user_token)
 
     return {
-        create: async (customer, lead) => {
-            console.log({
-                customer: customer,
-                ...lead
-            });
+        create: async (user_date) => {
+            console.log(user_date);
 
-            const response = await fetch('/api/lead/create', {
+            const response = await fetch('/api/dates/create', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({
-                    customer: customer,
-                    ...lead
-                })
+                body: JSON.stringify(user_date)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -29,7 +23,7 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getAllByUserId: async (user_id) => {
-            const response = await fetch('/api/lead/get-all', {
+            const response = await fetch('/api/dates/get-all', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
@@ -43,13 +37,13 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, lead_ids) => {
-            const response = await fetch('/api/lead/change/user', {
+        changeHandler: async (user_full_name, date_ids) => {
+            const response = await fetch('/api/dates/change/user', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ user_full_name, lead_ids })
+                body: JSON.stringify({ user_full_name, date_ids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -58,13 +52,30 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        delete: async (lead_ids) => {
-            const response = await fetch('/api/lead/delete', {
+        changeState: async (date_id, value) => {
+            console.log({ date_id, value });
+
+            const response = await fetch('/api/dates/change/state', {
+                method: 'POST',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify({ date_id, value })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        delete: async (date_ids) => {
+            const response = await fetch('/api/dates/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(lead_ids)
+                body: JSON.stringify(date_ids)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -76,4 +87,4 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     }
 }
 
-export default leadApi
+export default userDateApi

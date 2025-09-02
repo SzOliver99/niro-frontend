@@ -2,11 +2,17 @@
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import CreateDateModal from '$lib/components/Dates/CreateDateModal.svelte';
 	import userApi from '$lib/scripts/apis/user';
+	import userDateApi from '$lib/scripts/apis/user_date.js';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
 	import { createSimpleModalStore } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
+	import IsCompletedCell from '$lib/components/Dates/IsCompletedCell.svelte';
+	import {
+		changeUserDateHandlerMutation,
+		deleteUserDateMutation
+	} from '$lib/scripts/queries/user_date.js';
 
 	let { data } = $props();
 
@@ -18,16 +24,43 @@
 	});
 
 	let selected_user = $state();
+	$effect.pre(() => {
+		if ($sub_users.data && $sub_users.data.length > 0) {
+			selected_user = $sub_users.data[0].id;
+		}
+	});
+
+	let user_dates = $derived(
+		createQuery({
+			queryKey: ['user-dates', data.token, selected_user],
+			queryFn: async () =>
+				await userDateApi({ user_token: data.token }).getAllByUserId(selected_user),
+			enabled: selected_user !== undefined
+		})
+	);
 
 	const columns = [
 		{ key: 'action', label: '#' },
-		{ key: 'date', label: 'Dátum' },
-		{ key: 'is_completed', label: 'Megvalósult' }, // Legyen választható igen/nem
+		{
+			key: 'meet_date',
+			label: 'Találkozó időpontja',
+			action: (date) => `${date.split('T')[0]} ${date.split('T')[1]}`
+		},
 		{ key: 'full_name', label: 'Ügyfél neve' },
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'meet_location', label: 'Találkozó helyszíne' },
 		{ key: 'meet_type', label: 'Találkozó típusa' },
-		{ key: 'user_id', label: 'Üzletkötő' }
+		{
+			key: 'is_completed',
+			label: 'Megvalósult?',
+			component: IsCompletedCell
+		},
+		{ key: 'created_by', label: 'Üzletkötő' },
+		{
+			key: 'created_at',
+			label: 'Létrehozás/Rögzítés dátuma',
+			action: (date) => `${date.split('T')[0]} ${date.split('T')[1]}`
+		}
 	];
 </script>
 
@@ -59,12 +92,14 @@
 		<CreateDateModal bind:selected_user bind:dateCreateModalStore />
 	</div>
 	<DataTable
-		user_data={[]}
+		data={$user_dates.data}
 		{columns}
+		modify_mutation={changeUserDateHandlerMutation(data.token)}
+		delete_mutation={deleteUserDateMutation(data.token)}
 		searchable={true}
 		filterable={true}
 		sortable={true}
-		modifiable={false}
+		modifiable={true}
 		pageSize={30}
 	/>
 </div>

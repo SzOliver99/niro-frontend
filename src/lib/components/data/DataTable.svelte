@@ -211,6 +211,8 @@
 								<td class="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
 									{#if column.action}
 										{column.action(item[column.key], item.user_id)}
+									{:else if column.component}
+										<column.component value={item[column.key]} {item} onChange={column.onChange} />
 									{:else}
 										{item[column.key]}
 									{/if}

@@ -4,11 +4,11 @@
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 	import { formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
-	import { createCustomerModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { CircleArrowRight, FileUser } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
 	import { createLeadMutation } from '$lib/scripts/queries/lead';
+	import { createUserDateMutation } from '$lib/scripts/queries/user_date';
+	import { CircleArrowRight } from 'lucide-svelte';
 
 	let { selected_user = $bindable(), dateCreateModalStore = $bindable() } = $props();
 
@@ -20,19 +20,25 @@
 	};
 
 	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
-	const createLead = createLeadMutation();
+	const createUserDate = createUserDateMutation(page.data.token);
 	async function handleSubmit() {
-		console.log('WIP');
+		let user_date = {
+			meet_date: meet_date.value,
+			full_name: `${last_name.value} ${first_name.value}`,
+			phone_number: phone_number.value,
+			meet_location: meet_location.value,
+			meet_type: leadTypes[meet_type.value],
+			created_by: $userInfoQuery.data.info.full_name,
+			user_id: selected_user
+		};
+		console.log(user_date);
 
-		// $createLead.mutate(
-		// 	{ customer: formatted_customer, lead: formatted_lead },
-		// 	{
-		// 		onSuccess: () => {
-		// 			Notification.success('Sikeresen létrehoztad a címanyagot', 3);
-		// 			dateCreateModalStore.close();
-		// 		}
-		// 	}
-		// );
+		$createUserDate.mutate(user_date, {
+			onSuccess: (data) => {
+				Notification.success(data, 3);
+				dateCreateModalStore.close();
+			}
+		});
 	}
 </script>
 
@@ -54,64 +60,65 @@
 			<form onsubmit={handleSubmit} class="mt-5 flex flex-col gap-5">
 				<div class="grid grid-cols-2 gap-4">
 					<div class="flex flex-col text-start font-medium">
-						<label for="date">Dátum <span class="text-red-700">*</span></label>
+						<label for="last_name">Vezetéknév <span class="text-red-700">*</span></label>
 						<input
-							name="date"
-							id="date"
+							name="last_name"
+							id="last_name"
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+					<div class="flex flex-col text-start font-medium">
+						<label for="first_name">Keresztnév <span class="text-red-700">*</span></label>
+						<input
+							name="first_name"
+							id="first_name"
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+				</div>
+				<div class="flex flex-col text-start font-medium">
+					<label for="phone_number">Telefonszám <span class="text-red-700">*</span></label>
+					<input
+						name="phone_number"
+						id="phone_number"
+						type="text"
+						oninput={formatPhoneNumber}
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						autocomplete="off"
+						required
+					/>
+				</div>
+				<div class="grid grid-cols-2 gap-4">
+					<div class="flex flex-col text-start font-medium">
+						<label for="meet_location"
+							>Találkozó helyszíne <span class="text-red-700">*</span></label
+						>
+						<input
+							name="meet_location"
+							id="meet_location"
+							type="text"
+							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+							autocomplete="off"
+							required
+						/>
+					</div>
+					<div class="flex flex-col text-start font-medium">
+						<label for="meet_date">Találkozó dátuma <span class="text-red-700">*</span></label>
+						<input
+							name="meet_date"
+							id="meet_date"
 							type="datetime-local"
 							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 							autocomplete="off"
 							required
 						/>
 					</div>
-					<div class="flex flex-col text-start font-medium">
-						<label for="is_completed">Megvalósúlt <span class="text-red-700">*</span></label>
-						<select
-							id="is_completed"
-							name="is_completed"
-							required
-							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						>
-							<option value={false}>Nem</option>
-							<option value={true}>Igen</option>
-						</select>
-					</div>
-				</div>
-				<div class="grid grid-cols-2 gap-4">
-					<div class="flex flex-col text-start font-medium">
-						<label for="customer_name">Ügyfél neve <span class="text-red-700">*</span></label>
-						<input
-							name="customer_name"
-							id="customer_name"
-							type="text"
-							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-							autocomplete="off"
-							required
-						/>
-					</div>
-					<div class="flex flex-col text-start font-medium">
-						<label for="phone_number">Telefonszám <span class="text-red-700">*</span></label>
-						<input
-							name="phone_number"
-							id="phone_number"
-							type="text"
-							class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-							autocomplete="off"
-							required
-						/>
-					</div>
-				</div>
-
-				<div class="flex flex-col text-start font-medium">
-					<label for="meet_location">Találkozó helyszíne <span class="text-red-700">*</span></label>
-					<input
-						name="meet_location"
-						id="meet_location"
-						type="text"
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
 				</div>
 				<div class="flex flex-col text-start font-medium">
 					<label for="meet_type">Találkozó típusa <span class="text-red-700">*</span></label>
