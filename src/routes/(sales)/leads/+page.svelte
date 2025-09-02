@@ -46,7 +46,7 @@
 		{
 			key: 'handle_at',
 			label: 'Dátum',
-			action: (date) => `${date.split('T')[0]} ${date.split('T')[1]}`
+			action: (date) => new Date(date).toLocaleString('hu-HU')
 		},
 		{ key: 'created_by', label: 'Üzletkötő' }
 	];

@@ -44,7 +44,7 @@
 		{
 			key: 'meet_date',
 			label: 'Találkozó időpontja',
-			action: (date) => `${date.split('T')[0]} ${date.split('T')[1]}`
+			action: (date) => new Date(date).toLocaleString('hu-HU')
 		},
 		{ key: 'full_name', label: 'Ügyfél neve' },
 		{ key: 'phone_number', label: 'Telefonszám' },
@@ -59,7 +59,7 @@
 		{
 			key: 'created_at',
 			label: 'Létrehozás/Rögzítés dátuma',
-			action: (date) => `${date.split('T')[0]} ${date.split('T')[1]}`
+			action: (date) => new Date(date).toLocaleString('hu-HU')
 		}
 	];
 </script>
