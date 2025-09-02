@@ -26,7 +26,7 @@ export const actions = {
 		const password_confirm = form_data.get('password_confirm')?.toString();
 
 		if (password !== password_confirm) {
-			return fail(402, { error: "Nem eggyezik meg a két jelszó" })
+			return fail(402, { error: "Nem egyezik meg a két jelszó" })
 		}
 
 		const complete_first_login_response = await userApi({ baseFetch: fetch }).completeFirstLogin(password, cookies.get("firstLoginToken"))
