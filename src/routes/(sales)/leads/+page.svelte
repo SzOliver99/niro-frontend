@@ -40,7 +40,7 @@
 		{ key: 'phone', label: 'Telefonszám' },
 		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
-		{ key: 'lead_type', label: 'Címanyag típus' },
+		{ key: 'lead_type', label: 'Címanyag típus', action: (type) => leadTypes[type] },
 		{ key: 'inquiry_type', label: 'Megkeresés jellege' },
 		{ key: 'lead_status', label: 'Státusz', action: (status) => statusTypes[status] },
 		{
@@ -50,6 +50,14 @@
 		},
 		{ key: 'created_by', label: 'Üzletkötő' }
 	];
+
+	const leadTypes = $state({
+		personal: 'Személyes kapcsolatrendszer',
+		recommendation: 'Ajánlás',
+		salesforce: 'Salesforce',
+		red_lead: 'Piros címanyag',
+		blue_lead: 'Kék címanyag'
+	});
 
 	const statusTypes = $state({
 		Opened: 'Nyitott',

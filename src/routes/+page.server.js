@@ -11,7 +11,7 @@ export const actions = {
 		const data = await userApi({ baseFetch: fetch }).signIn(username, password);
 
 		if (data.UserToken) {
-			cookies.set('token', data.UserToken, { path: '/', httpOnly: true, secure: true, maxAge: 60 * 60 });
+			cookies.set('token', data.UserToken, { path: '/', httpOnly: true, secure: true, maxAge: 60 * 60 * 1 });
 			return { success: true };
 		} else if (data.FirstLoginToken) {
 			cookies.set('firstLoginToken', data.FirstLoginToken, { path: '/', httpOnly: true, secure: true, maxAge: 120 });

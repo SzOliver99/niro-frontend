@@ -10,7 +10,7 @@ function createPermissionsStore() {
         lastChecked: null
     });
 
-    const CACHE_DURATION = 5 * 60 * 1000; // 5 minutes
+    const CACHE_DURATION = 60 * 60 * 1; // 1 hour
 
     return {
         subscribe,
