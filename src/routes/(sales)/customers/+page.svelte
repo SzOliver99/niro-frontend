@@ -3,7 +3,10 @@
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import customerApi from '$lib/scripts/apis/customer';
 	import userApi from '$lib/scripts/apis/user';
-	import { deleteCustomerMutation } from '$lib/scripts/queries/customer.js';
+	import {
+		changeCustomerHandlerMutation,
+		deleteCustomerMutation
+	} from '$lib/scripts/queries/customer.js';
 	import { convertUserGroup } from '$lib/scripts/utils.js';
 	import { permissionsStore } from '$lib/stores/permissions.js';
 	import { createCustomerModal } from '$lib/stores/user.js';
@@ -73,6 +76,7 @@
 	<DataTable
 		data={$customers.data}
 		{columns}
+		modify_mutation={changeCustomerHandlerMutation(data.token)}
 		delete_mutation={deleteCustomerMutation(data.token)}
 		searchable={true}
 		filterable={true}

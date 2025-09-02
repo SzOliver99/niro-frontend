@@ -13,12 +13,11 @@ export const createCustomerMutation = () => {
     });
 };
 
-
-export const changeCustomerUserMutation = (user_token) => {
+export const changeCustomerHandlerMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async ({ user_full_name, customer_ids }) => await customerApi({ user_token }).changeCustomerUser(user_full_name, customer_ids),
+        mutationFn: async ({ user_full_name, selected_ids }) => await customerApi({ user_token }).changeHandler(user_full_name, selected_ids),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
         }
@@ -29,7 +28,7 @@ export const deleteCustomerMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async (customer_id) => await customerApi({ user_token }).delete(customer_id),
+        mutationFn: async (selected_ids) => await customerApi({ user_token }).delete(selected_ids),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['customers'] });
         }

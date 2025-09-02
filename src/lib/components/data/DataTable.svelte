@@ -10,12 +10,14 @@
 	let {
 		data = [],
 		columns = [],
+		onClick = () => {},
+		modify_mutation = null,
 		delete_mutation = null,
 		searchable = true,
 		filterable = true,
 		sortable = true,
 		modifiable = true,
-		pageSize = 10,
+		pageSize = 30,
 		class: className = ''
 	} = $props();
 
@@ -157,7 +159,7 @@
 					</div>
 				{/if}
 
-				<ChangeCustomerUserModal bind:selectedRows />
+				<ChangeCustomerUserModal bind:selectedRows {modify_mutation} />
 				<DeleteVerifyModal bind:selectedRows {delete_mutation} />
 			</div>
 		</div>
@@ -188,12 +190,7 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200 bg-white">
 				{#each paginatedData() as item, index}
-					<tr
-						class="hover:bg-gray-50"
-						onclick={() => {
-							goto(`${page.url.pathname}/${item.id}`);
-						}}
-					>
+					<tr class="hover:bg-gray-50" onclick={() => {}}>
 						{#each columns as column}
 							{#if column.key === 'action'}
 								<td class="px-5" onclick={(e) => e.stopPropagation()}>
@@ -213,7 +210,7 @@
 							{:else}
 								<td class="px-6 py-4 text-sm whitespace-nowrap text-gray-900">
 									{#if column.action}
-										{column.action(item.user_id)}
+										{column.action(item[column.key], item.user_id)}
 									{:else}
 										{item[column.key]}
 									{/if}

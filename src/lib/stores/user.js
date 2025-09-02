@@ -1,6 +1,6 @@
 import { get, writable } from 'svelte/store';
 
-function createSimpleModalStore(initialValue = false) {
+export function createSimpleModalStore(initialValue = false) {
 	const store = writable(initialValue);
 
 	function open() {

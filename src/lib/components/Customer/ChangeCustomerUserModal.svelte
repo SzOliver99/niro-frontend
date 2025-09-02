@@ -1,13 +1,12 @@
 <script>
 	import { page } from '$app/state';
 	import userApi from '$lib/scripts/apis/user';
-	import { changeCustomerUserMutation } from '$lib/scripts/queries/customer';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { changeCustomerUserModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { fade } from 'svelte/transition';
 
-	let { selectedRows = $bindable() } = $props();
+	let { selectedRows = $bindable(), modify_mutation } = $props();
 
 	let users = createQuery({
 		queryKey: ['sub_users', page.data.token],
@@ -15,10 +14,9 @@
 	});
 
 	let new_user = $state('');
-	let changeCustomerUser = changeCustomerUserMutation(page.data.token);
 	async function handleSubmit() {
-		$changeCustomerUser.mutate(
-			{ user_full_name: new_user, customer_ids: selectedRows },
+		$modify_mutation.mutate(
+			{ user_full_name: new_user, selected_ids: selectedRows },
 			{
 				onSuccess: () => {
 					new_user = '';
