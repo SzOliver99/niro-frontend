@@ -12,7 +12,8 @@
 </script>
 
 <div
-	class="flex h-90 w-60 flex-col justify-end rounded-xl bg-[url({user_placeholder})] bg-cover bg-center text-center shadow-[40px_15px_15px_-3px_rgba(0,0,0,0.1)]"
+	class="flex h-90 w-60 flex-col justify-end rounded-xl bg-gray-300 bg-cover bg-center text-center shadow-[40px_15px_15px_-3px_rgba(0,0,0,0.1)]"
+	style="background-image: url({user_placeholder})"
 >
 	<div class="rounded-b-lg bg-gradient-to-t from-black p-3 text-white">
 		<div class="pb-3">
