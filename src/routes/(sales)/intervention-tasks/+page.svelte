@@ -28,11 +28,7 @@
 		{ key: 'processing_deadline', label: 'Feldolgozási határidő' },
 		{ key: 'note', label: 'Megjegyzés' },
 		{ key: 'status', label: 'Státusz' },
-		{
-			key: 'user_id',
-			label: 'Üzletkötő',
-			action: (user_id) => $sub_users.data?.find((user) => user.id === user_id)?.info?.full_name
-		}
+		{ key: 'user_id', label: 'Üzletkötő' }
 	];
 
 	const statusTypes = {

@@ -23,13 +23,13 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getAllByUserId: async (user_id) => {
+        getAllByUserId: async (user_uuid) => {
             const response = await fetch('/api/lead/get-all', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(user_id)
+                body: JSON.stringify(user_uuid)
             });
             const data = await response.json();
             if (!response.ok) {
