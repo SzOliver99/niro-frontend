@@ -23,7 +23,7 @@
 			username: username.value,
 			password: password.value,
 			info: {
-				full_name: `${first_name.value} ${last_name.value}`,
+				full_name: `${last_name.value} ${first_name.value}`,
 				phone_number: phone_number.value,
 				hufa_code: hufa_code.value,
 				agent_code: agent_code.value
