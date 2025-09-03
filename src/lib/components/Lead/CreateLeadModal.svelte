@@ -50,7 +50,7 @@
 		};
 		let formatted_lead = {
 			...lead,
-			user_id: selected_user,
+			user_uuid: selected_user,
 			created_by: $userInfoQuery.data.info.full_name
 		};
 
