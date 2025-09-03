@@ -8,7 +8,7 @@
 	const changeUserDateState = changeUserDateStateMutation(page.data.token);
 	function handleChange() {
 		$changeUserDateState.mutate(
-			{ date_id: item.id, value },
+			{ date_uuid: item.uuid, value },
 			{
 				onSuccess: (data) => {
 					Notification.success(data, 3);
