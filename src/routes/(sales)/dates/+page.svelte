@@ -26,7 +26,7 @@
 	let selected_user = $state();
 	$effect.pre(() => {
 		if ($sub_users.data && $sub_users.data.length > 0) {
-			selected_user = $sub_users.data[0].id;
+			selected_user = $sub_users.data[0].uuid;
 		}
 	});
 
@@ -76,7 +76,7 @@
 				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 			>
 				{#each $sub_users.data as user}
-					<option value={user.id}
+					<option value={user.uuid}
 						>{user.info?.full_name} - {convertUserGroup(user.user_role)}</option
 					>
 				{/each}
@@ -96,6 +96,7 @@
 		{columns}
 		modify_mutation={changeUserDateHandlerMutation(data.token)}
 		delete_mutation={deleteUserDateMutation(data.token)}
+		sort_column="meet_date"
 		searchable={true}
 		filterable={true}
 		sortable={true}

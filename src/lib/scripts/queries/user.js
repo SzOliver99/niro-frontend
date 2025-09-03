@@ -42,7 +42,6 @@ export const deleteUserMutation = (user_token) => {
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
-			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
 };

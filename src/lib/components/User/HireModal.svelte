@@ -11,9 +11,18 @@
 
 	let is_manager = $state();
 
+	const isHireModalOpen = $derived(!!$userHireModal);
+
 	let managers = createQuery({
 		queryKey: ['managers'],
-		queryFn: () => userApi().getManagers()
+		queryFn: async () => await userApi({ user_token: page.data.token }).getManagers(),
+		enabled: false
+	});
+
+	$effect(() => {
+		if ($userHireModal) {
+			$managers.refetch();
+		}
 	});
 
 	const createUser = createUsersMutation(page.data.token);
@@ -211,7 +220,7 @@
 								<option value="null">Nincs menedzser</option>
 							{/if}
 							<option value="">Válassz menedzsert</option>
-							{#each $managers.data as manager}
+							{#each $managers.data ?? [] as manager}
 								<option value={manager.id}
 									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 								>

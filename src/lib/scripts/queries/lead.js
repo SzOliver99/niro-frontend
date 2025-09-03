@@ -17,7 +17,7 @@ export const changeLeadHandlerMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async ({ user_full_name, selected_ids }) => await leadApi({ user_token }).changeHandler(user_full_name, selected_ids),
+        mutationFn: async ({ user_full_name, selected_uuids }) => await leadApi({ user_token }).changeHandler(user_full_name, selected_uuids),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['leads'] });
         }
@@ -28,7 +28,7 @@ export const deleteLeadMutation = (user_token) => {
     const queryClient = useQueryClient();
 
     return createMutation({
-        mutationFn: async (selected_ids) => await leadApi({ user_token }).delete(selected_ids),
+        mutationFn: async (selected_uuids) => await leadApi({ user_token }).delete(selected_uuids),
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['leads'] });
         }

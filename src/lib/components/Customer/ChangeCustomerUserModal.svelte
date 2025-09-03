@@ -16,7 +16,7 @@
 	let new_user = $state('');
 	async function handleSubmit() {
 		$modify_mutation.mutate(
-			{ user_full_name: new_user, selected_ids: selectedRows },
+			{ user_full_name: new_user, selected_uuids: selectedRows },
 			{
 				onSuccess: () => {
 					new_user = '';

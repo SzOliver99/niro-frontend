@@ -31,7 +31,7 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 		},
 
 		getUsers: async () => {
-			const response = await fetch('/api/user/list', {
+			const response = await fetch('/api/user/get-all', {
 				headers: {
 					Authorization: user_token
 				}
@@ -43,13 +43,13 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-		getUsersById: async (user_id = null) => {
-			const response = await fetch('/api/user/list/by-id', {
+		getUsersById: async (user_uuid = null) => {
+			const response = await fetch('/api/user/get', {
 				method: "POST",
 				headers: {
 					Authorization: user_token
 				},
-				body: JSON.stringify(user_id)
+				body: JSON.stringify(user_uuid)
 			});
 			const data = await response.json();
 			if (!response.ok) {
@@ -130,7 +130,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return response;
 		},
-
 		getUserRole: async () => {
 			const response = await fetch('/api/user/role', {
 				headers: {
@@ -144,22 +143,13 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
-		completeFirstLogin: async (new_password, token) => {
-			const response = await fetch('/api/user/first-login/complete', {
+		getManagers: async (user_uuid = null) => {
+			const response = await fetch('/api/user/managers/get-all', {
 				method: 'POST',
-				body: JSON.stringify({
-					new_password,
-					token
-				})
-			});
-			return response;
-		},
-
-		getManagers: async (user_id = 0) => {
-			const response = await fetch('/api/user/managers/list', {
-				method: 'POST',
-				body: JSON.stringify(user_id)
+				headers: {
+					Authorization: user_token
+				},
+				body: JSON.stringify(user_uuid)
 			});
 			const data = await response.json();
 			if (!response.ok) {

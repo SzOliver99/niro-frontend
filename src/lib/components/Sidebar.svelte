@@ -38,7 +38,7 @@
 			permissionRequired: false,
 			items: [
 				{ href: '/customers', label: 'Ügyfelek', icon: UserRoundSearch },
-				{ href: '/leads', label: 'Címanyag', icon: Table },
+				{ href: '/leads', label: 'Tevékenységek', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/offers', label: 'Ajánlások', icon: Crown },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
@@ -180,8 +180,8 @@
 								<a
 									href={link.href}
 									title={link.label}
-									class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {page
-										.url.pathname === link.href
+									class="group flex items-center gap-2 rounded-lg px-2 py-1 *:duration-200 {page.url
+										.pathname === link.href
 										? 'bg-gray-50/60 text-blue-600'
 										: ''}"
 								>

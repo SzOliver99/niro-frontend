@@ -6,8 +6,6 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
     return {
         create: async (user_date) => {
-            console.log(user_date);
-
             const response = await fetch('/api/dates/create', {
                 method: 'POST',
                 headers: {
@@ -37,13 +35,15 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, date_ids) => {
+        changeHandler: async (user_full_name, date_uuids) => {
+            console.log(date_uuids);
+
             const response = await fetch('/api/dates/change/user', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ user_full_name, date_ids })
+                body: JSON.stringify({ user_full_name, date_uuids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -52,15 +52,13 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeState: async (date_id, value) => {
-            console.log({ date_id, value });
-
+        changeState: async (date_uuid, value) => {
             const response = await fetch('/api/dates/change/state', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ date_id, value })
+                body: JSON.stringify({ date_uuid, value })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -69,13 +67,13 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        delete: async (date_ids) => {
+        delete: async (date_uuids) => {
             const response = await fetch('/api/dates/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(date_ids)
+                body: JSON.stringify(date_uuids)
             });
             const data = await response.json();
             if (!response.ok) {

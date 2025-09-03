@@ -24,11 +24,11 @@
 		<form onsubmit={handleSubmit} class="rounded-lg p-3">
 			<div class="grid grid-cols-1 gap-4 md:grid-cols-2 md:gap-6">
 				<div>
-					<label for="lastName" class="block text-sm font-medium">Vezetéknév*</label>
+					<label for="last_name" class="block text-sm font-medium">Vezetéknév*</label>
 					<input
 						type="text"
-						id="lastName"
-						name="lastName"
+						id="last_name"
+						name="last_name"
 						placeholder="Doe"
 						value={getUserLastName()}
 						required
@@ -36,11 +36,11 @@
 					/>
 				</div>
 				<div>
-					<label for="firstName" class="block text-sm font-medium">Keresztnév*</label>
+					<label for="first_name" class="block text-sm font-medium">Keresztnév*</label>
 					<input
 						type="text"
-						id="firstName"
-						name="firstName"
+						id="first_name"
+						name="first_name"
 						placeholder="John"
 						value={getUserFirstName()}
 						required
@@ -48,7 +48,7 @@
 					/>
 				</div>
 				<div>
-					<label for="phone" class="block text-sm font-medium">Email cím*</label>
+					<label for="email" class="block text-sm font-medium">Email cím*</label>
 					<input
 						type="text"
 						id="email"
@@ -60,10 +60,10 @@
 					/>
 				</div>
 				<div>
-					<label for="phone" class="block text-sm font-medium">Telefonszám*</label>
+					<label for="phone_number" class="block text-sm font-medium">Telefonszám*</label>
 					<input
 						type="tel"
-						id="phone"
+						id="phone_number"
 						name="phone_number"
 						placeholder="+36 12 345 7891"
 						value={$userInfoQuery.data.info?.phone_number}

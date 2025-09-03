@@ -6,11 +6,6 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
     return {
         create: async (customer, lead) => {
-            console.log({
-                customer: customer,
-                ...lead
-            });
-
             const response = await fetch('/api/lead/create', {
                 method: 'POST',
                 headers: {
@@ -43,13 +38,13 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, lead_ids) => {
+        changeHandler: async (user_full_name, lead_uuids) => {
             const response = await fetch('/api/lead/change/user', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ user_full_name, lead_ids })
+                body: JSON.stringify({ user_full_name, lead_uuids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -58,13 +53,13 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        delete: async (lead_ids) => {
+        delete: async (lead_uuids) => {
             const response = await fetch('/api/lead/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(lead_ids)
+                body: JSON.stringify(lead_uuids)
             });
             const data = await response.json();
             if (!response.ok) {

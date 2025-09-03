@@ -15,11 +15,11 @@
 	const createCustomer = createCustomerMutation();
 	async function handleSubmit() {
 		let customer = {
+			user_uuid: selected_user,
 			full_name: `${last_name.value} ${first_name.value}`,
 			phone_number: phone_number.value,
 			address: `${postal_code.value} ${settlement.value} ${street.value} ${house_number.value}`,
 			email: email.value,
-			user_id: selected_user,
 			created_by: $userInfoQuery.data.info.full_name
 		};
 

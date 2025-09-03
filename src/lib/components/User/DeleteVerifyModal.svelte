@@ -8,7 +8,7 @@
 
 	let deleteUser = deleteUserMutation(page.data.token);
 	async function handleDelete() {
-		$deleteUser.mutate(user.id, {
+		$deleteUser.mutate(user.uuid, {
 			onSuccess: () => {
 				Notification.success('Sikeresen megbontottad a szerződést', 3);
 				userManageModal.close();

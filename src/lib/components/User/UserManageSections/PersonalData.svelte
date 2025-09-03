@@ -17,18 +17,18 @@
 	let { user, userManageModal = $bindable() } = $props();
 
 	let managers = createQuery({
-		queryKey: ['managers', user.id],
-		queryFn: () => userApi().getManagers(user.id)
+		queryKey: ['managers', user.uuid],
+		queryFn: () => userApi({ user_token: page.data.token }).getManagers(user.uuid)
 	});
 
-	let is_manager = $state(!user.manager_id ? true : false);
-	let manager_id = $state(user.manager_id ?? null);
+	let is_manager = $state(!user.manager_uuid ? true : false);
+	let manager_uuid = $state(user.manager_uuid ?? null);
 
 	const updateUser = updateUsersMutation(page.data.token);
 	async function handleSubmit(event) {
 		event.preventDefault();
 		let user_data = {
-			id: user.id,
+			user_uuid: user.uuid,
 			email: email.value,
 			info: {
 				full_name: `${last_name.value} ${first_name.value}`,
@@ -64,12 +64,12 @@
 	}
 
 	const updateManagers = updateManagersMutation(page.data.token);
-	async function handleModifyUserManager(manager_id = null) {
+	async function handleModifyUserManager(manager_uuid = null) {
 		let user_data = {
-			id: user.id
+			user_uuid: user.uuid
 		};
-		if (manager_id) {
-			user_data['manager_id'] = manager_id;
+		if (manager_uuid) {
+			user_data['manager_uuid'] = manager_uuid;
 		}
 
 		$updateManagers.mutate(user_data, {
@@ -207,7 +207,7 @@
 						bind:value={is_manager}
 						disabled={user.user_role === 'Leader'}
 						onchange={() => {
-							manager_id = null;
+							manager_uuid = null;
 							if (is_manager) {
 								handleModifyUserManager();
 							}
@@ -224,9 +224,9 @@
 					<select
 						id="user_manager"
 						name="user_manager"
-						value={manager_id}
+						value={manager_uuid}
 						disabled={is_manager}
-						onchange={() => handleModifyUserManager(+user_manager.value)}
+						onchange={() => handleModifyUserManager(user_manager.value)}
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none disabled:text-gray-500"
 					>
 						{#if is_manager}
@@ -235,7 +235,7 @@
 							<option value={null}>Válassz menedzsert</option>
 						{/if}
 						{#each $managers.data as manager}
-							<option value={manager.id}
+							<option value={manager.uuid}
 								>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 							>
 						{/each}

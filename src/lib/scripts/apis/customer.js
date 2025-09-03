@@ -17,6 +17,18 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+        modify: async (customer) => {
+            const response = await fetch('/api/customer/modify', {
+                method: 'PUT',
+                body: JSON.stringify(customer)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         getAllByUserId: async (user_id) => {
             const response = await fetch('/api/customer/get-all', {
                 method: 'POST',
@@ -32,13 +44,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getById: async (customer_id) => {
+        getById: async (customer_uuid) => {
             const response = await fetch('/api/customer/get', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_id)
+                body: JSON.stringify(customer_uuid)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -47,13 +59,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, customer_ids) => {
+        changeHandler: async (user_full_name, customer_uuids) => {
             const response = await fetch('/api/customer/change/user', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ user_full_name, customer_ids })
+                body: JSON.stringify({ user_full_name, customer_uuids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -62,13 +74,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        delete: async (customer_ids) => {
+        delete: async (customer_uuids) => {
             const response = await fetch('/api/customer/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_ids)
+                body: JSON.stringify(customer_uuids)
             });
             const data = await response.json();
             if (!response.ok) {

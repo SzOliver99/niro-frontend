@@ -29,9 +29,8 @@
 			meet_location: meet_location.value,
 			meet_type: leadTypes[meet_type.value],
 			created_by: $userInfoQuery.data.info.full_name,
-			user_id: selected_user
+			user_uuid: selected_user
 		};
-		console.log(user_date);
 
 		$createUserDate.mutate(user_date, {
 			onSuccess: (data) => {

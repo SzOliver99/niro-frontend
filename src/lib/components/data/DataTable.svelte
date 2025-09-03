@@ -4,7 +4,6 @@
 	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
 	import { scale } from 'svelte/transition';
 	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
-	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 
 	let {
@@ -13,6 +12,7 @@
 		onClick = () => {},
 		modify_mutation = null,
 		delete_mutation = null,
+		sort_column = '',
 		searchable = true,
 		filterable = true,
 		sortable = true,
@@ -23,7 +23,7 @@
 
 	let searchTerm = $state('');
 	let currentPage = $state(1);
-	let sortColumn = $state('');
+	let sortColumn = $state(sort_column);
 	let sortDirection = $state('asc');
 	let filters = $state({});
 	let selectedRows = $state([]);
@@ -190,7 +190,7 @@
 			</thead>
 			<tbody class="divide-y divide-gray-200 bg-white">
 				{#each paginatedData() as item, index}
-					<tr class="hover:bg-gray-50" onclick={() => {}}>
+					<tr class="hover:bg-gray-50" onclick={() => onClick(item.uuid)}>
 						{#each columns as column}
 							{#if column.key === 'action'}
 								<td class="px-5" onclick={(e) => e.stopPropagation()}>
@@ -199,8 +199,8 @@
 									>
 										<input
 											type="checkbox"
-											checked={selectedRows.includes(item.id)}
-											onchange={() => toggleSelectedRow(item.id)}
+											checked={selectedRows.includes(item.uuid)}
+											onchange={() => toggleSelectedRow(item.uuid)}
 											class="sr-only"
 										/>
 
