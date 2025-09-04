@@ -42,15 +42,15 @@
 		></button>
 		<form
 			onsubmit={handleSubmit}
-			class="absolute top-1/2 left-1/2 w-3/4 -translate-x-1/2 -translate-y-1/2 rounded-lg border-1 border-black/10 bg-white p-6 text-center shadow-lg sm:w-auto"
+			class="absolute top-1/2 left-1/2 w-[30rem] -translate-x-1/2 -translate-y-1/2 rounded-lg border-1 border-black/10 bg-white py-12 text-center shadow-lg"
 		>
-			<label for="name">Válassz üzletkötőt!</label>
-			<div class="my-5">
+			<label for="name" class="text-2xl font-bold">Válassz üzletkötőt!</label>
+			<div class="mt-5 mb-3">
 				<input
 					list="names"
 					bind:value={new_user}
 					name="name"
-					class="rounded-lg border border-gray-300 px-3 py-2"
+					class="w-3/4 rounded-lg border border-gray-300 px-3 py-2"
 					autocomplete="off"
 				/>
 
@@ -63,7 +63,7 @@
 			<button
 				type="submit"
 				class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700"
-				>Mentés</button
+				>Változtatás mentése</button
 			>
 		</form>
 	</div>

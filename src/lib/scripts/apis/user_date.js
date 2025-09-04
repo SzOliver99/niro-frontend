@@ -36,8 +36,6 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         changeHandler: async (user_full_name, date_uuids) => {
-            console.log(date_uuids);
-
             const response = await fetch('/api/dates/change/user', {
                 method: 'POST',
                 headers: {

@@ -18,7 +18,7 @@
 
 <div class="grid grid-cols-2 gap-4">
 	<div class="flex flex-col text-start font-medium">
-		<label for="lead_type">Címanyag típus <span class="text-red-700">*</span></label>
+		<label for="lead_type">Tevékenység típus <span class="text-red-700">*</span></label>
 		<select
 			name="lead_type"
 			id="lead_type"
@@ -27,7 +27,7 @@
 			autocomplete="off"
 			required
 		>
-			<option value="">Válassz címanyag típust</option>
+			<option value="">Válassz tevékenység típust</option>
 			{#each Object.entries(leadTypes) as [key, value]}
 				<option value={key}>{value}</option>
 			{/each}
@@ -43,7 +43,7 @@
 			autocomplete="off"
 			required
 		>
-			<option value="">Válassz státust</option>
+			<option value="">Válassz státuszt</option>
 			{#each Object.entries(statusTypes) as [key, value]}
 				<option value={key}>{value}</option>
 			{/each}

@@ -108,7 +108,7 @@
 		<div
 			class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 		>
-			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Címanyag létrehozása</h1>
+			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Tevékenység létrehozása</h1>
 			<nav>
 				<ul class="flex justify-between">
 					<button
@@ -130,7 +130,7 @@
 					<button
 						class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"
 					>
-						<span>Címanyag létrehozása</span>
+						<span>Tevékenység létrehozása</span>
 						<CircleArrowRight class="size-4" />
 					</button>
 				</div>

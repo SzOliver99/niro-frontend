@@ -69,7 +69,7 @@
 <div class="p-4">
 	<div class="flex justify-between text-center">
 		<div class="flex items-center gap-4">
-			<h1 class="text-xl font-semibold">Címanyagok</h1>
+			<h1 class="text-xl font-semibold">Tevékenységek</h1>
 			<select
 				id="select_user"
 				name="select_user"
@@ -89,7 +89,7 @@
 			onclick={leadsModalStore.open}
 		>
 			<Plus />
-			<p>Címanyag hozzáadása</p>
+			<p>Tevékenység hozzáadása</p>
 		</button>
 		<CreateLeadModal bind:selected_user bind:leadsModalStore />
 	</div>
