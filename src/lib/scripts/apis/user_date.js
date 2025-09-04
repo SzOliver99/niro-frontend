@@ -20,7 +20,7 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getAllByUserId: async (user_uuid) => {
+        getAllByUserUuid: async (user_uuid) => {
             const response = await fetch('/api/dates/get-all', {
                 method: 'POST',
                 headers: {

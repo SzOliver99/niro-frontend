@@ -34,7 +34,7 @@
 		createQuery({
 			queryKey: ['user-dates', data.token, selected_user],
 			queryFn: async () =>
-				await userDateApi({ user_token: data.token }).getAllByUserId(selected_user),
+				await userDateApi({ user_token: data.token }).getAllByUserUuid(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);

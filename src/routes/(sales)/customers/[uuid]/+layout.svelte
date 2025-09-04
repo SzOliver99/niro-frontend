@@ -1,20 +1,36 @@
 <script>
+	import { page } from '$app/state';
+
 	let { children } = $props();
+
+	const navTabs = [
+		{ href: `${page.params.uuid}`, title: 'Személyes adatok' },
+		{ href: `${page.params.uuid}/leads`, title: 'Tevékenységek' },
+		{ href: `${page.params.uuid}/contracts`, title: 'Szerződések' },
+		{ href: `${page.params.uuid}/intervention-tasks`, title: 'Intervenciós feladatok' }
+	];
 </script>
 
 <div class="my-5 ms-5 flex flex-row justify-between gap-3 overflow-hidden rounded-lg px-2 py-4">
 	<div class="md:w-[80%] lg:w-[70%]">
 		<h1 class="mb-4 text-2xl font-bold">Ügyfél karton</h1>
-		<div class="rounded-lg bg-white shadow-lg ring ring-black/10">
-			<div class="w-full overflow-y-auto">
-				{@render children()}
-			</div>
-			<div class="flex h-full justify-between border-t border-black/10 py-2 *:font-medium">
+		<div class="rounded-lg bg-white shadow-lg ring ring-black/10 min-h-[33.3rem]">
+			<div class="flex h-full justify-between border-b border-black/10 py-2 *:font-medium">
 				<div class="flex flex-row gap-2 *:duration-200 *:hover:scale-105">
-					<p class="flex items-center rounded-lg px-3 py-2 text-sm">Tevékenységek</p>
-					<p class="flex items-center rounded-lg px-3 py-2 text-sm">Szerződések</p>
-					<p class="flex items-center rounded-lg px-3 py-2 text-sm">Intervenciós feladatok</p>
+					{#each navTabs as link}
+						<a
+							href="/customers/{link.href}"
+							class="flex items-center rounded-lg px-3 py-2 text-sm"
+							class:scale-105={page.url.pathname.endsWith(link.href)}
+							class:text-blue-600={page.url.pathname.endsWith(link.href)}
+						>
+							{link.title}
+						</a>
+					{/each}
 				</div>
+			</div>
+			<div class="w-full overflow-y-auto h-full">
+				{@render children()}
 			</div>
 		</div>
 	</div>

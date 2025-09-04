@@ -224,6 +224,9 @@
 			</tbody>
 		</table>
 	</div>
+	{#if data.length === 0}
+		<p class="py-3 text-center text-xl font-semibold">Nincs megjeleníthető adat</p>
+	{/if}
 
 	{#if totalPages > 1}
 		<div class="border-t border-gray-200 px-6 py-3">

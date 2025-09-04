@@ -29,7 +29,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getAllByUserId: async (user_uuid) => {
+        getAllByUserUuid: async (user_uuid) => {
             const response = await fetch('/api/customer/get-all', {
                 method: 'POST',
                 headers: {
@@ -44,8 +44,23 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getById: async (customer_uuid) => {
+        getByUuid: async (customer_uuid) => {
             const response = await fetch('/api/customer/get', {
+                method: 'POST',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify(customer_uuid)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getLeadsByUuid: async (customer_uuid) => {
+            const response = await fetch('/api/customer/leads', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token

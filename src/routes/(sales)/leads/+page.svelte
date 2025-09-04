@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import CreateLeadModal from '$lib/components/Lead/CreateLeadModal.svelte';
 	import leadApi from '$lib/scripts/apis/lead.js';
@@ -29,7 +30,8 @@
 	let leads = $derived(
 		createQuery({
 			queryKey: ['leads', data.token, selected_user],
-			queryFn: async () => await leadApi({ user_token: data.token }).getAllByUserId(selected_user),
+			queryFn: async () =>
+				await leadApi({ user_token: data.token }).getAllByUserUuid(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);
@@ -96,6 +98,10 @@
 	<DataTable
 		data={$leads.data}
 		{columns}
+		onClick={async (lead_uuid) => {
+			let customer_uuid = await leadApi({ user_token: data.token }).getCustomerUuid(lead_uuid);
+			goto(`/customers/${customer_uuid}/leads/${lead_uuid}`);
+		}}
 		modify_mutation={changeLeadHandlerMutation(data.token)}
 		delete_mutation={deleteLeadMutation(data.token)}
 		searchable={true}

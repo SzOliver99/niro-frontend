@@ -8,7 +8,7 @@
 	let { data } = $props();
 	const customer = createQuery({
 		queryKey: ['customer', data.token, page.params.uuid],
-		queryFn: async () => await customerApi({ user_token: data.token }).getById(page.params.uuid)
+		queryFn: async () => await customerApi({ user_token: data.token }).getByUuid(page.params.uuid)
 	});
 
 	let modifyCustomer = modifyCustomerMutation(data.token);
@@ -30,8 +30,6 @@
 </script>
 
 <section class="w-full px-4 py-3">
-	<h2 class="text-xl italic">Személyes adatok</h2>
-
 	{#if $customer.isLoading}
 		<p>Ügyfél adatainak betöltése</p>
 	{:else if $customer.data}

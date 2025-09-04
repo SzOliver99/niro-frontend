@@ -33,7 +33,7 @@
 		createQuery({
 			queryKey: ['customers', data.token, selected_user],
 			queryFn: async () =>
-				await customerApi({ user_token: data.token }).getAllByUserId(selected_user),
+				await customerApi({ user_token: data.token }).getAllByUserUuid(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);
