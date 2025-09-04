@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import customerApi from '$lib/scripts/apis/customer';
@@ -47,6 +48,9 @@
 	<DataTable
 		data={$leads.data}
 		{columns}
+		onClick={(lead_uuid) => {
+			goto(`leads/${lead_uuid}`);
+		}}
 		modify_mutation={changeLeadHandlerMutation(page.data.token)}
 		delete_mutation={deleteLeadMutation(page.data.token)}
 		modifiable={false}
