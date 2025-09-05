@@ -10,6 +10,10 @@
 		queryFn: async () => await leadApi({ user_token: data.token }).getByUuid(page.params.lead_uuid)
 	});
 
+	function handleSubmit() {
+		console.log('WIP');
+	}
+
 	const leadTypes = $state({
 		personal: 'Személyes kapcsolatrendszer',
 		recommendation: 'Ajánlás',
