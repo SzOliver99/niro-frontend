@@ -23,6 +23,24 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+        modify: async (lead_uuid, lead) => {
+            const response = await fetch('/api/lead/modify', {
+                method: 'PUT',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify({
+                    lead_uuid,
+                    ...lead
+                })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         getAllByUserUuid: async (user_uuid) => {
             const response = await fetch('/api/lead/get-all', {
                 method: 'POST',

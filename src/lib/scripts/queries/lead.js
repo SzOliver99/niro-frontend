@@ -7,7 +7,17 @@ export const createLeadMutation = (user_token) => {
     return createMutation({
         mutationFn: async ({ customer, lead }) => await leadApi({ user_token }).create(customer, lead),
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ['customers'] });
+            queryClient.invalidateQueries({ queryKey: ['leads'] });
+        }
+    });
+};
+
+export const modifyLeadMutation = (user_token) => {
+    const queryClient = useQueryClient();
+
+    return createMutation({
+        mutationFn: async ({ lead_uuid, lead }) => await leadApi({ user_token }).modify(lead_uuid, lead),
+        onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ['leads'] });
         }
     });

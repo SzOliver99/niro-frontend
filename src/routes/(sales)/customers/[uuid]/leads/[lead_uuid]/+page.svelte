@@ -1,6 +1,8 @@
 <script>
 	import { page } from '$app/state';
 	import leadApi from '$lib/scripts/apis/lead';
+	import { modifyLeadMutation } from '$lib/scripts/queries/lead';
+	import { Notification } from '$lib/stores/notifications';
 	import { createQuery } from '@tanstack/svelte-query';
 
 	let { data } = $props();
@@ -10,8 +12,22 @@
 		queryFn: async () => await leadApi({ user_token: data.token }).getByUuid(page.params.lead_uuid)
 	});
 
+	const modifyLead = modifyLeadMutation(data.token);
 	function handleSubmit() {
-		console.log('WIP');
+		let modified_lead = {
+			lead_type: lead_type.value,
+			lead_status: lead_status.value,
+			inquiry_type: inquiry_type.value.trim()
+		};
+
+		$modifyLead.mutate(
+			{ lead_uuid: page.params.lead_uuid, lead: modified_lead },
+			{
+				onSuccess: (data) => {
+					Notification.success(data, 3);
+				}
+			}
+		);
 	}
 
 	const leadTypes = $state({
