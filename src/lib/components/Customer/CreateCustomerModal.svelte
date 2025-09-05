@@ -16,10 +16,10 @@
 	async function handleSubmit() {
 		let customer = {
 			user_uuid: selected_user,
-			full_name: `${last_name.value} ${first_name.value}`,
+			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			phone_number: phone_number.value,
-			address: `${postal_code.value} ${settlement.value} ${street.value} ${house_number.value}`,
-			email: email.value,
+			address: `${postal_code.value.trim()} ${settlement.value.trim()} ${street.value.trim()} ${house_number.value.trim()}`,
+			email: email.value.trim(),
 			created_by: $userInfoQuery.data.info.full_name
 		};
 

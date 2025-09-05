@@ -16,7 +16,7 @@
 		<h1 class="mb-4 text-2xl font-bold">Ügyfél karton</h1>
 		<div class="rounded-lg bg-white shadow-lg ring ring-black/10 min-h-[33.3rem]">
 			<div class="flex h-full justify-between border-b border-black/10 py-2 *:font-medium">
-				<div class="flex flex-row gap-2 *:duration-200 *:hover:scale-105">
+				<div class="flex ms-2 flex-row gap-2 *:duration-200 *:hover:scale-105">
 					{#each navTabs as link}
 						<a
 							href="/customers/{link.href}"

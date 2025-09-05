@@ -43,10 +43,10 @@
 	const createLead = createLeadMutation();
 	async function handleSubmit() {
 		let formatted_customer = {
-			full_name: `${customer.last_name} ${customer.first_name}`,
+			full_name: `${customer.last_name.trim()} ${customer.first_name.trim()}`,
 			phone_number: customer.phone_number,
-			address: `${customer.postal_code} ${customer.settlement} ${customer.street} ${customer.house_number}`,
-			email: customer.email
+			address: `${customer.postal_code.trim()} ${customer.settlement.trim()} ${customer.street.trim()} ${customer.house_number.trim()}`,
+			email: customer.email.trim()
 		};
 		let formatted_lead = {
 			...lead,

@@ -28,11 +28,11 @@
 	const createUser = createUsersMutation(page.data.token);
 	async function handleSubmit() {
 		let agent = {
-			email: email.value,
-			username: username.value,
+			email: email.value.trim(),
+			username: username.value.trim(),
 			password: password.value,
 			info: {
-				full_name: `${last_name.value} ${first_name.value}`,
+				full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 				phone_number: phone_number.value,
 				hufa_code: hufa_code.value,
 				agent_code: agent_code.value
@@ -47,7 +47,7 @@
 		const phone_number_length = agent.info.phone_number.length === 15;
 		const hufa_code_rgx = new RegExp(/\b[a-z]{2}\d{5}/g);
 		const agent_code_rgx = new RegExp(/\d{7}/g);
-		if (!email_rgx.test(agent.email.trim())) {
+		if (!email_rgx.test(agent.email)) {
 			Notification.error('Hibás email', 3);
 			return;
 		}
@@ -55,11 +55,11 @@
 			Notification.error('Túl rövid telefonszám', 3);
 			return;
 		}
-		if (!hufa_code_rgx.test(agent.info.hufa_code.trim())) {
+		if (!hufa_code_rgx.test(agent.info.hufa_code)) {
 			Notification.error('Hibás HUFA kód', 3);
 			return;
 		}
-		if (!agent_code_rgx.test(agent.info.agent_code.trim())) {
+		if (!agent_code_rgx.test(agent.info.agent_code)) {
 			Notification.error('Hibás dolgozói kód', 3);
 			return;
 		}

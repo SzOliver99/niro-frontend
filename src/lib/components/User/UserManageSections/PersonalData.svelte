@@ -29,12 +29,12 @@
 		event.preventDefault();
 		let user_data = {
 			user_uuid: user.uuid,
-			email: email.value,
+			email: email.value.trim(),
 			info: {
-				full_name: `${last_name.value} ${first_name.value}`,
+				full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 				phone_number: phone_number.value,
-				hufa_code: hufa_code.value,
-				agent_code: agent_code.value
+				hufa_code: hufa_code.value.trim(),
+				agent_code: agent_code.value.trim()
 			}
 		};
 

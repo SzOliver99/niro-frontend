@@ -15,7 +15,7 @@
 	async function handleSubmit() {
 		let modified_customer = {
 			customer_uuid: $customer.data.uuid,
-			full_name: `${last_name.value} ${first_name.value}`,
+			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			phone_number: phone_number.value,
 			address: `${postal_code.value} ${settlement.value} ${street.value} ${house_number.value}`,
 			email: email.value
@@ -41,7 +41,7 @@
 						type="text"
 						id="last_name"
 						name="last_name"
-						placeholder="test@test.hu"
+						placeholder=""
 						value={$customer.data.full_name.split(' ')[0]}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
@@ -52,8 +52,8 @@
 					<input
 						type="text"
 						id="first_name"
-						name="emafirst_nameil"
-						placeholder="test@test.hu"
+						name="first_name"
+						placeholder=""
 						value={$customer.data.full_name.split(' ')[1]}
 						required
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
@@ -86,6 +86,7 @@
 					/>
 				</div>
 			</div>
+			TODO: Cím rosszul jelenik meg
 			<div class="flex gap-4">
 				<div class="flex w-full flex-col text-start font-medium">
 					<label for="settlement">Település <span class="text-red-700">*</span></label>

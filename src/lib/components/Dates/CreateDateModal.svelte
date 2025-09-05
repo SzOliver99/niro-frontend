@@ -24,7 +24,7 @@
 	async function handleSubmit() {
 		let user_date = {
 			meet_date: meet_date.value,
-			full_name: `${last_name.value} ${first_name.value}`,
+			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			phone_number: phone_number.value,
 			meet_location: meet_location.value,
 			meet_type: leadTypes[meet_type.value],
