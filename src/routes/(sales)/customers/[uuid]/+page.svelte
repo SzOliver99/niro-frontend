@@ -17,7 +17,7 @@
 			customer_uuid: $customer.data.uuid,
 			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			phone_number: phone_number.value,
-			address: `${postal_code.value} ${settlement.value} ${street.value} ${house_number.value}`,
+			address: address.value,
 			email: email.value
 		};
 
@@ -86,60 +86,17 @@
 					/>
 				</div>
 			</div>
-			TODO: Cím rosszul jelenik meg
-			<div class="flex gap-4">
-				<div class="flex w-full flex-col text-start font-medium">
-					<label for="settlement">Település <span class="text-red-700">*</span></label>
-					<input
-						type="text"
-						name="settlement"
-						id="settlement"
-						value={$customer.data.address.split(' ')[1]}
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
-				</div>
-				<div class="flex flex-1/3 flex-col text-start font-medium">
-					<label for="postal_code">Irányítoszám <span class="text-red-700">*</span></label>
-					<input
-						type="text"
-						name="postal_code"
-						id="postal_code"
-						maxlength="4"
-						value={$customer.data.address.split(' ')[0]}
-						oninput={() => formatNumberOnly(postal_code)}
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
-				</div>
-			</div>
-			<div class="flex gap-4">
-				<div class="flex flex-1/2 flex-col text-start font-medium">
-					<label for="street">Közterület <span class="text-red-700">*</span></label>
-					<input
-						type="text"
-						name="street"
-						id="street"
-						value={$customer.data.address.split(' ')[2]}
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
-				</div>
-				<div class="flex flex-1/3 flex-col text-start font-medium">
-					<label for="house_number">Házszám <span class="text-red-700">*</span></label>
-					<input
-						type="text"
-						name="house_number"
-						id="house_number"
-						value={$customer.data.address.split(' ')[3]}
-						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-						autocomplete="off"
-						required
-					/>
-				</div>
+			<div class="flex flex-1/2 flex-col text-start font-medium">
+				<label for="address">Cím <span class="text-red-700">*</span></label>
+				<input
+					type="text"
+					name="address"
+					id="address"
+					value={$customer.data.address}
+					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+					autocomplete="off"
+					required
+				/>
 			</div>
 
 			<!-- Submit Button -->
