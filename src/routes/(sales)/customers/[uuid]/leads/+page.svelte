@@ -30,13 +30,12 @@
 	];
 
 	const leadTypes = $state({
-		personal: 'Személyes kapcsolatrendszer',
-		recommendation: 'Ajánlás',
-		salesforce: 'Salesforce',
-		red_lead: 'Piros címanyag',
-		blue_lead: 'Kék címanyag'
+		Personal: 'Személyes kapcsolatrendszer',
+		Recommendation: 'Ajánlás',
+		Salesforce: 'Salesforce',
+		RedLead: 'Piros címanyag',
+		BlueLead: 'Kék címanyag'
 	});
-
 	const statusTypes = $state({
 		Opened: 'Nyitott',
 		InProgress: 'Folyamatban',

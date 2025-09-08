@@ -6,19 +6,20 @@
 	import { Notification } from '$lib/stores/notifications';
 	import { createCustomerModal } from '$lib/stores/user';
 	import { createQuery } from '@tanstack/svelte-query';
-	import { CircleArrowRight, FileUser, Table } from 'lucide-svelte';
+	import { CircleArrowRight, FileUser, ReceiptText } from 'lucide-svelte';
 	import { fade } from 'svelte/transition';
-	import CustomerTab from './NavTab/CustomerTab.svelte';
-	import LeadTab from './NavTab/LeadTab.svelte';
 	import { createLeadMutation } from '$lib/scripts/queries/lead';
+	import CustomerTab from './NavTab/CustomerTab.svelte';
+	import ContractTab from './NavTab/ContractTab.svelte';
+	import { createContractMutation } from '$lib/scripts/queries/contract';
 
-	let { selected_user = $bindable(), leadsModalStore = $bindable() } = $props();
+	let { selected_user = $bindable(), contractsModalStore = $bindable() } = $props();
 
 	let navTabs = $state({
 		opened: 'Ügyfél adatai',
 		tabs: [
 			{ title: 'Ügyfél adatai', icon: FileUser },
-			{ title: 'Címanyag adatai', icon: Table }
+			{ title: 'Szerződés adatai', icon: ReceiptText }
 		]
 	});
 
@@ -33,14 +34,16 @@
 		email: ''
 	});
 
-	let lead = $state({
-		lead_type: '',
-		inquiry_type: '',
-		lead_status: ''
+	let contract = $state({
+		contract_number: '',
+		contract_type: '',
+		annual_fee: '',
+		payment_frequency: '',
+		payment_method: ''
 	});
 
 	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
-	const createLead = createLeadMutation(page.data.token);
+	const createContract = createContractMutation(page.data.token);
 	async function handleSubmit() {
 		let formatted_customer = {
 			full_name: `${customer.last_name.trim()} ${customer.first_name.trim()}`,
@@ -48,8 +51,9 @@
 			address: `${customer.postal_code.trim()} ${customer.settlement.trim()} ${customer.street.trim()} ${customer.house_number.trim()}`,
 			email: customer.email.trim()
 		};
-		let formatted_lead = {
-			...lead,
+		let formatted_contract = {
+			...contract,
+			annual_fee: +contract.annual_fee.replace(/\D/g, ''),
 			user_uuid: selected_user,
 			created_by: $userInfoQuery.data.info.full_name
 		};
@@ -61,7 +65,7 @@
 		if (
 			!customer.last_name.trim() ||
 			!customer.first_name.trim() ||
-			!customer.phone_number.trim() ||
+			!customer.phone_number ||
 			!customer.email.trim()
 		) {
 			Notification.error('Kérjük, töltsd ki az összes kötelező ügyfél mezőt!', 3);
@@ -69,7 +73,12 @@
 		}
 
 		// Check required lead fields
-		if (!lead.lead_type.trim() || !lead.inquiry_type.trim() || !lead.lead_status.trim()) {
+		if (
+			contract.annual_fee <= 0 ||
+			!contract.contract_type ||
+			!contract.payment_frequency ||
+			!contract.payment_method
+		) {
 			Notification.error('Kérjük, töltsd ki az összes kötelező címanyag mezőt!', 3);
 			return;
 		}
@@ -83,32 +92,32 @@
 			return;
 		}
 
-		$createLead.mutate(
-			{ customer: formatted_customer, lead: formatted_lead },
+		$createContract.mutate(
+			{ customer: formatted_customer, contract: formatted_contract },
 			{
 				onSuccess: () => {
 					Notification.success('Sikeresen létrehoztad a címanyagot', 3);
-					leadsModalStore.close();
+					contractsModalStore.close();
 				}
 			}
 		);
 	}
 </script>
 
-{#if $leadsModalStore}
+{#if $contractsModalStore}
 	<div
 		transition:fade={{ duration: 200 }}
 		class="fixed top-0 left-0 z-50 h-full w-full overflow-hidden"
 	>
 		<button
 			class="h-full w-full cursor-default bg-black/30"
-			onclick={leadsModalStore.close}
+			onclick={contractsModalStore.close}
 			aria-label="Close modal"
 		></button>
 		<div
 			class="fixed top-1/2 left-1/2 flex w-[36rem] -translate-1/2 flex-col rounded-lg bg-white p-4 text-center text-black shadow-2xl"
 		>
-			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Tevékenység létrehozása</h1>
+			<h1 class="my-4 text-4xl font-semibold text-shadow-md">Szerződés létrehozása</h1>
 			<nav>
 				<ul class="flex justify-between">
 					{#each navTabs.tabs as item}
@@ -130,7 +139,7 @@
 					<button
 						class="flex items-center gap-2 rounded-lg bg-blue-600 px-6 py-2 text-white duration-200 hover:bg-blue-700"
 					>
-						<span>Tevékenység létrehozása</span>
+						<span>Szerződés létrehozása</span>
 						<CircleArrowRight class="size-4" />
 					</button>
 				</div>
@@ -142,7 +151,7 @@
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Ügyfél adatai'}
 		<CustomerTab bind:customer />
-	{:else if navTabs.opened === 'Címanyag adatai'}
-		<LeadTab bind:lead />
+	{:else if navTabs.opened === 'Szerződés adatai'}
+		<ContractTab bind:contract />
 	{/if}
 {/snippet}

@@ -1,12 +1,22 @@
 <script>
+	import { goto } from '$app/navigation';
+	import CreateContactModal from '$lib/components/Contract/CreateContactModal.svelte';
 	import DataTable from '$lib/components/data/DataTable.svelte';
+	import contractApi from '$lib/scripts/apis/contract.js';
 	import userApi from '$lib/scripts/apis/user';
+	import {
+		changeContractHandlerMutation,
+		deleteContractMutation
+	} from '$lib/scripts/queries/contract.js';
 	import { convertUserGroup } from '$lib/scripts/utils';
 	import { permissionsStore } from '$lib/stores/permissions';
+	import { createSimpleModalStore } from '$lib/stores/user.js';
 	import { createQuery } from '@tanstack/svelte-query';
 	import { Plus } from 'lucide-svelte';
 
 	let { data } = $props();
+
+	let contractsModalStore = $state(createSimpleModalStore());
 
 	let sub_users = createQuery({
 		queryKey: ['sub_users', data.token],
@@ -14,6 +24,20 @@
 	});
 
 	let selected_user = $state();
+	$effect.pre(() => {
+		if ($sub_users.data && $sub_users.data.length > 0) {
+			selected_user = $sub_users.data[0].uuid;
+		}
+	});
+
+	let contracts = $derived(
+		createQuery({
+			queryKey: ['contracts', data.token, selected_user],
+			queryFn: async () =>
+				await contractApi({ user_token: data.token }).getAllByUserUuid(selected_user),
+			enabled: selected_user !== undefined
+		})
+	);
 
 	const columns = [
 		{ key: 'action', label: '#' },
@@ -21,47 +45,48 @@
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
-		{ key: 'contract_type', label: 'Szerződés típus' },
+		{ key: 'contract_number', label: 'Szerződés sorozatszáma' },
+		{ key: 'contract_type', label: 'Szerződés típus', action: (type) => contractTypes[type] },
 		{ key: 'annual_fee', label: 'Éves állománydíj' },
-		{ key: 'payment_frequency', label: 'Fizetési gyakoriság' },
-		{ key: 'payment_method', label: 'Fizetési mód' },
-		{ key: 'user_id', label: 'Üzletkötő neve' },
-		{ key: 'contract_date', label: 'Létrehozás/Szerződéskötés dátuma' }
+		{
+			key: 'payment_frequency',
+			label: 'Fizetési gyakoriság',
+			action: (frequency) => paymentFrequencyTypes[frequency]
+		},
+		{
+			key: 'payment_method',
+			label: 'Fizetési mód',
+			action: (method) => paymentMethodTypes[method]
+		},
+		{ key: 'created_by', label: 'Üzletkötő neve' },
+		{ key: 'handle_at', label: 'Létrehozás/Szerződéskötés dátuma' }
 	];
 
-	const contractTypes = {
-		bonus_life_program: 'Bónusz Életprogram',
-		life_program: 'Életprogram',
-		allianz_care_now: 'Allianz Gondoskodás Most',
-		health_program: 'Egészségprogram',
-		myhome_home_insurance: 'MyHome lakásbiztosítás',
-		mfo_home_insurance: 'MFO lakásbiztosítás',
-		corporate_property_insurance: 'Vállalati vagyon biztosítás',
-		kgfb: 'KGFB',
-		casco: 'CASCO',
-		travel_insurance: 'Utasbiztosítás',
-		condominium_insurance: 'Társasházbiztosítás',
-		agricultural_insurance: 'Mezőgazdasági biztosítás'
+	export const contractTypes = {
+		BonusLifeProgram: 'Bónusz Életprogram',
+		LifeProgram: 'Életprogram',
+		AllianzCareNow: 'Allianz Gondoskodás Most',
+		HealthProgram: 'Egészségprogram',
+		MyhomeHomeInsurance: 'MyHome lakásbiztosítás',
+		MfoHomeInsurance: 'MFO lakásbiztosítás',
+		CorporatePropertyInsurance: 'Vállalati vagyon biztosítás',
+		Kgfb: 'KGFB',
+		Casco: 'CASCO',
+		TravelInsurance: 'Utasbiztosítás',
+		CondominiumInsurance: 'Társasházbiztosítás',
+		AgriculturalInsurance: 'Mezőgazdasági biztosítás'
 	};
-
 	const paymentFrequencyTypes = {
-		monthly: 'Havi',
-		quarterly: 'Negyedéves',
-		semiannual: 'Féléves',
-		annual: 'Éves'
+		Monthly: 'Havi',
+		Quarterly: 'Negyedéves',
+		Semiannual: 'Féléves',
+		Annual: 'Éves'
 	};
 	const paymentMethodTypes = {
-		card: 'Bankkártya',
-		transfer: 'Átutalás',
-		direct_debit: 'Lehívás',
-		check: 'Csekk'
-	};
-
-	const leadTypes = {
-		needs_assessment: 'Igényfelmérés',
-		consultation: 'Tanácsadás',
-		service: 'Szervíz',
-		annual_review: 'Évfordulós tárgyalás'
+		CreditCard: 'Bankkártya',
+		Transfer: 'Átutalás',
+		DirectDebit: 'Lehívás',
+		Check: 'Csekk'
 	};
 </script>
 
@@ -77,7 +102,7 @@
 				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 			>
 				{#each $sub_users.data as user}
-					<option value={user.id}
+					<option value={user.uuid}
 						>{user.info?.full_name} - {convertUserGroup(user.user_role)}</option
 					>
 				{/each}
@@ -85,14 +110,24 @@
 		</div>
 		<button
 			class="bg-gray me-4 flex items-center rounded-lg bg-blue-600 px-3 py-2 text-center text-nowrap text-white duration-200 hover:bg-blue-700"
+			onclick={contractsModalStore.open}
 		>
 			<Plus />
 			<p>Szerződés hozzáadása</p>
 		</button>
+		<CreateContactModal bind:selected_user bind:contractsModalStore />
 	</div>
 	<DataTable
-		user_data={[]}
+		data={$contracts.data}
 		{columns}
+		onClick={async (contract_uuid) => {
+			let customer_uuid = await contractApi({ user_token: data.token }).getCustomerUuid(
+				contract_uuid
+			);
+			goto(`/customers/${customer_uuid}/contracts/${contract_uuid}`);
+		}}
+		modify_mutation={changeContractHandlerMutation(data.token)}
+		delete_mutation={deleteContractMutation(data.token)}
 		searchable={true}
 		filterable={true}
 		sortable={true}

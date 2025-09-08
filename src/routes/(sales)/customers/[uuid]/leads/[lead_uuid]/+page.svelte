@@ -1,4 +1,5 @@
 <script>
+	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
 	import leadApi from '$lib/scripts/apis/lead';
 	import { modifyLeadMutation } from '$lib/scripts/queries/lead';
@@ -25,19 +26,21 @@
 			{
 				onSuccess: (data) => {
 					Notification.success(data, 3);
+					let url = page.url.pathname.split('/').filter(Boolean);
+					url.pop();
+					goto(`/${url.join('/')}`);
 				}
 			}
 		);
 	}
 
 	const leadTypes = $state({
-		personal: 'Személyes kapcsolatrendszer',
-		recommendation: 'Ajánlás',
-		salesforce: 'Salesforce',
-		red_lead: 'Piros címanyag',
-		blue_lead: 'Kék címanyag'
+		Personal: 'Személyes kapcsolatrendszer',
+		Recommendation: 'Ajánlás',
+		Salesforce: 'Salesforce',
+		RedLead: 'Piros címanyag',
+		BlueLead: 'Kék címanyag'
 	});
-
 	const statusTypes = $state({
 		Opened: 'Nyitott',
 		InProgress: 'Folyamatban',
@@ -47,7 +50,7 @@
 
 <section class="w-full px-4 py-3">
 	{#if $lead.isLoading}
-		<p>Ügyfél adatainak betöltése</p>
+		<p>Tevékenység adatainak betöltése</p>
 	{:else if $lead.data}
 		<form onsubmit={handleSubmit} class="flex flex-col gap-5 rounded-lg p-3 text-nowrap">
 			<div class="grid grid-cols-2 gap-4">

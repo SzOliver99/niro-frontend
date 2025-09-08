@@ -12,13 +12,6 @@
 
 	let { selected_user = $bindable(), dateCreateModalStore = $bindable() } = $props();
 
-	const leadTypes = {
-		needs_assessment: 'Igényfelmérés',
-		consultation: 'Tanácsadás',
-		service: 'Szervíz',
-		annual_review: 'Évfordulós tárgyalás'
-	};
-
 	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
 	const createUserDate = createUserDateMutation(page.data.token);
 	async function handleSubmit() {
@@ -27,7 +20,7 @@
 			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			phone_number: phone_number.value,
 			meet_location: meet_location.value,
-			meet_type: leadTypes[meet_type.value],
+			meet_type: meetTypes[meet_type.value],
 			created_by: $userInfoQuery.data.info.full_name,
 			user_uuid: selected_user
 		};
@@ -39,6 +32,13 @@
 			}
 		});
 	}
+
+	const meetTypes = {
+		NeedsAssessment: 'Igényfelmérés',
+		Consultation: 'Tanácsadás',
+		Service: 'Szervíz',
+		AnnualReview: 'Évfordulós tárgyalás'
+	};
 </script>
 
 {#if $dateCreateModalStore}
@@ -129,7 +129,7 @@
 						required
 					>
 						<option value="">Válassz találkozó típust</option>
-						{#each Object.entries(leadTypes) as [key, value]}
+						{#each Object.entries(meetTypes) as [key, value]}
 							<option value={key}>{value}</option>
 						{/each}
 					</select>

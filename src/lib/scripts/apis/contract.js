@@ -1,14 +1,21 @@
 import { Notification } from "$lib/stores/notifications";
 import { wrapFetch } from "./api";
 
-const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
+const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     const fetch = wrapFetch(baseFetch, user_token)
 
     return {
-        create: async (customer) => {
-            const response = await fetch('/api/customer/create', {
+        create: async (customer, contract) => {
+            const response = await fetch('/api/contract/create', {
+
                 method: 'POST',
-                body: JSON.stringify(customer)
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify({
+                    customer: customer,
+                    ...contract
+                })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -17,10 +24,16 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        modify: async (customer) => {
-            const response = await fetch('/api/customer/modify', {
+        modify: async (contract_uuid, contract) => {
+            const response = await fetch('/api/contract/modify', {
                 method: 'PUT',
-                body: JSON.stringify(customer)
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify({
+                    contract_uuid,
+                    ...contract
+                })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -30,7 +43,7 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getAllByUserUuid: async (user_uuid) => {
-            const response = await fetch('/api/customer/get-all', {
+            const response = await fetch('/api/contract/get-all', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
@@ -44,13 +57,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getByUuid: async (customer_uuid) => {
-            const response = await fetch('/api/customer/get', {
+        getByUuid: async (contract_uuid) => {
+            const response = await fetch('/api/contract/get/uuid', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_uuid)
+                body: JSON.stringify(contract_uuid)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -59,13 +72,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getLeadsByUuid: async (customer_uuid) => {
-            const response = await fetch('/api/customer/leads', {
+        getCustomerUuid: async (contract_uuid) => {
+            const response = await fetch('/api/contract/customer/uuid', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_uuid)
+                body: JSON.stringify(contract_uuid)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -74,13 +87,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getContractByUuid: async (customer_uuid) => {
-            const response = await fetch('/api/customer/contracts', {
+        changeHandler: async (user_full_name, contract_uuids) => {
+            const response = await fetch('/api/contract/change/user', {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_uuid)
+                body: JSON.stringify({ user_full_name, contract_uuids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -89,28 +102,13 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, customer_uuids) => {
-            const response = await fetch('/api/customer/change/user', {
-                method: 'POST',
-                headers: {
-                    Authorization: user_token
-                },
-                body: JSON.stringify({ user_full_name, customer_uuids })
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                await Promise.reject(Notification.error(data.error, 3));
-            }
-
-            return data;
-        },
-        delete: async (customer_uuids) => {
-            const response = await fetch('/api/customer/delete', {
+        delete: async (contract_uuids) => {
+            const response = await fetch('/api/contract/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(customer_uuids)
+                body: JSON.stringify(contract_uuids)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -122,4 +120,4 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     }
 }
 
-export default customerApi
+export default contractApi
