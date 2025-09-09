@@ -30,11 +30,21 @@
 		}
 	});
 
+	let selected_month = $state();
+	$effect.pre(() => {
+		if (selected_month === undefined) {
+			selected_month = new Date().toLocaleString('en-US', { month: 'long' });
+		}
+	});
+
 	let user_dates = $derived(
 		createQuery({
-			queryKey: ['user-dates', data.token, selected_user],
+			queryKey: ['user-dates', data.token, selected_user, selected_month],
 			queryFn: async () =>
-				await userDateApi({ user_token: data.token }).getAllByUserUuid(selected_user),
+				await userDateApi({ user_token: data.token }).getAllByUserUuid(
+					selected_user,
+					selected_month
+				),
 			enabled: selected_user !== undefined
 		})
 	);
@@ -62,10 +72,25 @@
 			action: (date) => new Date(date).toLocaleString('hu-HU')
 		}
 	];
+
+	const months = {
+		January: 'Január',
+		February: 'Február',
+		March: 'Március',
+		April: 'Április',
+		May: 'Május',
+		June: 'Június',
+		July: 'Július',
+		August: 'Augusztus',
+		September: 'Szeptember',
+		October: 'Október',
+		November: 'November',
+		December: 'December'
+	};
 </script>
 
 <div class="p-4">
-	<div class="flex justify-between text-center">
+	<div class="mb-3 flex flex-wrap justify-between text-center">
 		<div class="flex items-center gap-4">
 			<h1 class="text-xl font-semibold">Időpontok</h1>
 			<select
@@ -90,6 +115,18 @@
 			<p>Időpont hozzáadása</p>
 		</button>
 		<CreateDateModal bind:selected_user bind:dateCreateModalStore />
+	</div>
+	<div class="mb-2 flex flex-wrap justify-center gap-3">
+		{#each Object.entries(months) as [key, value]}
+			<button
+				class="rounded-lg border-1 border-gray-300 px-4 py-2 text-sm shadow-2xl duration-200 hover:border-gray-500"
+				class:text-blue-600={key === selected_month}
+				class:font-semibold={key === selected_month}
+				onclick={() => (selected_month = key ?? undefined)}
+			>
+				{value}
+			</button>
+		{/each}
 	</div>
 	<DataTable
 		data={$user_dates.data}

@@ -47,7 +47,17 @@
 		{ key: 'address', label: 'Lakcím' },
 		{ key: 'contract_number', label: 'Szerződés sorozatszáma' },
 		{ key: 'contract_type', label: 'Szerződés típus', action: (type) => contractTypes[type] },
-		{ key: 'annual_fee', label: 'Éves állománydíj' },
+		{
+			key: 'annual_fee',
+			label: 'Éves állománydíj',
+			action: (value) =>
+				value.toLocaleString('hu-HU', {
+					style: 'currency',
+					currency: 'HUF',
+					minimumFractionDigits: 0,
+					maximumFractionDigits: 0
+				})
+		},
 		{
 			key: 'payment_frequency',
 			label: 'Fizetési gyakoriság',
@@ -59,7 +69,11 @@
 			action: (method) => paymentMethodTypes[method]
 		},
 		{ key: 'created_by', label: 'Üzletkötő neve' },
-		{ key: 'handle_at', label: 'Létrehozás/Szerződéskötés dátuma' }
+		{
+			key: 'handle_at',
+			label: 'Létrehozás/Szerződéskötés dátuma',
+			action: (date) => new Date(date).toLocaleString('hu-HU')
+		}
 	];
 
 	export const contractTypes = {

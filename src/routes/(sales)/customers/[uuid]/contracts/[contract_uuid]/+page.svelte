@@ -118,7 +118,12 @@
 						name="annual_fee"
 						id="annual_fee"
 						type="text"
-						value={`${$contract.data.annual_fee} Ft`}
+						value={$contract.data.annual_fee.toLocaleString('hu-HU', {
+							style: 'currency',
+							currency: 'HUF',
+							minimumFractionDigits: 0,
+							maximumFractionDigits: 0
+						})}
 						oninput={handleAnnualFeeInput}
 						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 						autocomplete="off"

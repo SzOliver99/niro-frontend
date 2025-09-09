@@ -89,7 +89,7 @@
 	function clearFilters() {
 		filters = {};
 		selectedRows = [];
-		sortColumn = '';
+		sortColumn = sort_column ?? '';
 		searchTerm = '';
 		currentPage = 1;
 	}
