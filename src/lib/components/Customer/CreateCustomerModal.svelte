@@ -12,7 +12,7 @@
 	let { selected_user = $bindable() } = $props();
 
 	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
-	const createCustomer = createCustomerMutation();
+	const createCustomer = createCustomerMutation(page.data.token);
 	async function handleSubmit() {
 		let customer = {
 			user_uuid: selected_user,

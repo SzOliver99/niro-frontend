@@ -29,6 +29,18 @@ const customerApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+        saveComment: async (customer_uuid, comment) => {
+            const response = await fetch('/api/customer/comment/save', {
+                method: 'PUT',
+                body: JSON.stringify({ customer_uuid, comment })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         getAllByUserUuid: async (user_uuid) => {
             const response = await fetch('/api/customer/get-all', {
                 method: 'POST',

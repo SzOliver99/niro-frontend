@@ -1,6 +1,5 @@
 <script>
 	import { page } from '$app/state';
-	import { createCustomerMutation } from '$lib/scripts/queries/customer';
 	import { getUserInfoQuery } from '$lib/scripts/queries/user';
 	import { formatNumberOnly, formatPhoneNumber } from '$lib/scripts/utils';
 	import { Notification } from '$lib/stores/notifications';
