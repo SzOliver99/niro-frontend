@@ -13,10 +13,12 @@
 		changeUserDateHandlerMutation,
 		deleteUserDateMutation
 	} from '$lib/scripts/queries/user_date.js';
+	import ModifyDateModal from '$lib/components/Dates/ModifyDateModal.svelte';
 
 	let { data } = $props();
 
 	let dateCreateModalStore = $state(createSimpleModalStore());
+	let dateModifyModalStore = $state(createSimpleModalStore());
 
 	let sub_users = createQuery({
 		queryKey: ['sub_users', data.token],
@@ -36,6 +38,8 @@
 			selected_month = new Date().toLocaleString('en-US', { month: 'long' });
 		}
 	});
+
+	let selected_date = $state();
 
 	let user_dates = $derived(
 		createQuery({
@@ -59,7 +63,7 @@
 		{ key: 'full_name', label: 'Ügyfél neve' },
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'meet_location', label: 'Találkozó helyszíne' },
-		{ key: 'meet_type', label: 'Találkozó típusa' },
+		{ key: 'meet_type', label: 'Találkozó típusa', action: (type) => meetTypes[type] },
 		{
 			key: 'is_completed',
 			label: 'Megvalósult?',
@@ -86,6 +90,13 @@
 		October: 'Október',
 		November: 'November',
 		December: 'December'
+	};
+
+	const meetTypes = {
+		NeedsAssessment: 'Igényfelmérés',
+		Consultation: 'Tanácsadás',
+		Service: 'Szervíz',
+		AnnualReview: 'Évfordulós tárgyalás'
 	};
 </script>
 
@@ -115,6 +126,7 @@
 			<p>Időpont hozzáadása</p>
 		</button>
 		<CreateDateModal bind:selected_user bind:dateCreateModalStore />
+		<ModifyDateModal bind:selected_date bind:dateModifyModalStore />
 	</div>
 	<div class="mb-2 flex flex-wrap justify-center gap-3">
 		{#each Object.entries(months) as [key, value]}
@@ -133,6 +145,10 @@
 		{columns}
 		modify_mutation={changeUserDateHandlerMutation(data.token)}
 		delete_mutation={deleteUserDateMutation(data.token)}
+		onClick={(date) => {
+			selected_date = date;
+			dateModifyModalStore.open();
+		}}
 		sort_column="meet_date"
 		searchable={true}
 		filterable={true}

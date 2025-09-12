@@ -12,6 +12,18 @@ export const createUserDateMutation = (user_token) => {
     });
 };
 
+export const modifyUserDateMutation = (user_token) => {
+    const queryClient = useQueryClient();
+
+    return createMutation({
+        mutationFn: async ({ date_uuid, user_date }) => await userDateApi({ user_token }).modify(date_uuid, user_date),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['user-dates'] });
+            queryClient.invalidateQueries({ queryKey: ['user-date'] });
+        }
+    });
+};
+
 export const changeUserDateHandlerMutation = (user_token) => {
     const queryClient = useQueryClient();
 

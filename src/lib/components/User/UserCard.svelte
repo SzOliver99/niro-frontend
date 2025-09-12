@@ -7,8 +7,6 @@
 
 	let { user } = $props();
 	let userManageModal = $state(createModalStore(user.id));
-
-	let isManageModalOpen = $state();
 </script>
 
 <div

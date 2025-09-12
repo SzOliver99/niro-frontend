@@ -20,6 +20,23 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+        modify: async (date_uuid, user_date) => {
+            console.log({ date_uuid, ...user_date });
+
+            const response = await fetch('/api/dates/modify', {
+                method: 'PUT',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify({ date_uuid, ...user_date })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         getAllByUserUuid: async (user_uuid, selected_month) => {
             const response = await fetch('/api/dates/get-all', {
                 method: 'POST',
@@ -27,6 +44,21 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                     Authorization: user_token
                 },
                 body: JSON.stringify({ user_uuid, selected_month })
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getByUuid: async (date_uuid) => {
+            const response = await fetch('/api/dates/get/uuid', {
+                method: 'POST',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify(date_uuid)
             });
             const data = await response.json();
             if (!response.ok) {

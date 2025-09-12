@@ -22,6 +22,7 @@
 	id="is_completed"
 	name="is_completed"
 	bind:value
+	onclick={(e) => e.stopPropagation()}
 	onchange={handleChange}
 	class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 >
