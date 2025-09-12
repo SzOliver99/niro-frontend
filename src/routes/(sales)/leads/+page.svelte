@@ -42,7 +42,7 @@
 		{ key: 'phone_number', label: 'Telefonszám' },
 		{ key: 'email', label: 'Email-cím' },
 		{ key: 'address', label: 'Lakcím' },
-		{ key: 'lead_type', label: 'Címanyag típus', action: (type) => leadTypes[type] },
+		{ key: 'lead_type', label: 'Tevékenység típusa', action: (type) => leadTypes[type] },
 		{ key: 'inquiry_type', label: 'Megkeresés jellege' },
 		{ key: 'lead_status', label: 'Státusz', action: (status) => statusTypes[status] },
 		{

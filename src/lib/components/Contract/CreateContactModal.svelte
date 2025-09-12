@@ -79,7 +79,7 @@
 			!contract.payment_frequency ||
 			!contract.payment_method
 		) {
-			Notification.error('Kérjük, töltsd ki az összes kötelező címanyag mezőt!', 3);
+			Notification.error('Kérjük, töltsd ki az összes kötelező tevékenység mezőt!', 3);
 			return;
 		}
 
@@ -95,8 +95,8 @@
 		$createContract.mutate(
 			{ customer: formatted_customer, contract: formatted_contract },
 			{
-				onSuccess: () => {
-					Notification.success('Sikeresen létrehoztad a címanyagot', 3);
+				onSuccess: (data) => {
+					Notification.success(data, 3);
 					contractsModalStore.close();
 				}
 			}

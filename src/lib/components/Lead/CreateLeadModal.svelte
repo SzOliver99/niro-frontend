@@ -18,7 +18,7 @@
 		opened: 'Ügyfél adatai',
 		tabs: [
 			{ title: 'Ügyfél adatai', icon: FileUser },
-			{ title: 'Címanyag adatai', icon: Table }
+			{ title: 'Tevékenység adatai', icon: Table }
 		]
 	});
 
@@ -70,7 +70,7 @@
 
 		// Check required lead fields
 		if (!lead.lead_type.trim() || !lead.inquiry_type.trim() || !lead.lead_status.trim()) {
-			Notification.error('Kérjük, töltsd ki az összes kötelező címanyag mezőt!', 3);
+			Notification.error('Kérjük, töltsd ki az összes kötelező tevékenység mezőt!', 3);
 			return;
 		}
 
@@ -86,8 +86,8 @@
 		$createLead.mutate(
 			{ customer: formatted_customer, lead: formatted_lead },
 			{
-				onSuccess: () => {
-					Notification.success('Sikeresen létrehoztad a címanyagot', 3);
+				onSuccess: (data) => {
+					Notification.success(data, 3);
 					leadsModalStore.close();
 				}
 			}
@@ -142,7 +142,7 @@
 {#snippet renderNavTab()}
 	{#if navTabs.opened === 'Ügyfél adatai'}
 		<CustomerTab bind:customer />
-	{:else if navTabs.opened === 'Címanyag adatai'}
+	{:else if navTabs.opened === 'Tevékenység adatai'}
 		<LeadTab bind:lead />
 	{/if}
 {/snippet}
