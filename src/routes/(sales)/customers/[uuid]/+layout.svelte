@@ -55,7 +55,7 @@
 			<textarea
 				name="customer_comment"
 				id="customer_comment"
-				value={data.customer_comment}
+				value={data.customer.comment}
 				class="h-full max-h-[33.3rem] min-h-[16.65rem] w-full rounded-lg bg-white p-5 shadow-lg ring ring-black/10"
 			></textarea>
 			<button
