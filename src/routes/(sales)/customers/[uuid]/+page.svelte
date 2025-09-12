@@ -47,7 +47,7 @@
 					id="first_name"
 					name="first_name"
 					placeholder=""
-					value={data.customer.full_name.split(' ')[1]}
+					value={data.customer.full_name.split(' ').slice(1).join(' ')}
 					required
 					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 				/>
