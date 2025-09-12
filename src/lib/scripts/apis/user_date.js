@@ -21,8 +21,6 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         modify: async (date_uuid, user_date) => {
-            console.log({ date_uuid, ...user_date });
-
             const response = await fetch('/api/dates/modify', {
                 method: 'PUT',
                 headers: {

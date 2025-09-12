@@ -42,7 +42,6 @@
 			meet_location: meet_location.value,
 			meet_type: meet_type.value
 		};
-		console.log(selected_date);
 
 		$modifyUserDate.mutate(
 			{ date_uuid: selected_date, user_date },
