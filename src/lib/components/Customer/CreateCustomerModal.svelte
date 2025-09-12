@@ -35,8 +35,8 @@
 		}
 
 		$createCustomer.mutate(customer, {
-			onSuccess: () => {
-				Notification.success('Sikeresen létrehoztad az ügyfelet', 3);
+			onSuccess: (data) => {
+				Notification.success(data, 3);
 				createCustomerModal.close();
 			}
 		});

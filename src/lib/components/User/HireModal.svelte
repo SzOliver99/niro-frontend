@@ -65,8 +65,8 @@
 		}
 
 		$createUser.mutate(agent, {
-			onSuccess: () => {
-				Notification.success('Sikeresen létrehoztad!', 3);
+			onSuccess: (data) => {
+				Notification.success(data, 3);
 				userHireModal.close();
 			}
 		});

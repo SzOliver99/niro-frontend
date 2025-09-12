@@ -26,7 +26,7 @@
 		if ($date_data.status === 'success') {
 			date = {
 				last_name: $date_data.data.full_name.split(' ')[0],
-				first_name: $date_data.data.full_name.split(' ')[1],
+				first_name: $date_data.data.full_name.split(' ').slice(1).join(' '),
 				...$date_data.data
 			};
 		}

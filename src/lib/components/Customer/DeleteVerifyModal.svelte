@@ -9,8 +9,8 @@
 
 	async function handleDelete() {
 		$delete_mutation.mutate(selectedRows, {
-			onSuccess: () => {
-				Notification.success('Sikeresen kitörölted a sor(okat)', 3);
+			onSuccess: (data) => {
+				Notification.success(data, 3);
 				selectedRows = [];
 				deleteVerifyModal.close();
 			}

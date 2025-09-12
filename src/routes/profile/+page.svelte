@@ -8,7 +8,7 @@
 	const userInfoQuery = createQuery(getUserInfoQuery(data.token));
 
 	const getUserLastName = () => $userInfoQuery.data.info?.full_name.split(' ')[0];
-	const getUserFirstName = () => $userInfoQuery.data.info?.full_name.split(' ')[1];
+	const getUserFirstName = () => $userInfoQuery.data.info?.full_name.split(' ').slice(1).join(' ');
 
 	async function handleSubmit() {
 		console.log(user);
