@@ -40,7 +40,7 @@
 				{ href: '/customers', label: 'Ügyfelek', icon: UserRoundSearch },
 				{ href: '/leads', label: 'Tevékenységek', icon: Table },
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
-				{ href: '/offers', label: 'Ajánlások', icon: Crown },
+				{ href: '/recommendations', label: 'Ajánlások', icon: Crown },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
 				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: FileWarning },
 				{ href: '/to-do', label: 'Teendők', icon: Calendar1 },
