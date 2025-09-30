@@ -98,6 +98,19 @@
 		Service: 'Szervíz',
 		AnnualReview: 'Évfordulós tárgyalás'
 	};
+
+	const years = Array.from({ length: 2099 - 2025 + 1 }, (_, i) => String(2025 + i));
+	let selected_year = $state(String(new Date().getFullYear()));
+
+	let filtered_dates = $derived(
+		(() => {
+			const dates = $user_dates?.data ?? [];
+			return dates.filter((date) => {
+				const year = new Date(date.meet_date).getFullYear();
+				return String(year) === selected_year;
+			});
+		})()
+	);
 </script>
 
 <div class="p-4">
@@ -128,20 +141,32 @@
 		<CreateDateModal bind:selected_user bind:dateCreateModalStore />
 		<ModifyDateModal bind:selected_date bind:dateModifyModalStore />
 	</div>
-	<div class="mb-2 flex flex-wrap justify-center gap-3">
-		{#each Object.entries(months) as [key, value]}
-			<button
-				class="rounded-lg border-1 border-gray-300 px-4 py-2 text-sm shadow-2xl duration-200 hover:border-gray-500"
-				class:text-blue-600={key === selected_month}
-				class:font-semibold={key === selected_month}
-				onclick={() => (selected_month = key ?? undefined)}
-			>
-				{value}
-			</button>
-		{/each}
+	<div class="mb-2 flex items-center justify-center gap-3">
+		<select
+			id="select_year"
+			name="select_year"
+			bind:value={selected_year}
+			class="mt-1 block rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+		>
+			{#each years as year}
+				<option value={year}>{year}</option>
+			{/each}
+		</select>
+		<div class="flex flex-wrap items-center gap-3">
+			{#each Object.entries(months) as [key, value]}
+				<button
+					class="rounded-lg border-1 border-gray-300 px-4 py-2 text-sm shadow-2xl duration-200 hover:border-gray-500"
+					class:text-blue-600={key === selected_month}
+					class:font-semibold={key === selected_month}
+					onclick={() => (selected_month = key ?? undefined)}
+				>
+					{value}
+				</button>
+			{/each}
+		</div>
 	</div>
 	<DataTable
-		data={$user_dates.data}
+		data={filtered_dates}
 		{columns}
 		modify_mutation={changeUserDateHandlerMutation(data.token)}
 		delete_mutation={deleteUserDateMutation(data.token)}
