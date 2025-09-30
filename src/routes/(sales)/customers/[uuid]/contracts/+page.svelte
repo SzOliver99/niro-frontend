@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import IsCompletedCell from '$lib/components/Contract/IsCompletedCell.svelte';
 	import DataTable from '$lib/components/data/DataTable.svelte';
 	import customerApi from '$lib/scripts/apis/customer';
 	import leadApi from '$lib/scripts/apis/lead';
@@ -31,6 +32,7 @@
 					maximumFractionDigits: 0
 				})
 		},
+		{ key: 'first_payment', label: 'Első díj befizetve', component: IsCompletedCell },
 		{
 			key: 'payment_frequency',
 			label: 'Fizetési gyakoriság',

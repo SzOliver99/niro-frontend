@@ -1,6 +1,7 @@
 <script>
 	import { goto } from '$app/navigation';
 	import { page } from '$app/state';
+	import IsCompletedCell from '$lib/components/Contract/IsCompletedCell.svelte';
 	import contractApi from '$lib/scripts/apis/contract.js';
 	import { modifyContractMutation } from '$lib/scripts/queries/contract.js';
 	import { modifyLeadMutation } from '$lib/scripts/queries/lead';
@@ -21,6 +22,7 @@
 			contract_number: contract_number.value,
 			contract_type: contract_type.value,
 			annual_fee: +annual_fee.value.replace(/\D/g, ''),
+			first_payment: annual_fee.value,
 			payment_frequency: payment_frequency.value,
 			payment_method: payment_method.value
 		};
@@ -147,23 +149,33 @@
 					{/each}
 				</select>
 			</div>
-			<div class="flex flex-col text-start font-medium">
-				<label for="payment_frequency"
-					>Fizetési gyakoriság <span class="text-red-700">*</span></label
-				>
-				<select
-					name="payment_frequency"
-					id="payment_frequency"
-					value={$contract.data.payment_frequency}
-					class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
-					autocomplete="off"
-					required
-				>
-					<option value="">Válassz fizetési gyakoriságot</option>
-					{#each Object.entries(paymentFrequencyTypes) as [key, value]}
-						<option value={key}>{value}</option>
-					{/each}
-				</select>
+			<div class="flex flex-wrap gap-4">
+				<div class="flex flex-1 flex-col text-start font-medium">
+					<label for="payment_frequency"
+						>Fizetési gyakoriság <span class="text-red-700">*</span></label
+					>
+					<select
+						name="payment_frequency"
+						id="payment_frequency"
+						value={$contract.data.payment_frequency}
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						autocomplete="off"
+						required
+					>
+						<option value="">Válassz fizetési gyakoriságot</option>
+						{#each Object.entries(paymentFrequencyTypes) as [key, value]}
+							<option value={key}>{value}</option>
+						{/each}
+					</select>
+				</div>
+				<div class="mb-2 flex items-end font-medium">
+					<label for="payment_frequency">Első díj befizetése</label>
+					<IsCompletedCell
+						class="ms-2 mb-0.5"
+						value={$contract.data.first_payment}
+						item={$contract.data}
+					/>
+				</div>
 			</div>
 			<div class="flex flex-col text-start font-medium">
 				<label for="payment_method">Fizetési mód <span class="text-red-700">*</span></label>

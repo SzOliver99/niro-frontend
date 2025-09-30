@@ -81,6 +81,21 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+        changeState: async (contract_uuid, value) => {
+            const response = await fetch(`/api/contract/${contract_uuid}/state`, {
+                method: 'PUT',
+                headers: {
+                    Authorization: user_token
+                },
+                body: JSON.stringify(value)
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         changeHandler: async (user_full_name, contract_uuids) => {
             const response = await fetch('/api/contract/change/user', {
                 method: 'PUT',

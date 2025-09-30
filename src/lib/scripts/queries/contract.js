@@ -23,6 +23,17 @@ export const modifyContractMutation = (user_token) => {
     });
 };
 
+export const changeContractStateMutation = (user_token) => {
+    const queryClient = useQueryClient();
+
+    return createMutation({
+        mutationFn: async ({ contract_uuid, value }) => await contractApi({ user_token }).changeState(contract_uuid, value),
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['contracts'] });
+        }
+    });
+};
+
 export const changeContractHandlerMutation = (user_token) => {
     const queryClient = useQueryClient();
 
