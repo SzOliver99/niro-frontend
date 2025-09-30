@@ -13,7 +13,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			});
 			return await response.json();
 		},
-
 		signUp: async (user) => {
 			const response = await fetch('/api/user/register', {
 				method: 'POST',
@@ -29,7 +28,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		getUsers: async () => {
 			const response = await fetch('/api/user/get-all', {
 				headers: {
@@ -43,13 +41,11 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-		getUsersById: async (user_uuid = null) => {
-			const response = await fetch('/api/user/get', {
-				method: "POST",
+		getUsersByUuid: async (user_uuid) => {
+			const response = await fetch(`/api/user/get/${user_uuid}`, {
 				headers: {
 					Authorization: user_token
-				},
-				body: JSON.stringify(user_uuid)
+				}
 			});
 			const data = await response.json();
 			if (!response.ok) {
@@ -58,7 +54,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		getManagerGroup: async () => {
 			const response = await fetch('/api/user/managers/group', {
 				headers: {
@@ -72,7 +67,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		getUserInfo: async () => {
 			const response = await fetch('/api/user/info', {
 				headers: {
@@ -86,9 +80,8 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
-		modifyUserInfo: async (user) => {
-			const response = await fetch('/api/user/info', {
+		modifyUserInfo: async (user, user_uuid) => {
+			const response = await fetch(`/api/user/${user_uuid}/info`, {
 				method: 'PUT',
 				headers: {
 					Authorization: user_token
@@ -102,7 +95,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		modifyUserManager: async (user) => {
 			const response = await fetch('/api/user/manager', {
 				method: 'PUT',
@@ -118,14 +110,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
-		deleteUserContact: async (user_uuid) => {
-			const response = await fetch('/api/user/delete', {
+		deleteUser: async (user_uuid) => {
+			const response = await fetch(`/api/user/delete/${user_uuid}`, {
 				method: 'DELETE',
 				headers: {
 					Authorization: user_token
-				},
-				body: JSON.stringify(user_uuid)
+				}
 			});
 
 			return response;
@@ -144,8 +134,8 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 			return data;
 		},
 		getManagers: async (user_uuid = null) => {
-			const response = await fetch('/api/user/managers/get-all', {
-				method: 'POST',
+			const response = await fetch(`/api/user/managers`, {
+				method: "POST",
 				headers: {
 					Authorization: user_token
 				},
@@ -158,14 +148,11 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		getUserSubUsers: async (min_role = "Any") => {
-			const response = await fetch('/api/user/sub-users', {
-				method: "POST",
+			const response = await fetch(`/api/user/sub-users/${min_role}`, {
 				headers: {
 					Authorization: user_token
-				},
-				body: JSON.stringify(min_role)
+				}
 			});
 			const data = await response.json();
 			if (!response.ok) {
@@ -174,7 +161,6 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
-
 		validateToken: async () => {
 			const response = await fetch('/api/user/protected', {
 				headers: {

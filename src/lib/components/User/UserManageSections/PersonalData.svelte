@@ -55,12 +55,15 @@
 			Notification.error('Hibás dolgozói kód', 3);
 		}
 
-		$updateUser.mutate(user_data, {
-			onSuccess: (data) => {
-				Notification.success(data, 3);
-				userManageModal.close();
+		$updateUser.mutate(
+			{ user: user_data, user_uuid: user.uuid },
+			{
+				onSuccess: (data) => {
+					Notification.success(data, 3);
+					userManageModal.close();
+				}
 			}
-		});
+		);
 	}
 
 	const updateManagers = updateManagersMutation(page.data.token);

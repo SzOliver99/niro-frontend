@@ -33,3 +33,8 @@ export function formatPhoneNumber() {
 export const formatNumberOnly = (input) => {
     input.value = input.value.replace(/\D/g, '')
 }
+
+export const formValidation = (form) =>
+    Object.values(form).some(
+        (val) => val === null || val === undefined || (typeof val === 'string' ? !val.trim() : val === '')
+    )

@@ -13,7 +13,7 @@ export const updateUsersMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi({ user_token }).modifyUserInfo(user),
+		mutationFn: async ({ user, user_uuid }) => await userApi({ user_token }).modifyUserInfo(user, user_uuid),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
@@ -38,7 +38,7 @@ export const deleteUserMutation = (user_token) => {
 	const queryClient = useQueryClient();
 
 	return createMutation({
-		mutationFn: async (user) => await userApi({ user_token }).deleteUserContact(user),
+		mutationFn: async (user) => await userApi({ user_token }).deleteUser(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
 			queryClient.invalidateQueries({ queryKey: ['manager-group'] });

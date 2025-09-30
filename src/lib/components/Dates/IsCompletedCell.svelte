@@ -12,6 +12,10 @@
 			{
 				onSuccess: (data) => {
 					Notification.success(data, 3);
+				},
+
+				onError: () => {
+					value = !value;
 				}
 			}
 		);

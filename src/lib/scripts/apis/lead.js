@@ -42,12 +42,10 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getAllByUserUuid: async (user_uuid) => {
-            const response = await fetch('/api/lead/get-all', {
-                method: 'POST',
+            const response = await fetch(`/api/lead/get-all/${user_uuid}`, {
                 headers: {
                     Authorization: user_token
-                },
-                body: JSON.stringify(user_uuid)
+                }
             });
             const data = await response.json();
             if (!response.ok) {
@@ -57,12 +55,10 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getByUuid: async (lead_uuid) => {
-            const response = await fetch('/api/lead/get/uuid', {
-                method: 'POST',
+            const response = await fetch(`/api/lead/${lead_uuid}`, {
                 headers: {
                     Authorization: user_token
-                },
-                body: JSON.stringify(lead_uuid)
+                }
             });
             const data = await response.json();
             if (!response.ok) {
@@ -72,12 +68,10 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getCustomerUuid: async (lead_uuid) => {
-            const response = await fetch('/api/lead/customer/uuid', {
-                method: 'POST',
+            const response = await fetch(`/api/lead/${lead_uuid}/customer`, {
                 headers: {
                     Authorization: user_token
-                },
-                body: JSON.stringify(lead_uuid)
+                }
             });
             const data = await response.json();
             if (!response.ok) {
@@ -88,7 +82,7 @@ const leadApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         changeHandler: async (user_full_name, lead_uuids) => {
             const response = await fetch('/api/lead/change/user', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     Authorization: user_token
                 },

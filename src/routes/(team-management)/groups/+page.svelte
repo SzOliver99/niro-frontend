@@ -24,10 +24,11 @@
 	const users = $derived(
 		createQuery({
 			queryKey: ['users', data.token, selected_user],
-			queryFn: () => userApi({ user_token: data.token }).getUsersById(selected_user),
+			queryFn: () => userApi({ user_token: data.token }).getUsersByUuid(selected_user),
 			refetchInterval: 3000
 		})
 	);
+	console.log($users.data);
 </script>
 
 <section>

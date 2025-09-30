@@ -36,12 +36,10 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getAllByUserUuid: async (user_uuid, selected_month) => {
-            const response = await fetch('/api/dates/get-all', {
-                method: 'POST',
+            const response = await fetch(`/api/dates/${user_uuid}/${selected_month}`, {
                 headers: {
                     Authorization: user_token
-                },
-                body: JSON.stringify({ user_uuid, selected_month })
+                }
             });
             const data = await response.json();
             if (!response.ok) {
@@ -51,12 +49,25 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getByUuid: async (date_uuid) => {
-            const response = await fetch('/api/dates/get/uuid', {
-                method: 'POST',
+            const response = await fetch(`/api/dates/${date_uuid}`, {
+                headers: {
+                    Authorization: user_token
+                }
+            });
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        changeState: async (date_uuid, value) => {
+            const response = await fetch(`/api/dates/${date_uuid}/state`, {
+                method: 'PUT',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(date_uuid)
+                body: JSON.stringify(value)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -67,26 +78,11 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         changeHandler: async (user_full_name, date_uuids) => {
             const response = await fetch('/api/dates/change/user', {
-                method: 'POST',
+                method: 'PUT',
                 headers: {
                     Authorization: user_token
                 },
                 body: JSON.stringify({ user_full_name, date_uuids })
-            });
-            const data = await response.json();
-            if (!response.ok) {
-                await Promise.reject(Notification.error(data.error, 3));
-            }
-
-            return data;
-        },
-        changeState: async (date_uuid, value) => {
-            const response = await fetch('/api/dates/change/state', {
-                method: 'POST',
-                headers: {
-                    Authorization: user_token
-                },
-                body: JSON.stringify({ date_uuid, value })
             });
             const data = await response.json();
             if (!response.ok) {

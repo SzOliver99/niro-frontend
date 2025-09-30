@@ -24,7 +24,7 @@
 			key: 'annual_fee',
 			label: 'Éves állománydíj',
 			action: (value) =>
-				value.toLocaleString('hu-HU', {
+				value?.toLocaleString('hu-HU', {
 					style: 'currency',
 					currency: 'HUF',
 					minimumFractionDigits: 0,

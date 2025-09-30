@@ -1,20 +1,26 @@
 import { Notification } from "$lib/stores/notifications";
 import { wrapFetch } from "./api";
 
-const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
+const interventionTaskApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     const fetch = wrapFetch(baseFetch, user_token)
 
     return {
-        create: async (customer, contract) => {
-            const response = await fetch('/api/contract/create', {
+        create: async (customer, intervention_task, customer_uuid, created_by) => {
+            console.log({
+                customer,
+                intervention_task,
+                created_by
+            });
 
+            const response = await fetch(`/api/intervention-task/create/${customer_uuid}`, {
                 method: 'POST',
                 headers: {
                     Authorization: user_token
                 },
                 body: JSON.stringify({
-                    customer: customer,
-                    ...contract
+                    customer,
+                    intervention_task,
+                    created_by
                 })
             });
             const data = await response.json();
@@ -24,16 +30,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        modify: async (contract_uuid, contract) => {
-            const response = await fetch('/api/contract/modify', {
+        modify: async (intervention_task_uuid, intervention_task) => {
+            const response = await fetch(`/api/intervention-task/modify/${intervention_task_uuid}`, {
                 method: 'PUT',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({
-                    contract_uuid,
-                    ...contract
-                })
+                body: JSON.stringify(intervention_task)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -43,7 +46,7 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             return data;
         },
         getAllByUserUuid: async (user_uuid) => {
-            const response = await fetch(`/api/contract/get-all/${user_uuid}`, {
+            const response = await fetch(`/api/intervention-task/get-all/${user_uuid}`, {
                 headers: {
                     Authorization: user_token
                 }
@@ -55,8 +58,8 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getByUuid: async (contract_uuid) => {
-            const response = await fetch(`/api/contract/${contract_uuid}`, {
+        getByUuid: async (intervention_task_uuid) => {
+            const response = await fetch(`/api/intervention-task/${intervention_task_uuid}`, {
                 headers: {
                     Authorization: user_token
                 }
@@ -68,8 +71,8 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getCustomerUuid: async (contract_uuid) => {
-            const response = await fetch(`/api/contract/${contract_uuid}/customer`, {
+        getCustomerUuid: async (intervention_task_uuid) => {
+            const response = await fetch(`/api/intervention-task/${intervention_task_uuid}/customer`, {
                 headers: {
                     Authorization: user_token
                 }
@@ -81,13 +84,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        changeHandler: async (user_full_name, contract_uuids) => {
-            const response = await fetch('/api/contract/change/user', {
+        changeHandler: async (user_full_name, intervention_task_uuids) => {
+            const response = await fetch('/api/intervention-task/change/user', {
                 method: 'PUT',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify({ user_full_name, contract_uuids })
+                body: JSON.stringify({ user_full_name, intervention_task_uuids })
             });
             const data = await response.json();
             if (!response.ok) {
@@ -96,13 +99,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        delete: async (contract_uuids) => {
-            const response = await fetch('/api/contract/delete', {
+        delete: async (intervention_task_uuids) => {
+            const response = await fetch('/api/intervention-task/delete', {
                 method: 'DELETE',
                 headers: {
                     Authorization: user_token
                 },
-                body: JSON.stringify(contract_uuids)
+                body: JSON.stringify(intervention_task_uuids)
             });
             const data = await response.json();
             if (!response.ok) {
@@ -114,4 +117,4 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
     }
 }
 
-export default contractApi
+export default interventionTaskApi

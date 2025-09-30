@@ -5,6 +5,7 @@
 	import { scale } from 'svelte/transition';
 	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
 	import { page } from '$app/state';
+	import { permissionsStore } from '$lib/stores/permissions';
 
 	let {
 		data = [],
@@ -142,7 +143,7 @@
 				{/if}
 				{#if selectedRows.length !== 0}
 					<div in:scale={{ start: 0.8, duration: 200 }} out:scale={{ end: 0.8, duration: 200 }}>
-						{#if modifiable}
+						{#if modifiable && $permissionsStore.userRole != 'Agent'}
 							<button
 								class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700"
 								onclick={openChangeCustomerUserModal}
