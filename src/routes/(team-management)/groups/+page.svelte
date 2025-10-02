@@ -28,7 +28,6 @@
 			refetchInterval: 3000
 		})
 	);
-	console.log($users.data);
 </script>
 
 <section>

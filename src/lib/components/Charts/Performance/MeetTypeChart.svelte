@@ -8,15 +8,17 @@
 
 	// Value: Color
 	let valueTypes = {
-		Igen: 'light-green',
-		Nem: 'red'
+		Igényfelmérés: '',
+		Tanácsadás: '',
+		Szervíz: '',
+		'Évfordulós tárgyalás': ''
 	};
 
 	let chartQuery = $derived(
 		createQuery({
-			queryKey: ['is-completed-chart', page.data.token, selected_user],
+			queryKey: ['meet-type-chart', page.data.token, selected_user],
 			queryFn: async () =>
-				await userDateApi({ user_token: page.data.token }).getIsCompletedChart(selected_user),
+				await userDateApi({ user_token: page.data.token }).getMeetTypeChart(selected_user),
 			enabled: selected_user !== undefined
 		})
 	);
@@ -25,11 +27,11 @@
 		labels: Object.keys(valueTypes),
 		datasets: [
 			{
-				name: 'Megvalósulási ráta (%)',
+				name: 'Találkozó típusai (Átlag)',
 				values: listValues
 			}
 		]
 	});
 </script>
 
-<PieChart title="Megvalósulási ráta (%)" {data} colors={Object.values(valueTypes)} />
+<PieChart title="Találkozó típusai (Átlag)" {data} colors={Object.values(valueTypes)} />

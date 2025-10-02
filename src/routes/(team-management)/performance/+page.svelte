@@ -1,5 +1,6 @@
 <script>
 	import IsCompletedChart from '$lib/components/Charts/Performance/IsCompletedChart.svelte';
+	import MeetTypeChart from '$lib/components/Charts/Performance/MeetTypeChart.svelte';
 	import PieChart from '$lib/components/Charts/PieChart.svelte';
 	import TestChart from '$lib/components/Charts/TestChart.svelte';
 	import userApi from '$lib/scripts/apis/user';
@@ -15,27 +16,6 @@
 		queryFn: async () => await userApi({ user_token: data.token }).getUserSubUsers()
 	});
 	let selected_user = $state(0);
-
-	let meetTypeChart = $derived(
-		createQuery({
-			queryKey: ['meet-type-chart', data.token, selected_user],
-			queryFn: async () =>
-				await userDateApi({ user_token: data.token }).getMeetTypeChart(selected_user),
-			enabled: selected_user !== undefined
-		})
-	);
-	let meetTypeChartValues = $derived.by(() =>
-		$meetTypeChart.data ? Object.values($meetTypeChart.data) : []
-	);
-	let meetTypeChartData = $derived({
-		labels: ['Igényfelmérés', 'Tanácsadás', 'Szervíz', 'Évfordulós tárgyalás'],
-		datasets: [
-			{
-				name: 'Dataset 1',
-				values: meetTypeChartValues
-			}
-		]
-	});
 </script>
 
 <div class="p-4">
@@ -60,11 +40,14 @@
 	</div>
 </div>
 
-<div class="flex flex-row justify-center gap-10">
-	<div class="w-[40%] rounded-lg bg-gray-200/70 shadow">
-		<IsCompletedChart {selected_user} />
-	</div>
-	<div class="w-[40%] rounded-lg bg-gray-200/80 shadow">
-		<PieChart title="Találkozó típusai (Átlag)" data={meetTypeChartData} />
+<div>
+	<h2 class="mb-2 text-center text-2xl">Szerződések teljesítményei</h2>
+	<div class="flex flex-row justify-center gap-10">
+		<div class="w-[40%] rounded-lg bg-gray-200/70 shadow">
+			<IsCompletedChart {selected_user} />
+		</div>
+		<div class="w-[40%] rounded-lg bg-gray-200/80 shadow">
+			<MeetTypeChart {selected_user} />
+		</div>
 	</div>
 </div>

@@ -11,7 +11,7 @@
 	const getUserFirstName = () => $userInfoQuery.data.info?.full_name.split(' ').slice(1).join(' ');
 
 	async function handleSubmit() {
-		console.log(user);
+		// console.log(user);
 	}
 </script>
 

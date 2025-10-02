@@ -52,7 +52,6 @@
 
 	let startDate = new Date('2025-01-01');
 	let dataPoints = {};
-	console.log(dataPoints);
 
 	for (let i = 0; i < 30; i++) {
 		let timestamp = Math.floor(startDate.getTime() / 1000); // convert ms → seconds
@@ -74,8 +73,10 @@
 	<Chart title="Line chart" {data} colors={['#991111']} type="line" bind:this={chartRef} />
 	<Chart title="Bar chart" {data} type="bar" />
 	<Chart title="Axis Mixed chart" data={axisMixedData} type="axis-mixed" />
-	<Chart title="Pie chart" {data} type="pie" maxSlices={5} />
-	<Chart title="Donut chart" {data} type="donut" maxSlices={null} />
+	<div class="grid">
+		<Chart title="Pie chart" {data} type="pie" maxSlices={5} />
+		<Chart title="Donut chart" {data} type="donut" maxSlices={null} />
+	</div>
 	<Chart title="Percentage chart" {data} type="percentage" maxSlices={null} height={200} />
 	<!-- <Chart title="Heatmap chart" data={heatmapData} colors={['#991111']} type="heatmap" radius={2} /> -->
 </div>
