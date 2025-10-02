@@ -2,8 +2,9 @@
 	import { page } from '$app/state';
 	import { changeUserDateStateMutation } from '$lib/scripts/queries/user_date';
 	import { Notification } from '$lib/stores/notifications';
+	import { X } from 'lucide-svelte';
 
-	let { value, item } = $props();
+	let { value, item, className = 'ms-10' } = $props();
 
 	const changeUserDateState = changeUserDateStateMutation(page.data.token);
 	function handleChange() {
@@ -22,14 +23,19 @@
 	}
 </script>
 
-<select
-	id="is_completed"
-	name="is_completed"
-	bind:value
+<!-- svelte-ignore a11y_click_events_have_key_events -->
+<!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+<label
+	class="group {className} flex h-5 w-5 items-center rounded border-2 border-gray-300 bg-white duration-200 has-[:checked]:border-blue-600 has-[:checked]:bg-blue-600"
 	onclick={(e) => e.stopPropagation()}
-	onchange={handleChange}
-	class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
 >
-	<option value={false}>Nem</option>
-	<option value={true}>Igen</option>
-</select>
+	<input
+		type="checkbox"
+		id="is_completed"
+		name="is_completed"
+		bind:checked={value}
+		onchange={handleChange}
+		class="sr-only"
+	/>
+	<X class="hidden text-white group-has-[:checked]:block" />
+</label>
