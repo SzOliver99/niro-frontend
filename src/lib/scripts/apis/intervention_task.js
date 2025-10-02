@@ -6,12 +6,6 @@ const interventionTaskApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
     return {
         create: async (customer, intervention_task, customer_uuid, created_by) => {
-            console.log({
-                customer,
-                intervention_task,
-                created_by
-            });
-
             const response = await fetch(`/api/intervention-task/create/${customer_uuid}`, {
                 method: 'POST',
                 headers: {

@@ -38,3 +38,8 @@ export const formValidation = (form) =>
     Object.values(form).some(
         (val) => val === null || val === undefined || (typeof val === 'string' ? !val.trim() : val === '')
     )
+
+export const convertUtcToLocalTime = (date) => {
+    const pad = (num) => String(num).padStart(2, '0');
+    return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:00`
+}

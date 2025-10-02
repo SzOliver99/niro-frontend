@@ -1,4 +1,6 @@
 <script>
+	import DatesMonthly from '$lib/components/Charts/Performance/DatesMonthly.svelte';
+	import DatesWeekly from '$lib/components/Charts/Performance/DatesWeekly.svelte';
 	import IsCompletedChart from '$lib/components/Charts/Performance/IsCompletedChart.svelte';
 	import MeetTypeChart from '$lib/components/Charts/Performance/MeetTypeChart.svelte';
 	import PieChart from '$lib/components/Charts/PieChart.svelte';
@@ -40,7 +42,7 @@
 	</div>
 </div>
 
-<div>
+<div class="mb-10">
 	<h2 class="mb-2 text-center text-2xl">Szerződések teljesítményei</h2>
 	<div class="flex flex-row justify-center gap-10">
 		<div
@@ -52,6 +54,18 @@
 			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
 		>
 			<MeetTypeChart {selected_user} />
+		</div>
+	</div>
+	<div class="flex flex-col">
+		<div
+			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+		>
+			<DatesWeekly {selected_user} />
+		</div>
+		<div
+			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+		>
+			<DatesMonthly {selected_user} />
 		</div>
 	</div>
 </div>

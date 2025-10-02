@@ -151,6 +151,58 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
             }
 
             return data;
+        },
+        getDatesWeeklyChart: async (user_uuid = null, start_date, end_date) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/dates/chart/weekly/${user_uuid}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date: new Date(start_date).toLocaleString('hu-HU'), end_date: new Date(end_date).toLocaleString('hu-HU') })
+                });
+            } else {
+                response = await fetch('/api/dates/chart/weekly/get-all', {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getDatesMonthlyChart: async (user_uuid = null, start_date, end_date) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/dates/chart/monthly/${user_uuid}`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else {
+                response = await fetch('/api/dates/chart/monthly/get-all', {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
         }
     }
 }

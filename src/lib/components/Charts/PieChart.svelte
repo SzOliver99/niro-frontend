@@ -8,7 +8,7 @@
 	const onExport = () => chartRef.exportChart();
 </script>
 
-<div class="relative my-3">
+<div class="my-3">
 	<div class="mx-3 flex justify-between">
 		<h1 class="text-start text-lg italic">{title}</h1>
 		<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
