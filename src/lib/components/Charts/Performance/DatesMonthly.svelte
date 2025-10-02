@@ -79,6 +79,7 @@
 					convertUtcToLocalTime(currentMonthStart),
 					convertUtcToLocalTime(currentMonthEnd)
 				),
+			placeholderData: (previousData) => previousData,
 			enabled: selected_user !== undefined
 		})
 	);

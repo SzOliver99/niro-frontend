@@ -68,6 +68,7 @@
 					convertUtcToLocalTime(currentWeekStart),
 					convertUtcToLocalTime(currentWeekEnd)
 				),
+			placeholderData: (previousData) => previousData,
 			enabled: selected_user !== undefined
 		})
 	);
