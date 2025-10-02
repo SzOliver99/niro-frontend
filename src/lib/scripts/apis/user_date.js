@@ -160,7 +160,7 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                     headers: {
                         Authorization: user_token
                     },
-                    body: JSON.stringify({ start_date: new Date(start_date).toLocaleString('hu-HU'), end_date: new Date(end_date).toLocaleString('hu-HU') })
+                    body: JSON.stringify({ start_date, end_date })
                 });
             } else {
                 response = await fetch('/api/dates/chart/weekly/get-all', {

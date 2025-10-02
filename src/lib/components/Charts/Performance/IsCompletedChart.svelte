@@ -3,8 +3,10 @@
 	import { createQuery } from '@tanstack/svelte-query';
 	import PieChart from '../PieChart.svelte';
 	import { page } from '$app/state';
+	import { ImageDown } from 'lucide-svelte';
 
 	let { selected_user } = $props();
+	let title = 'Megvalósulási ráta (%)';
 
 	// Value: Color
 	let valueTypes = {
@@ -30,6 +32,15 @@
 			}
 		]
 	});
+
+	let chartRef = $state();
+	const onExport = () => chartRef.exportChart();
 </script>
 
-<PieChart title="Megvalósulási ráta (%)" {data} colors={Object.values(valueTypes)} />
+<div class="my-3">
+	<div class="mx-3 flex justify-between">
+		<h1 class="text-start text-lg italic">{title}</h1>
+		<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
+	</div>
+	<PieChart {data} colors={Object.values(valueTypes)} bind:chartRef />
+</div>

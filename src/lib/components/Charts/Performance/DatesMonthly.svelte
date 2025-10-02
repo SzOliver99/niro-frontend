@@ -10,19 +10,19 @@
 	let title = 'Időpontok száma (havi)';
 
 	//  Value: Color
-	let valueTypes = {
-		Január: '',
-		Február: '',
-		Március: '',
-		Április: '',
-		Május: '',
-		Június: '',
-		Július: '',
-		Augusztus: '',
-		Oktober: '',
-		November: '',
-		December: ''
-	};
+	let valueTypes = [
+		'Január',
+		'Február',
+		'Március',
+		'Április',
+		'Május',
+		'Június',
+		'Július',
+		'Augusztus',
+		'Oktober',
+		'November',
+		'December'
+	];
 
 	// Helper functions for month navigation
 	function getStartOfMonth(date) {
@@ -86,7 +86,7 @@
 
 	let listValues = $derived.by(() => ($chartQuery.data ? Object.values($chartQuery.data) : [0]));
 	let data = $derived({
-		labels: Object.keys(valueTypes),
+		labels: valueTypes,
 		datasets: [
 			{
 				name: 'Időpontok száma (havi)',
@@ -119,5 +119,5 @@
 			</button>
 		</div>
 	</div>
-	<BarChart {data} colors={Object.values(valueTypes)} bind:chartRef />
+	<BarChart {data} colors={['']} bind:chartRef />
 </div>

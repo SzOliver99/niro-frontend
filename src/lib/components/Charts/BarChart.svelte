@@ -1,5 +1,4 @@
 <script>
-	import { ImageDown, ChevronLeft, ChevronRight } from 'lucide-svelte';
 	import Chart from 'svelte-frappe-charts';
 
 	let { data, title, colors, chartRef = $bindable() } = $props();

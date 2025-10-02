@@ -10,15 +10,7 @@
 	let title = 'Időpontok száma (heti)';
 
 	//  Value: Color
-	let valueTypes = {
-		Hétfő: '',
-		Kedd: '',
-		Szerda: '',
-		Csütörtök: '',
-		Péntek: '',
-		Szombat: '',
-		Vasárnap: ''
-	};
+	let valueTypes = ['Hétfő', 'Kedd', 'Szerda', 'Csütörtök', 'Péntek', 'Szombat', 'Vasárnap'];
 
 	let currentWeekStart = $state(getStartOfWeek(new Date()));
 	let currentWeekEnd = $derived(addDays(currentWeekStart, 6));
@@ -74,7 +66,7 @@
 	);
 	let listValues = $derived.by(() => ($chartQuery.data ? Object.values($chartQuery.data) : [0]));
 	let data = $derived({
-		labels: Object.keys(valueTypes),
+		labels: valueTypes,
 		datasets: [
 			{
 				name: 'Időpontok száma (heti)',
@@ -107,5 +99,5 @@
 			</button>
 		</div>
 	</div>
-	<BarChart {data} colors={Object.values(valueTypes)} bind:chartRef />
+	<BarChart {data} colors={['']} bind:chartRef />
 </div>
