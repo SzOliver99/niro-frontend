@@ -56,7 +56,7 @@
 			...intervention_task,
 			processing_deadline: `${intervention_task.processing_deadline}:00`,
 			outstanding_days: +intervention_task.outstanding_days,
-			balance: +intervention_task.balance
+			balance: +intervention_task.balance.replace(/\D/g, '')
 		};
 
 		// Check required customer fields
