@@ -1,7 +1,70 @@
 <script>
+	import IsCompletedChart from '$lib/components/Charts/Performance/IsCompletedChart.svelte';
+	import PieChart from '$lib/components/Charts/PieChart.svelte';
 	import TestChart from '$lib/components/Charts/TestChart.svelte';
+	import userApi from '$lib/scripts/apis/user';
+	import userDateApi from '$lib/scripts/apis/user_date';
+	import { convertUserGroup } from '$lib/scripts/utils.js';
+	import { permissionsStore } from '$lib/stores/permissions.js';
+	import { createQuery } from '@tanstack/svelte-query';
+
+	let { data } = $props();
+
+	let sub_users = createQuery({
+		queryKey: ['sub_users', data.token],
+		queryFn: async () => await userApi({ user_token: data.token }).getUserSubUsers()
+	});
+	let selected_user = $state(0);
+
+	let meetTypeChart = $derived(
+		createQuery({
+			queryKey: ['meet-type-chart', data.token, selected_user],
+			queryFn: async () =>
+				await userDateApi({ user_token: data.token }).getMeetTypeChart(selected_user),
+			enabled: selected_user !== undefined
+		})
+	);
+	let meetTypeChartValues = $derived.by(() =>
+		$meetTypeChart.data ? Object.values($meetTypeChart.data) : []
+	);
+	let meetTypeChartData = $derived({
+		labels: ['Igényfelmérés', 'Tanácsadás', 'Szervíz', 'Évfordulós tárgyalás'],
+		datasets: [
+			{
+				name: 'Dataset 1',
+				values: meetTypeChartValues
+			}
+		]
+	});
 </script>
 
-<div>
-	<TestChart />
+<div class="p-4">
+	<div class="flex justify-between text-center">
+		<div class="flex items-center gap-4">
+			<h1 class="text-xl font-semibold">Teljesítmény</h1>
+			<select
+				id="select_user"
+				name="select_user"
+				bind:value={selected_user}
+				disabled={$permissionsStore.userRole === 'Agent'}
+				class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+			>
+				<option value={0}>Összes</option>
+				{#each $sub_users.data as user}
+					<option value={user.uuid}
+						>{user.info?.full_name} - {convertUserGroup(user.user_role)}</option
+					>
+				{/each}
+			</select>
+		</div>
+	</div>
+</div>
+
+<div class="flex flex-row justify-center gap-10">
+	<div class="w-[40%] rounded-lg bg-gray-200/70 shadow">
+		<IsCompletedChart {selected_user} />
+	</div>
+	<div class="w-[40%] rounded-lg bg-gray-200/80 shadow">
+		<PieChart title="Találkozó típusai (Átlag)" data={meetTypeChartData} />
+	</div>
 </div>

@@ -106,6 +106,52 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+
+        // CHART API'S
+        getIsCompletedChart: async (user_uuid = null) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/dates/chart/is-completed/${user_uuid}`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else {
+                response = await fetch('/api/dates/chart/is-completed/get-all', {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getMeetTypeChart: async (user_uuid = null) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/dates/chart/meet-type/${user_uuid}`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else {
+                response = await fetch('/api/dates/chart/meet-type/get-all', {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        }
     }
 }
 
