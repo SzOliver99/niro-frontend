@@ -93,6 +93,9 @@
 			}
 		]
 	});
+
+	let chartRef = $state();
+	const onExport = () => chartRef.exportChart();
 </script>
 
 <div class="my-3">
@@ -115,5 +118,5 @@
 			</button>
 		</div>
 	</div>
-	<BarChart {data} colors={Object.values(valueTypes)} />
+	<BarChart {data} colors={Object.values(valueTypes)} bind:chartRef />
 </div>
