@@ -43,10 +43,14 @@
 <div>
 	<h2 class="mb-2 text-center text-2xl">Szerződések teljesítményei</h2>
 	<div class="flex flex-row justify-center gap-10">
-		<div class="w-[40%] rounded-lg bg-gray-200/70 shadow">
+		<div
+			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+		>
 			<IsCompletedChart {selected_user} />
 		</div>
-		<div class="w-[40%] rounded-lg bg-gray-200/80 shadow">
+		<div
+			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+		>
 			<MeetTypeChart {selected_user} />
 		</div>
 	</div>
