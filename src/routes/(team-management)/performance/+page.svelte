@@ -43,7 +43,7 @@
 </div>
 
 <div class="mb-10">
-	<h2 class="mb-2 text-center text-2xl">Szerződések teljesítményei</h2>
+	<h2 class="mb-2 text-center text-2xl">Időpontok statisztikai modul</h2>
 	<div class="flex flex-row justify-center gap-10">
 		<div
 			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"

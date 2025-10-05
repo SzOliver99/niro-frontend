@@ -24,18 +24,17 @@
 		'December'
 	];
 
-	// Helper functions for month navigation
-	function getStartOfMonth(date) {
+	// Helper functions for year navigation
+	function getStartOfYear(date) {
 		const d = new Date(date);
-		d.setDate(1);
+		d.setMonth(0, 1);
 		d.setHours(0, 0, 0, 0);
 		return d;
 	}
 
-	function getEndOfMonth(date) {
+	function getEndOfYear(date) {
 		const d = new Date(date);
-		d.setMonth(d.getMonth() + 1);
-		d.setDate(0);
+		d.setMonth(11, 31);
 		d.setHours(23, 59, 59, 999);
 		return d;
 	}
@@ -44,23 +43,22 @@
 		return date.toLocaleDateString('hu-HU', { year: 'numeric', month: '2-digit', day: '2-digit' });
 	}
 
-	function addMonths(date, months) {
+	function addYears(date, years) {
 		const d = new Date(date);
-		d.setMonth(d.getMonth() + months);
+		d.setFullYear(d.getFullYear() + years);
 		return d;
 	}
 
-	let currentMonthStart = $state(getStartOfMonth(new Date()));
-	let currentMonthEnd = $derived(getEndOfMonth(currentMonthStart));
+	let currentYearStart = $state(getStartOfYear(new Date()));
+	let currentYearEnd = $derived(getEndOfYear(currentYearStart));
 
-	function prevMonth() {
-		currentMonthStart = getStartOfMonth(addMonths(currentMonthStart, -1));
+	function prevYear() {
+		currentYearStart = getStartOfYear(addYears(currentYearStart, -1));
 	}
 
-	function nextMonth() {
-		const todayStart = getStartOfMonth(new Date());
-		const next = getStartOfMonth(addMonths(currentMonthStart, 1));
-		currentMonthStart = next;
+	function nextYear() {
+		const next = getStartOfYear(addYears(currentYearStart, 1));
+		currentYearStart = next;
 	}
 
 	// Query for monthly data
@@ -70,14 +68,14 @@
 				'dates-monthly-chart',
 				page.data.token,
 				selected_user,
-				currentMonthStart,
-				currentMonthEnd
+				currentYearStart,
+				currentYearEnd
 			],
 			queryFn: async () =>
 				await userDateApi({ user_token: page.data.token }).getDatesMonthlyChart(
 					selected_user,
-					convertUtcToLocalTime(currentMonthStart),
-					convertUtcToLocalTime(currentMonthEnd)
+					convertUtcToLocalTime(currentYearStart),
+					convertUtcToLocalTime(currentYearEnd)
 				),
 			placeholderData: (previousData) => previousData,
 			enabled: selected_user !== undefined
@@ -106,14 +104,14 @@
 		</div>
 		<div class="flex items-center gap-2">
 			<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
-			<button class="rounded p-1 hover:bg-gray-100" onclick={prevMonth}><ChevronLeft /></button>
+			<button class="rounded p-1 hover:bg-gray-100" onclick={prevYear}><ChevronLeft /></button>
 			<span class="text-sm font-medium">
-				{formatDate(currentMonthStart)} - {formatDate(currentMonthEnd)}
+				{formatDate(currentYearStart)} - {formatDate(currentYearEnd)}
 			</span>
 			<button
 				class="rounded p-1 hover:bg-gray-100"
-				onclick={nextMonth}
-				disabled={getStartOfMonth(new Date()).getTime() === currentMonthStart.getTime()}
+				onclick={nextYear}
+				disabled={getStartOfYear(new Date()).getTime() === currentYearStart.getTime()}
 			>
 				<ChevronRight />
 			</button>
