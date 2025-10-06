@@ -82,7 +82,6 @@
 			enabled: selected_user !== undefined
 		})
 	);
-	// $chartQuery.data example: [{month: 9, week1: 5, week2: 7, week3: 3, week4: 2, week5: 0}, {month: 10, week1: 10, week2: 8, week3: 6, week4: 4, week5: 2}]
 
 	let data = $derived(
 		(() => {

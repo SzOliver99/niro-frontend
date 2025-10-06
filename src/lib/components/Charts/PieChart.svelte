@@ -1,13 +1,28 @@
 <script>
 	import Chart from 'svelte-frappe-charts';
 
-	let { data, title, colors, maxSlices = null, chartRef = $bindable() } = $props();
+	let { data, title, colors, height = 300, maxSlices = null, chartRef = $bindable() } = $props();
+	const getTotal = (chartData) => {
+		if (!chartData || !Array.isArray(chartData.datasets) || chartData.datasets.length === 0) {
+			return 0;
+		}
+		return chartData.datasets
+			.map((ds) => (Array.isArray(ds.values) ? ds.values : []))
+			.flat()
+			.reduce((sum, value) => sum + (Number.isFinite(value) ? value : 0), 0);
+	};
+
+	const hasData = (chartData) => {
+		return getTotal(chartData) > 0;
+	};
 </script>
 
-{#if data.datasets[0].values.reduce((acc, curr) => acc + curr) != 0}
-	<Chart {data} {colors} {maxSlices} type="pie" height={300} bind:this={chartRef} />
+{#if hasData(data)}
+	<div class="overflow-y-auto">
+		<Chart {data} {colors} {maxSlices} type="pie" {height} bind:this={chartRef} />
+	</div>
 	<p class="text-center">
-		Összesen: {data.datasets[0].values.reduce((acc, curr) => acc + curr)}
+		Összesen: {getTotal(data)}
 	</p>
 {:else}
 	<p class="mt-5 text-center">Nincs megjeleníthető adat</p>
