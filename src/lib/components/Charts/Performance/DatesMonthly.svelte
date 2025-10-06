@@ -82,17 +82,24 @@
 			enabled: selected_user !== undefined
 		})
 	);
+	// $chartQuery.data example: [{month: 9, week1: 5, week2: 7, week3: 3, week4: 2, week5: 0}, {month: 10, week1: 10, week2: 8, week3: 6, week4: 4, week5: 2}]
 
-	let listValues = $derived.by(() => ($chartQuery.data ? Object.values($chartQuery.data) : [0]));
-	let data = $derived({
-		labels: valueTypes,
-		datasets: [
-			{
-				name: 'Időpontok száma (havi)',
-				values: listValues
-			}
-		]
-	});
+	let data = $derived(
+		(() => {
+			const months = $chartQuery.data ?? [0];
+			const labels = months.map((m) => valueTypes[m.month - 1]);
+
+			const weekKeys = ['week1', 'week2', 'week3', 'week4', 'week5'];
+			const datasets = weekKeys.map((key, i) => ({
+				name: `${i + 1}. hét`,
+				values: months.map((m) => m[key] ?? 0)
+			}));
+			return {
+				labels,
+				datasets
+			};
+		})()
+	);
 
 	let chartRef = $state();
 	const onExport = () => chartRef.exportChart();
