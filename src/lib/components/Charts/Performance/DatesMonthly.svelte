@@ -87,7 +87,13 @@
 	let data = $derived(
 		(() => {
 			const months = $chartQuery.data ?? [0];
-			const labels = months.map((m) => valueTypes[m.month - 1]);
+			const labels = months.map((m) => {
+				const monthSum = ['week1', 'week2', 'week3', 'week4', 'week5'].reduce(
+					(sum, key) => sum + (m[key] ?? 0),
+					0
+				);
+				return `${valueTypes[m.month - 1]}: ${monthSum}`;
+			});
 
 			const weekKeys = ['week1', 'week2', 'week3', 'week4', 'week5'];
 			const datasets = weekKeys.map((key, i) => ({
