@@ -126,6 +126,82 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
+
+        // CHART API's
+        getPortfolioChart: async (user_uuid = null) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/portfolio/${user_uuid}`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else {
+                response = await fetch('/api/contract/chart/portfolio/get-all', {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getWeeklyProductionChart: async (user_uuid = null, start_date, end_date) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/weekly/${user_uuid}`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else {
+                response = await fetch('/api/contract/chart/weekly/get-all', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getMonthlyProductionChart: async (user_uuid = null, start_date, end_date) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/monthly/${user_uuid}`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else {
+                response = await fetch('/api/contract/chart/monthly/get-all', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        }
     }
 }
 
