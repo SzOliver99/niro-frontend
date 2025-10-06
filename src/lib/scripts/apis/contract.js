@@ -176,10 +176,10 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
             return data;
         },
-        getMonthlyProductionChart: async (user_uuid = null, start_date, end_date) => {
+        getMonthlyProductionValueChart: async (user_uuid = null, start_date, end_date) => {
             let response;
             if (typeof user_uuid == "string") {
-                response = await fetch(`/api/contract/chart/monthly/${user_uuid}`, {
+                response = await fetch(`/api/contract/chart/monthly/value/${user_uuid}`, {
                     method: 'POST',
                     headers: {
                         Authorization: user_token
@@ -187,7 +187,33 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
                     body: JSON.stringify({ start_date, end_date })
                 });
             } else {
-                response = await fetch('/api/contract/chart/monthly/get-all', {
+                response = await fetch('/api/contract/chart/monthly/value/get-all', {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getMonthlyProductionChart: async (user_uuid = null, start_date, end_date) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/monthly/production/${user_uuid}`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else {
+                response = await fetch('/api/contract/chart/monthly/production/get-all', {
                     method: 'POST',
                     headers: {
                         Authorization: user_token

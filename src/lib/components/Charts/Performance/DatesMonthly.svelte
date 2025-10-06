@@ -91,7 +91,7 @@
 					(sum, key) => sum + (m[key] ?? 0),
 					0
 				);
-				return `${valueTypes[m.month - 1]}: ${monthSum}`;
+				return `${valueTypes[m.month - 1]}: ${monthSum} db`;
 			});
 
 			const weekKeys = ['week1', 'week2', 'week3', 'week4', 'week5'];
@@ -130,5 +130,11 @@
 			</button>
 		</div>
 	</div>
-	<BarChart {data} colors={['']} bind:chartRef />
+	<BarChart
+		{data}
+		colors={['']}
+		bind:chartRef
+		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
+		formatTotal={(val) => `${val} db`}
+	/>
 </div>

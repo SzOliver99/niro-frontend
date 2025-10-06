@@ -1,5 +1,6 @@
 <script>
 	import MonthlyProduction from '$lib/components/Charts/Contract/MonthlyProduction.svelte';
+	import MonthlyProductionValue from '$lib/components/Charts/Contract/MonthlyProductionValue.svelte';
 	import Portfolio from '$lib/components/Charts/Contract/Portfolio.svelte';
 	import ProductionCount from '$lib/components/Charts/Contract/ProductionCount.svelte';
 	import ProductionValue from '$lib/components/Charts/Contract/ProductionValue.svelte';
@@ -101,6 +102,11 @@
 			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
 		>
 			<WeeklyProduction {selected_user} />
+		</div>
+		<div
+			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+		>
+			<MonthlyProductionValue {selected_user} />
 		</div>
 		<div
 			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"

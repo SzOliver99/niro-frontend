@@ -99,5 +99,11 @@
 			</button>
 		</div>
 	</div>
-	<BarChart {data} colors={['']} bind:chartRef />
+	<BarChart
+		{data}
+		colors={['']}
+		bind:chartRef
+		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
+		formatTotal={(val) => `${val} db`}
+	/>
 </div>

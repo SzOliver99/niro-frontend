@@ -42,5 +42,11 @@
 		<h1 class="text-start text-lg italic">{title}</h1>
 		<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
 	</div>
-	<PieChart {data} colors={Object.values(valueTypes)} bind:chartRef />
+	<PieChart
+		{data}
+		colors={Object.values(valueTypes)}
+		bind:chartRef
+		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
+		formatTotal={(val) => `${val} db`}
+	/>
 </div>

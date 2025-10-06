@@ -1,5 +1,4 @@
 <script>
-	import userDateApi from '$lib/scripts/apis/user_date';
 	import { createQuery } from '@tanstack/svelte-query';
 	import BarChart from '../BarChart.svelte';
 	import { page } from '$app/state';
@@ -8,7 +7,7 @@
 	import contractApi from '$lib/scripts/apis/contract';
 
 	let { selected_user } = $props();
-	let title = 'Havi termelés (Darabszám)';
+	let title = 'Havi termelés (Állománydíj)';
 
 	//  Value: Color
 	let valueTypes = [
@@ -66,14 +65,14 @@
 	let chartQuery = $derived(
 		createQuery({
 			queryKey: [
-				'monthly-production-chart',
+				'monthly-production-value-chart',
 				page.data.token,
 				selected_user,
 				currentYearStart,
 				currentYearEnd
 			],
 			queryFn: async () =>
-				await contractApi({ user_token: page.data.token }).getMonthlyProductionChart(
+				await contractApi({ user_token: page.data.token }).getMonthlyProductionValueChart(
 					selected_user,
 					convertUtcToLocalTime(currentYearStart),
 					convertUtcToLocalTime(currentYearEnd)
@@ -91,14 +90,18 @@
 					(sum, key) => sum + (m[key] ?? 0),
 					0
 				);
-				return `${valueTypes[m.month - 1]}: ${monthSum} db`;
+				return `${valueTypes[m.month - 1]}: ${monthSum.toLocaleString('hu-HU', {
+					style: 'currency',
+					currency: 'HUF',
+					minimumFractionDigits: 0,
+					maximumFractionDigits: 0
+				})}`;
 			});
 
 			const weekKeys = ['week1', 'week2', 'week3', 'week4', 'week5'];
 			const datasets = weekKeys.map((key, i) => ({
 				name: `${i + 1}. hét`,
-				values: months.map((m) => m[key] ?? 0),
-				chartType: 'bar'
+				values: months.map((m) => m[key] ?? 0)
 			}));
 			return {
 				labels,
@@ -109,6 +112,14 @@
 
 	let chartRef = $state();
 	const onExport = () => chartRef.exportChart();
+
+	const formatHuf = (value) =>
+		Number(value).toLocaleString('hu-HU', {
+			style: 'currency',
+			currency: 'HUF',
+			minimumFractionDigits: 0,
+			maximumFractionDigits: 0
+		});
 </script>
 
 <div class="my-3">
@@ -135,7 +146,7 @@
 		{data}
 		colors={['']}
 		bind:chartRef
-		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
-		formatTotal={(val) => `${val} db`}
+		tooltipOptions={{ formatTooltipY: (val) => formatHuf(val) }}
+		formatTotal={(val) => formatHuf(val)}
 	/>
 </div>

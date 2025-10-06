@@ -1,7 +1,18 @@
 <script>
 	import Chart from 'svelte-frappe-charts';
 
-	let { data, title, colors, height = 300, maxSlices = null, chartRef = $bindable() } = $props();
+	let {
+		data,
+		title,
+		colors,
+		maxSlices = null,
+		chartRef = $bindable(),
+		// Optional props to customize chart behavior/formatting per usage context
+		tooltipOptions,
+		axisOptions,
+		barOptions,
+		formatTotal
+	} = $props();
 	const getTotal = (chartData) => {
 		if (!chartData || !Array.isArray(chartData.datasets) || chartData.datasets.length === 0) {
 			return 0;
@@ -19,10 +30,20 @@
 
 {#if hasData(data)}
 	<div class="overflow-y-auto">
-		<Chart {data} {colors} {maxSlices} type="pie" {height} bind:this={chartRef} />
+		<Chart
+			{data}
+			{colors}
+			{maxSlices}
+			type="pie"
+			height={300}
+			bind:this={chartRef}
+			{tooltipOptions}
+			{axisOptions}
+			{barOptions}
+		/>
 	</div>
 	<p class="text-center">
-		Összesen: {getTotal(data)}
+		Összesen: {formatTotal ? formatTotal(getTotal(data)) : getTotal(data)}
 	</p>
 {:else}
 	<p class="mt-5 text-center">Nincs megjeleníthető adat</p>
