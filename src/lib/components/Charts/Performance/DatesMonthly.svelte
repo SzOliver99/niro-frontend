@@ -19,6 +19,7 @@
 		'Június',
 		'Július',
 		'Augusztus',
+		'Szeptember',
 		'Oktober',
 		'November',
 		'December'
