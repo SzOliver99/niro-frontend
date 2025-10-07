@@ -4,8 +4,9 @@
 	import PieChart from '../PieChart.svelte';
 	import { page } from '$app/state';
 	import { ImageDown } from 'lucide-svelte';
+	import { onExport } from '$lib/scripts/utils';
 
-	let { selected_user } = $props();
+	let { selected_user = 'self' } = $props();
 	let title = 'Találkozó típusai (Átlag)';
 
 	// Value: Color
@@ -34,20 +35,18 @@
 			}
 		]
 	});
-
-	let chartRef = $state();
-	const onExport = () => chartRef.exportChart();
 </script>
 
 <div class="my-3">
 	<div class="mx-3 flex justify-between">
 		<h1 class="text-start text-lg italic">{title}</h1>
-		<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
+		<button class="duration-200 hover:text-gray-400" onclick={(e) => onExport(e, `${title}`)}
+			><ImageDown /></button
+		>
 	</div>
 	<PieChart
 		{data}
 		colors={Object.values(valueTypes)}
-		bind:chartRef
 		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
 		formatTotal={(val) => `${val} db`}
 	/>

@@ -1,4 +1,5 @@
 <script>
+	import HomePage from '$lib/components/HomePage.svelte';
 	import SignInForm from '$lib/components/SignInForm.svelte';
 
 	let { data } = $props();
@@ -7,7 +8,7 @@
 </script>
 
 {#if isLoggedIn}
-	Kezdőlap
+	<HomePage />
 {:else}
 	<SignInForm />
 {/if}

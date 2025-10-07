@@ -48,70 +48,82 @@
 	</div>
 </div>
 
-<div class="mb-24">
-	<h2 class="mb-2 text-center text-2xl">Időpontok statisztikai modul</h2>
-	<div class="flex flex-row justify-center gap-10">
-		<div
-			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<IsCompletedChart {selected_user} />
+<div class="mx-10">
+	<div class="mb-24 flex flex-col gap-6">
+		<h2 class="mb-2 text-center text-2xl">Időpontok statisztikai modul</h2>
+		<div class="flex flex-row justify-center gap-10">
+			<div
+				id="chart"
+				class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<IsCompletedChart {selected_user} />
+			</div>
+			<div
+				id="chart"
+				class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<MeetTypeChart {selected_user} />
+			</div>
 		</div>
-		<div
-			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<MeetTypeChart {selected_user} />
+		<div class="flex flex-col gap-6">
+			<div
+				id="chart"
+				class="rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<DatesWeekly {selected_user} />
+			</div>
+			<div
+				id="chart"
+				class="rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<DatesMonthly {selected_user} />
+			</div>
 		</div>
 	</div>
-	<div class="flex flex-col">
-		<div
-			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<DatesWeekly {selected_user} />
-		</div>
-		<div
-			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<DatesMonthly {selected_user} />
-		</div>
-	</div>
-</div>
 
-<div class="mb-12">
-	<h2 class="mb-2 text-center text-2xl">Szerződések statisztikai modul</h2>
-	<div class="mb-6 flex flex-row justify-center gap-10">
-		<div
-			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<ProductionValue {selected_user} />
+	<div class="mb-12 flex flex-col gap-6">
+		<h2 class="mb-2 text-center text-2xl">Szerződések statisztikai modul</h2>
+		<div class="flex flex-row justify-center gap-10">
+			<div
+				id="chart"
+				class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<ProductionValue {selected_user} />
+			</div>
+			<div
+				id="chart"
+				class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<ProductionCount {selected_user} />
+			</div>
 		</div>
-		<div
-			class="w-[40%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<ProductionCount {selected_user} />
+		<div class="flex justify-center">
+			<div
+				id="chart"
+				class="w-[70%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<Portfolio {selected_user} />
+			</div>
 		</div>
-	</div>
-	<div class="flex flex-row justify-center gap-10">
-		<div
-			class="w-[70%] rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<Portfolio {selected_user} />
-		</div>
-	</div>
-	<div class="flex flex-col">
-		<div
-			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<WeeklyProduction {selected_user} />
-		</div>
-		<div
-			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<MonthlyProductionValue {selected_user} />
-		</div>
-		<div
-			class="mx-10 mt-6 rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
-		>
-			<MonthlyProduction {selected_user} />
+		<div class="flex flex-col gap-6">
+			<div
+				id="chart"
+				class="rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<WeeklyProduction {selected_user} />
+			</div>
+			<div
+				id="chart"
+				class="rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<MonthlyProductionValue {selected_user} />
+			</div>
+			<div
+				id="chart"
+				class="rounded-lg bg-gray-200/70 shadow ring-1 ring-black/10 duration-200 hover:scale-102 hover:bg-gray-200"
+			>
+				<MonthlyProduction {selected_user} />
+			</div>
 		</div>
 	</div>
 </div>

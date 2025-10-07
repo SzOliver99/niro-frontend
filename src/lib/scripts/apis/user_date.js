@@ -110,7 +110,13 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         // CHART API'S
         getIsCompletedChart: async (user_uuid = null) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/dates/chart/is-completed/`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/dates/chart/is-completed/${user_uuid}`, {
                     headers: {
                         Authorization: user_token
@@ -132,7 +138,13 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getMeetTypeChart: async (user_uuid = null) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/dates/chart/meet-type/`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/dates/chart/meet-type/${user_uuid}`, {
                     headers: {
                         Authorization: user_token
@@ -154,7 +166,15 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getDatesWeeklyChart: async (user_uuid = null, start_date, end_date) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/dates/chart/weekly`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/dates/chart/weekly/${user_uuid}`, {
                     method: "POST",
                     headers: {
@@ -180,7 +200,15 @@ const userDateApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getDatesMonthlyChart: async (user_uuid = null, start_date, end_date) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/dates/chart/monthly`, {
+                    method: "POST",
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/dates/chart/monthly/${user_uuid}`, {
                     method: "POST",
                     headers: {

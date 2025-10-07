@@ -1,9 +1,11 @@
 <script>
 	import { page } from '$app/state';
 	import contractApi from '$lib/scripts/apis/contract';
+	import { onExport } from '$lib/scripts/utils';
 	import { createQuery } from '@tanstack/svelte-query';
+	import { ImageDown } from 'lucide-svelte';
 
-	let { selected_user } = $props();
+	let { selected_user = 'self' } = $props();
 
 	let title = 'Termelés (Állománydíj)';
 
@@ -22,7 +24,11 @@
 		<div class="flex items-center gap-2">
 			<h1 class="text-start text-lg italic">{title}</h1>
 		</div>
-		<div class="flex items-center gap-2"></div>
+		<div class="flex items-center gap-2">
+			<button class="duration-200 hover:text-gray-400" onclick={(e) => onExport(e, `${title}`)}
+				><ImageDown /></button
+			>
+		</div>
 	</div>
 	<div class="mt-2 flex justify-center text-2xl">
 		<p>

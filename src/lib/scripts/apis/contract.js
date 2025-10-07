@@ -130,7 +130,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         // CHART API's
         getProductionValue: async (user_uuid = null) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/production/value`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/production/value/${user_uuid}`, {
                     headers: {
                         Authorization: user_token
@@ -152,7 +158,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getProductionCount: async (user_uuid = null) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/production/count`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/production/count/${user_uuid}`, {
                     headers: {
                         Authorization: user_token
@@ -174,7 +186,13 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getPortfolioChart: async (user_uuid = null) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/portfolio`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/portfolio/${user_uuid}`, {
                     headers: {
                         Authorization: user_token
@@ -196,7 +214,15 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getWeeklyProductionChart: async (user_uuid = null, start_date, end_date) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/weekly`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/weekly/${user_uuid}`, {
                     method: 'POST',
                     headers: {
@@ -222,7 +248,15 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getMonthlyProductionValueChart: async (user_uuid = null, start_date, end_date) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/monthly/value`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/monthly/value/${user_uuid}`, {
                     method: 'POST',
                     headers: {
@@ -248,7 +282,15 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
         getMonthlyProductionChart: async (user_uuid = null, start_date, end_date) => {
             let response;
-            if (typeof user_uuid == "string") {
+            if (user_uuid === "self") {
+                response = await fetch(`/api/contract/chart/monthly/production`, {
+                    method: 'POST',
+                    headers: {
+                        Authorization: user_token
+                    },
+                    body: JSON.stringify({ start_date, end_date })
+                });
+            } else if (typeof user_uuid === "string" && user_uuid !== "self") {
                 response = await fetch(`/api/contract/chart/monthly/production/${user_uuid}`, {
                     method: 'POST',
                     headers: {

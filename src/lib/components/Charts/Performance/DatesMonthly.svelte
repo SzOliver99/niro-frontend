@@ -4,9 +4,9 @@
 	import BarChart from '../BarChart.svelte';
 	import { page } from '$app/state';
 	import { ChevronLeft, ChevronRight, ImageDown } from 'lucide-svelte';
-	import { convertUtcToLocalTime } from '$lib/scripts/utils';
+	import { convertUtcToLocalTime, onExport } from '$lib/scripts/utils';
 
-	let { selected_user } = $props();
+	let { selected_user = 'self' } = $props();
 	let title = 'Időpontok száma (havi)';
 
 	//  Value: Color
@@ -105,9 +105,6 @@
 			};
 		})()
 	);
-
-	let chartRef = $state();
-	const onExport = () => chartRef.exportChart();
 </script>
 
 <div class="my-3">
@@ -116,7 +113,9 @@
 			<h1 class="text-start text-lg italic">{title}</h1>
 		</div>
 		<div class="flex items-center gap-2">
-			<button class="duration-200 hover:text-gray-400" onclick={onExport}><ImageDown /></button>
+			<button class="duration-200 hover:text-gray-400" onclick={(e) => onExport(e, `${title} (${formatDate(currentYearStart)}-${formatDate(currentYearEnd)})`)}
+				><ImageDown /></button
+			>
 			<button class="rounded p-1 hover:bg-gray-100" onclick={prevYear}><ChevronLeft /></button>
 			<span class="text-sm font-medium">
 				{formatDate(currentYearStart)} - {formatDate(currentYearEnd)}
@@ -133,7 +132,6 @@
 	<BarChart
 		{data}
 		colors={['']}
-		bind:chartRef
 		tooltipOptions={{ formatTooltipY: (val) => `${val} db` }}
 		formatTotal={(val) => `${val} db`}
 	/>

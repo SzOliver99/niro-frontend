@@ -1,3 +1,5 @@
+import { toPng } from "html-to-image";
+
 // User group mapping utility
 const USER_ROLE_NAMING_MAP = {
     'Agent': 'Üzletkötő',
@@ -43,3 +45,17 @@ export const convertUtcToLocalTime = (date) => {
     const pad = (num) => String(num).padStart(2, '0');
     return `${date.getFullYear()}-${pad(date.getMonth() + 1)}-${pad(date.getDate())}T${pad(date.getHours())}:${pad(date.getMinutes())}:00`
 }
+
+export const onExport = async (e, title = "chart") => {
+    if (!e.target) return;
+
+    const dataUrl = await toPng(e.currentTarget.closest('#chart'), {
+        backgroundColor: '#ffffff',
+        pixelRatio: 2
+    });
+
+    const link = document.createElement('a');
+    link.download = `${title}.png`;
+    link.href = dataUrl;
+    link.click();
+};
