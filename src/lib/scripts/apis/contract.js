@@ -128,6 +128,50 @@ const contractApi = ({ baseFetch = fetch, user_token = null } = {}) => {
         },
 
         // CHART API's
+        getProductionValue: async (user_uuid = null) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/production/value/${user_uuid}`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else {
+                response = await fetch('/api/contract/chart/production/value/get-all', {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
+        getProductionCount: async (user_uuid = null) => {
+            let response;
+            if (typeof user_uuid == "string") {
+                response = await fetch(`/api/contract/chart/production/count/${user_uuid}`, {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            } else {
+                response = await fetch('/api/contract/chart/production/count/get-all', {
+                    headers: {
+                        Authorization: user_token
+                    }
+                });
+            }
+            const data = await response.json();
+            if (!response.ok) {
+                await Promise.reject(Notification.error(data.error, 3));
+            }
+
+            return data;
+        },
         getPortfolioChart: async (user_uuid = null) => {
             let response;
             if (typeof user_uuid == "string") {
