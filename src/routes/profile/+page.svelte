@@ -1,6 +1,7 @@
 <script>
 	import userApi from '$lib/scripts/apis/user';
-	import { getUserInfoQuery } from '$lib/scripts/queries/user.js';
+	import { getUserInfoQuery, updateSelfInfoMutation } from '$lib/scripts/queries/user.js';
+	import { Notification } from '$lib/stores/notifications.js';
 	import { createQuery } from '@tanstack/svelte-query';
 
 	let { data } = $props();
@@ -10,8 +11,20 @@
 	const getUserLastName = () => $userInfoQuery.data.info?.full_name.split(' ')[0];
 	const getUserFirstName = () => $userInfoQuery.data.info?.full_name.split(' ').slice(1).join(' ');
 
+	const modify_info = updateSelfInfoMutation(data.token);
 	async function handleSubmit() {
-		// console.log(user);
+		let payload = {
+			email: email.value.trim(),
+			info: {
+				full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
+				phone_number: phone_number.value.trim()
+			}
+		};
+		$modify_info.mutate(payload, {
+			onSuccess: (data) => {
+				Notification.success(data, 3);
+			}
+		});
 	}
 </script>
 

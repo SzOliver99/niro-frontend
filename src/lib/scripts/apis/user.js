@@ -80,6 +80,21 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 
 			return data;
 		},
+		modifySelfInfo: async (payload) => {
+			const response = await fetch(`/api/user/info`, {
+				method: 'PUT',
+				headers: {
+					Authorization: user_token
+				},
+				body: JSON.stringify(payload)
+			});
+			const data = await response.json();
+			if (!response.ok) {
+				await Promise.reject(Notification.error(data.error, 3));
+			}
+
+			return data;
+		},
 		modifyUserInfo: async (user, user_uuid) => {
 			const response = await fetch(`/api/user/${user_uuid}/info`, {
 				method: 'PUT',

@@ -58,3 +58,16 @@ export const updateManagersMutation = (user_token) => {
 		}
 	});
 };
+
+export const updateSelfInfoMutation = (user_token) => {
+	const queryClient = useQueryClient();
+
+	return createMutation({
+		mutationFn: async (payload) => await userApi({ user_token }).modifySelfInfo(payload),
+		onSuccess: () => {
+			queryClient.invalidateQueries({ queryKey: ['users'] });
+			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+			queryClient.invalidateQueries({ queryKey: ['managers'] });
+		}
+	});
+};
