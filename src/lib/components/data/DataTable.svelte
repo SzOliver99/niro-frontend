@@ -1,10 +1,9 @@
 <script>
 	import { changeCustomerUserModal, deleteVerifyModal } from '$lib/stores/user';
-	import { ChevronDown, ChevronUp, Search, Filter, X, TestTube } from 'lucide-svelte';
+	import { ChevronDown, ChevronUp, Search, Check } from 'lucide-svelte';
 	import ChangeCustomerUserModal from '../Customer/ChangeCustomerUserModal.svelte';
 	import { scale } from 'svelte/transition';
 	import DeleteVerifyModal from '../Customer/DeleteVerifyModal.svelte';
-	import { page } from '$app/state';
 	import { permissionsStore } from '$lib/stores/permissions';
 
 	let {
@@ -143,7 +142,7 @@
 				{/if}
 				{#if selectedRows.length !== 0}
 					<div in:scale={{ start: 0.8, duration: 200 }} out:scale={{ end: 0.8, duration: 200 }}>
-						{#if modifiable && $permissionsStore.userRole != 'Agent'}
+						{#if modifiable && $permissionsStore.userRole !== 'Agent'}
 							<button
 								class="rounded-lg bg-blue-600 px-4 py-2 text-sm text-white shadow-2xl duration-200 hover:bg-blue-700"
 								onclick={openChangeCustomerUserModal}
@@ -205,7 +204,7 @@
 											class="sr-only"
 										/>
 
-										<X class="hidden text-white group-has-[:checked]:block" />
+										<Check class="hidden text-white group-has-[:checked]:block" />
 									</label>
 								</td>
 							{:else}

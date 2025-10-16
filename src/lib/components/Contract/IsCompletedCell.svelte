@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { changeContractStateMutation } from '$lib/scripts/queries/contract';
 	import { Notification } from '$lib/stores/notifications';
-	import { X } from 'lucide-svelte';
+	import { Check } from 'lucide-svelte';
 
 	let { value, item, class: className = 'ms-5' } = $props();
 
@@ -38,5 +38,5 @@
 		onchange={handleChange}
 		class="sr-only"
 	/>
-	<X class="hidden text-white group-has-[:checked]:block" />
+	<Check class="hidden text-white group-has-[:checked]:block" />
 </label>

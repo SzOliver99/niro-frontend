@@ -2,7 +2,7 @@
 	import { page } from '$app/state';
 	import { changeUserDateStateMutation } from '$lib/scripts/queries/user_date';
 	import { Notification } from '$lib/stores/notifications';
-	import { X } from 'lucide-svelte';
+	import { Check } from 'lucide-svelte';
 
 	let { value, item, className = 'ms-10' } = $props();
 
@@ -37,5 +37,5 @@
 		onchange={handleChange}
 		class="sr-only"
 	/>
-	<X class="hidden text-white group-has-[:checked]:block" />
+	<Check class="hidden text-white group-has-[:checked]:block" />
 </label>
