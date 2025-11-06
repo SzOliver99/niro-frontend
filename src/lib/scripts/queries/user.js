@@ -16,7 +16,6 @@ export const updateUsersMutation = (user_token) => {
 		mutationFn: async ({ user, user_uuid }) => await userApi({ user_token }).modifyUserInfo(user, user_uuid),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
-			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
 			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
@@ -29,7 +28,6 @@ export const createUsersMutation = (user_token) => {
 		mutationFn: async (user) => await userApi({ user_token }).signUp(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
-			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
 		}
 	});
 };
@@ -41,7 +39,7 @@ export const deleteUserMutation = (user_token) => {
 		mutationFn: async (user) => await userApi({ user_token }).deleteUser(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
-			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
+			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
 };
@@ -53,7 +51,6 @@ export const updateManagersMutation = (user_token) => {
 		mutationFn: async (user) => await userApi({ user_token }).modifyUserManager(user),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
-			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
 			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
@@ -66,7 +63,6 @@ export const updateSelfInfoMutation = (user_token) => {
 		mutationFn: async (payload) => await userApi({ user_token }).modifySelfInfo(payload),
 		onSuccess: () => {
 			queryClient.invalidateQueries({ queryKey: ['users'] });
-			queryClient.invalidateQueries({ queryKey: ['manager-group'] });
 			queryClient.invalidateQueries({ queryKey: ['managers'] });
 		}
 	});
