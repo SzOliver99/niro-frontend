@@ -14,7 +14,8 @@
 		last_name: '',
 		first_name: '',
 		email: '',
-		phone_number: ''
+		phone_number: '',
+		description: ''
 	});
 
 	const userInfoQuery = createQuery(getUserInfoQuery(page.data.token));
@@ -24,6 +25,7 @@
 			full_name: `${last_name.value.trim()} ${first_name.value.trim()}`,
 			email: email.value,
 			phone_number: phone_number.value,
+			description: description.value,
 			created_by: $userInfoQuery.data.info.full_name
 		};
 
@@ -108,6 +110,17 @@
 						autocomplete="off"
 						required
 					/>
+				</div>
+				<div class="flex flex-col text-start font-medium">
+					<label for="description">Hozzászólás <span class="text-red-700">*</span></label>
+					<textarea
+						name="description"
+						id="description"
+						bind:this={candidate.description}
+						class="mt-1 block w-full rounded-md px-3 py-2 ring-1 ring-black/10 duration-200 focus:ring-blue-600 focus:outline-none"
+						autocomplete="off"
+						required
+					></textarea>
 				</div>
 				<div class="flex justify-end">
 					<button
