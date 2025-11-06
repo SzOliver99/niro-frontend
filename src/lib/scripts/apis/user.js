@@ -132,8 +132,12 @@ const userApi = ({ baseFetch = fetch, user_token = null } = {}) => {
 					Authorization: user_token
 				}
 			});
+			const data = await response.json();
+			if (!response.ok) {
+				await Promise.reject(Notification.error(data.error, 3));
+			}
 
-			return response;
+			return data;
 		},
 		getUserRole: async () => {
 			const response = await fetch('/api/user/role', {
