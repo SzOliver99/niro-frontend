@@ -7,7 +7,6 @@
 		ArrowRightFromLine,
 		Banknote,
 		BookUser,
-		Calendar1,
 		CalendarClock,
 		ChartCandlestick,
 		ChartNoAxesColumnIncreasing,
@@ -18,7 +17,6 @@
 		Crown,
 		Dumbbell,
 		FileWarning,
-		Goal,
 		GraduationCap,
 		HardDrive,
 		LaptopMinimalCheck,
@@ -42,9 +40,7 @@
 				{ href: '/dates', label: 'Időpontok', icon: CalendarClock },
 				{ href: '/recommendations', label: 'Ajánlások', icon: Crown },
 				{ href: '/contracts', label: 'Szerződések', icon: ReceiptText },
-				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: FileWarning },
-				{ href: '/to-do', label: 'Teendők', icon: Calendar1 },
-				{ href: '/goals', label: 'Célok', icon: Goal }
+				{ href: '/intervention-tasks', label: 'Intervenciós feladatok', icon: FileWarning }
 			]
 		},
 		teamManagement: {

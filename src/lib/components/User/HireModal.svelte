@@ -38,8 +38,9 @@
 				agent_code: agent_code.value
 			}
 		};
-		if (+user_manager.value > 0) {
-			agent['manager_id'] = +user_manager.value;
+
+		if (user_manager.value !== 'null') {
+			agent['manager_uuid'] = user_manager.value;
 		}
 
 		// Regex for validation
@@ -221,7 +222,7 @@
 							{/if}
 							<option value="">Válassz menedzsert</option>
 							{#each $managers.data ?? [] as manager}
-								<option value={manager.id}
+								<option value={manager.uuid}
 									>{manager.full_name} - {convertUserGroup(manager.user_role)}</option
 								>
 							{/each}
